@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content>
+    <div>Game ID: {{ gameId }}</div>
+    <div>
+      Created Time:
+      {{
+        (game ? game.createdTimestamp.toDate() : "")
+          | date: "yyyy-mm-dd hh:mm a"
+      }}
+    </div>
+    <div>Joined Players: {{ game ? game.players.length : "" }}</div>
+  </mat-card-content>
+</mat-card>

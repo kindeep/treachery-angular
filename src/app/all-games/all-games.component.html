@@ -1,3 +1,25 @@
-<div>
-  <div *ngFor="let game of games" class="card">{{game.data().gameId}}</div>
+<div class="mat-typography">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Treachery</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <p class="game_info">
+    Welcome to Treachery! A fun game to play with your friends. You need at
+    least 4 people to play this game. You can either create a game or join one
+    from the list below. When you create a game, you act as the forensic
+    scientist, and your 3 friends can join the game as investigators. When you
+    start the game, a player from the investigators will be randomly chosen to
+    be the murderer, and your objective as a forensic scientist is to provide
+    clues to the players as to who the murderer is. As an investigator, each one
+    of you gets one guess to figure out who the murderer is. If you're chosen as
+    the murderer, you get to choose a means and a clue card. Use the chat to
+    discuss amongst yourselves, and find the murderer! Or deceive investigators
+    if you are the murderer.
+  </p>
+  <div *ngFor="let game of games" class="card">
+    <app-active-games-list-item
+      [gameId]="game.data().gameId"
+    ></app-active-games-list-item>
+  </div>
 </div>

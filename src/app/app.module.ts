@@ -19,6 +19,8 @@ import { environment } from '../environments/environment';
 import { ForensicComponent } from './forensic/forensic.component';
 import { AllGamesComponent } from './all-games/all-games.component';
 import { CardComponent } from './card/card.component';
+import { ActiveGamesListItemComponent } from './active-games-list-item/active-games-list-item.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { CardComponent } from './card/card.component';
     ForensicComponent,
     AllGamesComponent,
     CardComponent,
+    ActiveGamesListItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { CardComponent } from './card/card.component';
     MatButtonModule,
     MatDividerModule,
     MatInputModule,
+    MatToolbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

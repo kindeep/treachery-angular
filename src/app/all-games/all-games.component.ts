@@ -12,6 +12,13 @@ export class AllGamesComponent implements OnInit {
     public cardApi: GameApiService
   ) {
     this.cardApi.activeGamesQuery(query => {
+      query.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+        });
+        console.log(querySnapshot);
+        this.games = querySnapshot.docs;
+      });
       query.onSnapshot((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           console.log(doc.id, " => ", doc.data());
