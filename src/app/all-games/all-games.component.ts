@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllGamesComponent implements OnInit {
   games: any;
+  loading: boolean;
   constructor(
     public cardApi: GameApiService
   ) {
+    this.loading = true;
     this.cardApi.activeGamesQuery(query => {
       query.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -18,6 +20,7 @@ export class AllGamesComponent implements OnInit {
         });
         console.log(querySnapshot);
         this.games = querySnapshot.docs;
+        this.loading = false;
       });
       query.onSnapshot((querySnapshot) => {
         querySnapshot.forEach((doc) => {

@@ -21,6 +21,9 @@ import { AllGamesComponent } from './all-games/all-games.component';
 import { CardComponent } from './card/card.component';
 import { ActiveGamesListItemComponent } from './active-games-list-item/active-games-list-item.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRippleModule } from '@angular/material/core';
+import { JoinGameComponent } from './join-game/join-game.component';
 
 
 @NgModule({
@@ -38,6 +41,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AllGamesComponent,
     CardComponent,
     ActiveGamesListItemComponent,
+    JoinGameComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MatProgressSpinnerModule,
+    MatRippleModule
   ],
   providers: [GameApiService],
   bootstrap: [AppComponent]

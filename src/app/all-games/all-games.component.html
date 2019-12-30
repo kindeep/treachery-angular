@@ -1,5 +1,5 @@
 <div class="mat-typography container">
-  <mat-toolbar color="primary" style="color: black">
+  <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>Treachery</span>
     </mat-toolbar-row>
@@ -21,28 +21,44 @@
     <div align="end">
       <span class="fill-remaining-space"></span>
       <button mat-raised-button color="accent" style="align-self: right;">
-        Start Game
+        Create Game
       </button>
     </div>
   </div>
   <div
-    class="fill-remaining-space"
-    style="padding: 8px; background-color: #00000022; flex-grow: 1;"
-    align="center"
+    class="fill-remaining-space listSection"
   >
-    <div *ngIf="games!! && games.length > 0; else noGames">
+    <div *ngIf="games!! && games.length > 0; else noGamesYet">
       <div *ngFor="let game of games" class="card">
         <app-active-games-list-item
           [gameId]="game.data().gameId"
         ></app-active-games-list-item>
       </div>
     </div>
-    <ng-template #noGames>
-      <div style="display: flex; flex-direction: column; height: 100%;">
-        <div class="fill-remaining-space"></div>
-        No active games. Maybe create one?
-        <div class="fill-remaining-space"></div>
+    <ng-template #noGamesYet>
+      <div
+        style="display: flex; flex-direction: column; height: 100%;"
+        align="center"
+        *ngIf="loading; else noGames"
+      >
+        <span class="fill-remaining-space"></span>
+        <div style="display: flex; flex-direction: row;">
+          <span class="fill-remaining-space"></span>
+          <mat-spinner></mat-spinner>
+          <span class="fill-remaining-space"></span>
+        </div>
+        <span class="fill-remaining-space"></span>
       </div>
+      <ng-template #noGames>
+        <div
+          style="display: flex; flex-direction: column; height: 100%;"
+          align="center"
+        >
+          <div class="fill-remaining-space"></div>
+          No active games. Maybe create one?
+          <div class="fill-remaining-space"></div>
+        </div>
+      </ng-template>
     </ng-template>
   </div>
 </div>
