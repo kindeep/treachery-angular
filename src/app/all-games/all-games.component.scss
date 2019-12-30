@@ -1,3 +1,9 @@
-.game_info {
+.infoSection {
     margin: 8px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }

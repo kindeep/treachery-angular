@@ -22,6 +22,7 @@ import { CardComponent } from './card/card.component';
 import { ActiveGamesListItemComponent } from './active-games-list-item/active-games-list-item.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule 
+    AngularFireStorageModule
   ],
   providers: [GameApiService],
   bootstrap: [AppComponent]
