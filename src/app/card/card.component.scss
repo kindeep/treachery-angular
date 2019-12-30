@@ -1,0 +1,25 @@
+#card {
+    margin: 0;
+    height: max-content;
+    background: #471700;
+    border-radius: 1em;
+    height: 100%;
+    width: 150px;
+    overflow: hidden;
+    align-content: center;
+    border: 5px double white;
+    display: inline-block;
+}
+
+#card-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#card-name {
+    margin: 0;
+    padding: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    // background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.47), rgba(0, 0, 0, 0));
+}
