@@ -1,3 +1,4 @@
+import { GameInstanceSnapshot } from './../firebase/GameSnapshot';
 import { GameApiService } from './../game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -9,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ActiveGamesListItemComponent implements OnInit {
   @Input() gameId: string;
   private gameDoc: any;
-   game: any;
+  game: GameInstanceSnapshot;
   constructor(
     private gameApi: GameApiService
   ) {
@@ -22,7 +23,7 @@ export class ActiveGamesListItemComponent implements OnInit {
     console.log(this.gameDoc);
     this.gameDoc.ref.get().then((snapshot) => {
       this.game = snapshot.data();
-      console.log(snapshot.data());
+      console.log(JSON.stringify(snapshot.data()));
     });
     this.gameDoc.ref.onSnapshot((snapshot) => {
       console.log(snapshot.data());
