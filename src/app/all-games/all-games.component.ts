@@ -1,5 +1,7 @@
+import { GameInstanceSnapshot } from './../firebase/GameSnapshot';
 import { GameApiService } from '../game-api.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-all-games',
@@ -7,33 +9,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-games.component.scss']
 })
 export class AllGamesComponent implements OnInit {
-  games: any;
+  games: Observable<GameInstanceSnapshot[]>;
+  empty: boolean;
   loading: boolean;
+  gamesCollection: any;
   constructor(
     public cardApi: GameApiService
   ) {
     this.loading = true;
-    this.cardApi.activeGamesQuery(query => {
-      query.get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
-        });
-        console.log(querySnapshot);
-        this.games = querySnapshot.docs;
-        this.loading = false;
-      });
-      query.onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
-        });
-        console.log(querySnapshot);
-        this.games = querySnapshot.docs;
-      }
-      );
+    this.empty = false;
+    const query = this.cardApi.activeGamesQuery();
+    this.games = query.valueChanges();
+    this.games.forEach(el => {
+      console.log(el);
+    });
+    console.log(this.games);
+
+    query.ref.get().then((querySnapshot) => {
+      this.handleQuery(querySnapshot);
+    });
+
+    query.ref.onSnapshot((querySnapshot) => {
+      this.handleQuery(querySnapshot);
     });
   }
 
-  ngOnInit() {
+  handleQuery(querySnapshot) {
+    this.loading = false;
+    this.empty = (querySnapshot.docs.size > 0);
   }
 
+  ngOnInit() {
+
+  }
 }

@@ -1,3 +1,4 @@
+import { InvestigatorComponent } from './investigator/investigator.component';
 import { JoinGameComponent } from './join-game/join-game.component';
 import { AllGamesComponent } from './all-games/all-games.component';
 import { ForensicComponent } from './forensic/forensic.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'games/:gameId', component: GameComponent },
   { path: 'forensic/:gameId', component: ForensicComponent },
   { path: 'join/:gameId', component: JoinGameComponent },
-  { path: '', component: AllGamesComponent }
+  { path: '', component: AllGamesComponent },
+  { path: 'play', component: InvestigatorComponent },
 ];
 
 @NgModule({

@@ -15,5 +15,12 @@ export class JoinGameComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.gameId = routeParams['gameId'];
     });
+    this.gameApi.setGameId(this.gameId);
+  }
+
+  joinGame() {
+    // TODO: Get player name from input
+    this.gameApi.setPlayerName("Kindeep");
+    this.gameApi.setGameId(this.gameId);
   }
 }

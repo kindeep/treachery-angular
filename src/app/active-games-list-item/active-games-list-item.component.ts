@@ -23,10 +23,8 @@ export class ActiveGamesListItemComponent implements OnInit {
     console.log(this.gameDoc);
     this.gameDoc.ref.get().then((snapshot) => {
       this.game = snapshot.data();
-      console.log(JSON.stringify(snapshot.data()));
     });
     this.gameDoc.ref.onSnapshot((snapshot) => {
-      console.log(snapshot.data());
       this.game = snapshot.data();
     });
   }

@@ -20,13 +20,11 @@
       </button>
     </div>
   </div>
-  <div
-    class="fill-remaining-space listSection"
-  >
-    <div *ngIf="games!! && games.length > 0; else noGamesYet">
-      <div *ngFor="let game of games" class="card">
+  <div class="fill-remaining-space listSection">
+    <div *ngIf="games!! && !empty; else noGamesYet">
+      <div *ngFor="let game of games | async" class="card">
         <app-active-games-list-item
-          [gameId]="game.data().gameId"
+          [gameId]="game.gameId"
         ></app-active-games-list-item>
       </div>
     </div>
