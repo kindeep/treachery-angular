@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
-import { plainToClass, classToPlain } from "class-transformer";
+import { plainToClass, classToPlain } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class GameApiService {
   playerName: string;
   gameInstance: GameInstanceSnapshot;
   gameReference: AngularFirestoreDocument;
+  gameObserveable: Observable<GameInstanceSnapshot>;
 
   constructor(db: AngularFirestore) {
     this.db = db;
@@ -44,10 +45,11 @@ export class GameApiService {
       this.gameId = value;
       console.log(`Set game id to: ${this.gameId}`);
       this.gameReference = this.getGameDoc(this.gameId);
+      this.gameObserveable = this.gameReference.valueChanges() as Observable<GameInstanceSnapshot>;
       // this.gameInstance = gameDoc.valueChanges();
       this.gameReference.ref.get().then((snapshot) => {
         this.gameInstance = snapshot.data() as GameInstanceSnapshot;
-        console.log('Game api instance set')
+        console.log('Game api instance set');
       });
       this.gameReference.ref.onSnapshot((snapshot) => {
         this.gameInstance = snapshot.data() as GameInstanceSnapshot;
@@ -57,7 +59,7 @@ export class GameApiService {
   }
 
   getGameObservable() {
-    return this.gameReference.valueChanges();
+    return this.gameObserveable;
   }
 
   setPlayerName(value) {

@@ -1,0 +1,9 @@
+<p>player-deck works! Player name {{ playerName }}</p>
+
+<ol>
+  <li *ngFor="let card of meansCards | async">{{ card.name }}</li>
+</ol>
+
+<ol>
+  <li *ngFor="let card of clueCards | async">{{ card.name }}</li>
+</ol>

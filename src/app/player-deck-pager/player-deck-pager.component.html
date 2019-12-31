@@ -1,0 +1,6 @@
+<ol>
+  <li *ngFor="let player of (gameApi.gameObserveable | async).players">
+    {{ player ? player.playerName : "Loading..." }}
+    <app-player-deck [playerName]="player.playerName"></app-player-deck>
+  </li>
+</ol>

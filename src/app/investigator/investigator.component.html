@@ -1,1 +1,21 @@
-<p>{{ ga.gameInstance ? toString(ga.gameInstance): "DNE" }}</p>
+<div class="vertical-flex" style="height: 100%">
+  <app-forensic-deck></app-forensic-deck>
+  <app-player-deck-pager></app-player-deck-pager>
+  <div>
+    <b>Game Id:</b>
+    {{ (gameInstance$ | async).gameId }}
+  </div>
+  <div><b>Player Name:</b> {{ ga.playerName }}</div>
+  <app-chat class="fill-remaining-space"></app-chat>
+</div>
+<!-- <div>
+    Test
+  <div>
+    Raw game instance object: -
+    {{ ga.gameInstance ? toString(ga.gameInstance) : "DNE" }}
+  </div>
+  <div>
+    Observable game instance: -
+    {{ toString(gameInstance$ | async) }}
+  </div>
+</div> -->

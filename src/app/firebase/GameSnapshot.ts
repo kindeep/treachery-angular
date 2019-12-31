@@ -41,9 +41,9 @@ export interface PlayerSnapshot {
 export class DefaultPlayerSnapshot implements PlayerSnapshot {
     playerName = 'Loading...';
     clueCards: DefaultCardSnapshot[] =
-        [new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot()];
+        [];
     meansCards: DefaultCardSnapshot[] =
-        [new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot()];
+        [];
     guessed = false;
 }
 

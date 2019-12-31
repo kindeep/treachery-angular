@@ -29,6 +29,10 @@ import { JoinedPlayersListComponent } from './joined-players-list/joined-players
 import { JoinedPlayerListItemComponent } from './joined-player-list-item/joined-player-list-item.component';
 import { RippleMatCardComponent } from './ripple-mat-card/ripple-mat-card.component';
 import { InvestigatorComponent } from './investigator/investigator.component';
+import { PlayerDeckComponent } from './player-deck/player-deck.component';
+import { ForensicDeckComponent } from './forensic-deck/forensic-deck.component';
+import { ChatComponent } from './chat/chat.component';
+import { PlayerDeckPagerComponent } from './player-deck-pager/player-deck-pager.component';
 
 
 @NgModule({
@@ -51,6 +55,10 @@ import { InvestigatorComponent } from './investigator/investigator.component';
     JoinedPlayerListItemComponent,
     RippleMatCardComponent,
     InvestigatorComponent,
+    PlayerDeckComponent,
+    ForensicDeckComponent,
+    ChatComponent,
+    PlayerDeckPagerComponent,
   ],
   imports: [
     BrowserModule,

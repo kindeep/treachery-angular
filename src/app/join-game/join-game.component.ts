@@ -1,6 +1,6 @@
 import { GameApiService } from './../game-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-join-game',
@@ -10,7 +10,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class JoinGameComponent implements OnInit {
   gameId: string;
   playerName: string;
-  @ViewChild('playerInput') nameInputRef: ElementRef;
   constructor(private route: ActivatedRoute, private gameApi: GameApiService) { }
 
   ngOnInit() {
