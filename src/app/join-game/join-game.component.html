@@ -3,11 +3,11 @@
     <div><b>Game ID</b>: {{ gameId }}</div>
     <div class="flex-horizontal">
       <mat-form-field color="accent" class="fill-remaining-space">
-        <input matInput placeholder="Gamer Tag" />
+        <input matInput placeholder="Gamer Tag" #playerInput/>
       </mat-form-field>
       <div class="flex-vertical" style="padding-left: 8px">
         <span class="fill-remaining-space"></span>
-        <button mat-raised-button color="accent" routerLink="/play" (click)="joinGame()">
+        <button mat-raised-button color="accent" routerLink="/play" (click)="joinGame(playerInput.value)">
           Join Game
         </button>
         <span class="fill-remaining-space"></span>

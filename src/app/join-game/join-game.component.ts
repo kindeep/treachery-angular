@@ -1,6 +1,6 @@
 import { GameApiService } from './../game-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-join-game',
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinGameComponent implements OnInit {
   gameId: string;
+  playerName: string;
+  @ViewChild('playerInput') nameInputRef: ElementRef;
   constructor(private route: ActivatedRoute, private gameApi: GameApiService) { }
 
   ngOnInit() {
@@ -18,9 +20,10 @@ export class JoinGameComponent implements OnInit {
     this.gameApi.setGameId(this.gameId);
   }
 
-  joinGame() {
+  joinGame(playerName: string) {
     // TODO: Get player name from input
-    this.gameApi.setPlayerName("Kindeep");
+    this.gameApi.setPlayerName(playerName);
     this.gameApi.setGameId(this.gameId);
+    this.gameApi.addPlayer(playerName);
   }
 }

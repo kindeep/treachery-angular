@@ -15,6 +15,13 @@ export interface CardSnapshot {
     name: string;
 }
 
+export class DefaultCardSnapshot implements CardSnapshot {
+    altImgUrl = 'https://picsum.photos/800';
+    guessedBy: string[] = [];
+    imgUrl = 'https://picsum.photos/800';
+    name = 'Loading...';
+}
+
 export interface GuessSnapshot {
     clueCard: string;
     guessedPlayer: string;
@@ -29,6 +36,15 @@ export interface PlayerSnapshot {
     clueCards: CardSnapshot[];
     meansCards: CardSnapshot[];
     guessed: boolean;
+}
+
+export class DefaultPlayerSnapshot implements PlayerSnapshot {
+    playerName = 'Loading...';
+    clueCards: DefaultCardSnapshot[] =
+        [new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot()];
+    meansCards: DefaultCardSnapshot[] =
+        [new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot(), new DefaultCardSnapshot()];
+    guessed = false;
 }
 
 export interface MessageSnapshot {
