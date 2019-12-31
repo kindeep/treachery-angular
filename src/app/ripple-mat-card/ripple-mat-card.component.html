@@ -1,0 +1,11 @@
+<div>
+  <mat-card style="padding: 0;">
+    <!-- adding mat ripple to mat card has a bug, mat card resizes on click, workaround -->
+    <mat-card-content
+      matRipple
+      style="margin: 0; padding: 16px; border-radius: 4px;"
+    >
+      <ng-content></ng-content>
+    </mat-card-content>
+  </mat-card>
+</div>

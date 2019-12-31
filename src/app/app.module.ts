@@ -24,6 +24,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { JoinGameComponent } from './join-game/join-game.component';
+import { JoinedPlayersListComponent } from './joined-players-list/joined-players-list.component';
+import { MatInputModule } from '@angular/material/input';
+import { JoinedPlayerListItemComponent } from './joined-player-list-item/joined-player-list-item.component';
+import { RippleMatCardComponent } from './ripple-mat-card/ripple-mat-card.component';
 
 
 @NgModule({
@@ -42,6 +46,9 @@ import { JoinGameComponent } from './join-game/join-game.component';
     CardComponent,
     ActiveGamesListItemComponent,
     JoinGameComponent,
+    JoinedPlayersListComponent,
+    JoinedPlayerListItemComponent,
+    RippleMatCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,8 @@ import { JoinGameComponent } from './join-game/join-game.component';
     AngularFireAuthModule,
     AngularFireStorageModule,
     MatProgressSpinnerModule,
-    MatRippleModule
+    MatRippleModule,
+    MatInputModule
   ],
   providers: [GameApiService],
   bootstrap: [AppComponent]

@@ -1,1 +1,18 @@
-<p>join-game works!</p>
+<div class="root-container flex-vertical">
+  <form style="padding: 8px">
+    <div><b>Game ID</b>: {{ gameId }}</div>
+    <div class="flex-horizontal">
+      <mat-form-field color="accent" class="fill-remaining-space">
+        <input matInput placeholder="Gamer Tag" />
+      </mat-form-field>
+      <div class="flex-vertical" style="padding-left: 8px">
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent">Join Game</button>
+        <span class="fill-remaining-space"></span>
+      </div>
+    </div>
+  </form>
+  <div style="background-color: #00000022;" class="fill-remaining-space">
+    <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
+  </div>
+</div>
