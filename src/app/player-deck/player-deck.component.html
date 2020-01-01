@@ -1,9 +1,17 @@
-<p>player-deck works! Player name {{ playerName }}</p>
-
-<ol>
-  <li *ngFor="let card of meansCards | async">{{ card.name }}</li>
-</ol>
-
-<ol>
-  <li *ngFor="let card of clueCards | async">{{ card.name }}</li>
-</ol>
+<div class="player-deck">
+  <div><b>Player name:</b>{{ playerName }}</div>
+  <div class="flex-horizontal">
+    <app-card
+      *ngFor="let card of meansCards | async"
+      [imgSrc]="card.imgUrl"
+      [name]="card.name"
+    ></app-card>
+  </div>
+  <div class="flex-horizontal">
+    <app-card
+      *ngFor="let card of clueCards | async"
+      [imgSrc]="card.imgUrl"
+      [name]="card.name"
+    ></app-card>
+  </div>
+</div>

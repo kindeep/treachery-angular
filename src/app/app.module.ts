@@ -74,7 +74,7 @@ import { PlayerDeckPagerComponent } from './player-deck-pager/player-deck-pager.
     AngularFireStorageModule,
     MatProgressSpinnerModule,
     MatRippleModule,
-    MatInputModule
+    MatInputModule,
   ],
   providers: [GameApiService, GameInstanceService],
   bootstrap: [AppComponent]

@@ -1,6 +1,10 @@
-<ol>
-  <li *ngFor="let player of (gameApi.gameObserveable | async).players">
-    {{ player ? player.playerName : "Loading..." }}
-    <app-player-deck [playerName]="player.playerName"></app-player-deck>
-  </li>
-</ol>
+<div class="horizontal-scroll">
+  <div class="container flex-horizontal">
+    <div
+      *ngFor="let player of (gameApi.gameObserveable | async).players"
+      class="block fill-remaining-space"
+    >
+      <app-player-deck [playerName]="player.playerName"></app-player-deck>
+    </div>
+  </div>
+</div>

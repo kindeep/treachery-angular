@@ -1,14 +1,8 @@
-#card {
-    margin: 0;
-    height: max-content;
-    background: #471700;
-    border-radius: 1em;
-    height: 100%;
-    width: 150px;
-    overflow: hidden;
-    align-content: center;
-    border: 5px double white;
-    display: inline-block;
+.card {
+    height: 4.5cm;
+    width: 2.5cm;
+    border-radius: 4px;
+    margin: 4px;
 }
 
 #card-image {
@@ -16,10 +10,8 @@
     max-height: 100%;
 }
 
-#card-name {
-    margin: 0;
-    padding: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    // background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.47), rgba(0, 0, 0, 0));
+.header {
+    padding: 4px;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0));
 }
