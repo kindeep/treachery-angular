@@ -8,6 +8,13 @@ export interface ForensicCardSnapshot {
     selectedChoice: number;
 }
 
+export class SampleForensicCardSnapshot implements ForensicCardSnapshot {
+    cardName = 'Ho Ho Ho';
+    choices = ['Umm', 'sure', 'ok?'];
+    selected = false;
+    selectedChoice = 2;
+}
+
 export interface CardSnapshot {
     altImgUrl: string;
     guessedBy: string[];

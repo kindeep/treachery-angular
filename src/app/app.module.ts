@@ -33,6 +33,9 @@ import { PlayerDeckComponent } from './player-deck/player-deck.component';
 import { ForensicDeckComponent } from './forensic-deck/forensic-deck.component';
 import { ChatComponent } from './chat/chat.component';
 import { PlayerDeckPagerComponent } from './player-deck-pager/player-deck-pager.component';
+import { GuessComponent } from './guess/guess.component';
+import { ForensicCardComponent } from './forensic-card/forensic-card.component';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -59,6 +62,8 @@ import { PlayerDeckPagerComponent } from './player-deck-pager/player-deck-pager.
     ForensicDeckComponent,
     ChatComponent,
     PlayerDeckPagerComponent,
+    GuessComponent,
+    ForensicCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +80,7 @@ import { PlayerDeckPagerComponent } from './player-deck-pager/player-deck-pager.
     MatProgressSpinnerModule,
     MatRippleModule,
     MatInputModule,
+    MatListModule
   ],
   providers: [GameApiService, GameInstanceService],
   bootstrap: [AppComponent]

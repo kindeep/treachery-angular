@@ -1,5 +1,9 @@
+import { ForensicCardSnapshot } from './../firebase/GameSnapshot';
 import { GameApiService } from './../game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { GameInstanceSnapshot } from '../firebase/GameSnapshot';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-forensic-deck',
@@ -7,7 +11,22 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./forensic-deck.component.scss']
 })
 export class ForensicDeckComponent implements OnInit {
-  constructor(gameApi: GameApiService) { }
+  forensicCards: Observable<ForensicCardSnapshot[]>;
+  constructor(public gameApi: GameApiService) {
+    this.forensicCards = this.gameApi.gameReference.snapshotChanges().pipe(
+      map(a => {
+        const data = a.payload.data() as GameInstanceSnapshot;
+        let cards = [];
+        cards.push(data.causeCard);
+        cards.push(data.locationCard);
+        console.log('Other cards');
+        console.log(data.otherCards);
+        cards = cards.concat(data.otherCards);
+        console.log('All cards');
+        console.log(cards);
+        return cards;
+      }));
+  }
 
   ngOnInit() {
   }

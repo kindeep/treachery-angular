@@ -12,6 +12,8 @@ import { plainToClass, classToPlain } from 'class-transformer';
 })
 export class GameApiService {
   db;
+  selectedClue: string;
+  selectedMeans: string;
   private gameId: string;
   playerName: string;
   gameInstance: GameInstanceSnapshot;
@@ -21,6 +23,14 @@ export class GameApiService {
   constructor(db: AngularFirestore) {
     this.db = db;
     this.gameId = null;
+  }
+
+  setSelectedClue(value) {
+    this.selectedClue = value;
+  }
+
+  setSelectedMeans(value) {
+    this.selectedMeans = value;
   }
 
   generateRandomGame() {

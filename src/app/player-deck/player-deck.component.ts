@@ -13,6 +13,7 @@ export class PlayerDeckComponent implements OnInit {
   @Input() playerName: string;
   clueCards: Observable<CardSnapshot[]>;
   meansCards: Observable<CardSnapshot[]>;
+
   constructor(public gameApi: GameApiService) {
   }
 
@@ -22,10 +23,6 @@ export class PlayerDeckComponent implements OnInit {
         const data = a.payload.data() as GameInstanceSnapshot;
         return data.players.find(el => el.playerName === this.playerName).clueCards;
       }));
-    // map(actions => actions.map(a => {
-    //   const data = a.payload.doc.data() as GameInstanceSnapshot;
-    //   return data.players.find(el => el.playerName === this.playerName).clueCards;
-    // })));
     this.meansCards = this.gameApi.gameReference.snapshotChanges().pipe(
       map(a => {
         const data = a.payload.data() as GameInstanceSnapshot;

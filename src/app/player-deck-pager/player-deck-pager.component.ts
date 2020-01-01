@@ -1,3 +1,4 @@
+import { CardSnapshot } from './../firebase/GameSnapshot';
 import { GameApiService } from './../game-api.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-deck-pager.component.scss']
 })
 export class PlayerDeckPagerComponent implements OnInit {
+  constructor(public gameApi: GameApiService) {
 
-  constructor(public gameApi: GameApiService) { 
-    
   }
 
   ngOnInit() {

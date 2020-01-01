@@ -4,6 +4,7 @@
     background: 'url(' + imgSrc + ')',
     'background-position': 'center center'
   }"
+  [ngClass]="[active ? 'selected' : 'not-selected']"
   class="card"
   [style.backgroundSize]="'cover'"
   [class.mat-elevation-z2]="true"

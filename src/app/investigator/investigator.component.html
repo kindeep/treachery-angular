@@ -2,20 +2,16 @@
   <app-forensic-deck></app-forensic-deck>
   <app-player-deck-pager></app-player-deck-pager>
   <div>
-    <b>Game Id:</b>
-    {{ (gameInstance$ | async).gameId }}
+    <div class="flex-horizontal" style="width: 100%; overflow-x: scroll">
+      <div class="fill-remaining-space">
+        <div>
+          <b>Game Id:</b>
+          {{ (gameInstance$ | async).gameId }}
+        </div>
+        <div><b>Player Name:</b> {{ ga.playerName }}</div>
+      </div>
+      <app-guess class="fill-remaining-space"> </app-guess>
+    </div>
   </div>
-  <div><b>Player Name:</b> {{ ga.playerName }}</div>
   <app-chat class="fill-remaining-space"></app-chat>
 </div>
-<!-- <div>
-    Test
-  <div>
-    Raw game instance object: -
-    {{ ga.gameInstance ? toString(ga.gameInstance) : "DNE" }}
-  </div>
-  <div>
-    Observable game instance: -
-    {{ toString(gameInstance$ | async) }}
-  </div>
-</div> -->

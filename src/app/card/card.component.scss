@@ -12,6 +12,15 @@
 
 .header {
     padding: 4px;
+    word-wrap: break-word;
     border-radius: 4px;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0));
+}
+
+.selected {
+    color: red;
+}
+
+.not-selected {
+    color: white;
 }
