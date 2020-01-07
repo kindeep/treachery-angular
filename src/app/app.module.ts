@@ -36,6 +36,9 @@ import { PlayerDeckPagerComponent } from './player-deck-pager/player-deck-pager.
 import { GuessComponent } from './guess/guess.component';
 import { ForensicCardComponent } from './forensic-card/forensic-card.component';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MurdererSelectDialogComponent } from './murderer-select-dialog/murderer-select-dialog.component';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -64,6 +67,8 @@ import { MatListModule } from '@angular/material/list';
     PlayerDeckPagerComponent,
     GuessComponent,
     ForensicCardComponent,
+    MurdererSelectDialogComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,9 +85,17 @@ import { MatListModule } from '@angular/material/list';
     MatProgressSpinnerModule,
     MatRippleModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
   ],
-  providers: [GameApiService, GameInstanceService],
-  bootstrap: [AppComponent]
+  providers: [
+    GameApiService,
+    GameInstanceService,
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    MurdererSelectDialogComponent
+  ],
 })
 export class AppModule { }

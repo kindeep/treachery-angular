@@ -5,8 +5,8 @@
       *ngFor="let card of meansCards | async"
       [imgSrc]="card.imgUrl"
       [name]="card.name"
-      [active]="gameApi.selectedMeans === card.name"
-      (click)="gameApi.setSelectedMeans(card.name)"
+      [active]="selectedMeans === card.name"
+      (click)="meansClick(card.name)"
     ></app-card>
   </div>
   <div class="flex-horizontal">
@@ -14,8 +14,8 @@
       *ngFor="let card of clueCards | async"
       [imgSrc]="card.imgUrl"
       [name]="card.name"
-      [active]="gameApi.selectedClue === card.name"
-      (click)="gameApi.setSelectedClue(card.name)"
+      [active]="selectedClue === card.name"
+      (click)="clueClick(card.name)"
     ></app-card>
   </div>
 </div>

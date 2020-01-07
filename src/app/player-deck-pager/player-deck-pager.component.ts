@@ -1,6 +1,6 @@
 import { CardSnapshot } from './../firebase/GameSnapshot';
 import { GameApiService } from './../game-api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-player-deck-pager',
@@ -8,8 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-deck-pager.component.scss']
 })
 export class PlayerDeckPagerComponent implements OnInit {
+  @Input() disableSelection = false;
+  selectedMeans: string;
+  selectedClue: string;
   constructor(public gameApi: GameApiService) {
 
+  }
+
+  onClueSelect(cardName: string) {
+    this.gameApi.setSelectedClue(cardName);
+    this.selectedClue = cardName;
+  }
+
+  onMeansSelect(cardName: string) {
+    this.gameApi.setSelectedMeans(cardName);
+    this.selectedMeans = cardName;
   }
 
   ngOnInit() {

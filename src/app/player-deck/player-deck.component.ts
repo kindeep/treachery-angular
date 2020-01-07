@@ -13,8 +13,27 @@ export class PlayerDeckComponent implements OnInit {
   @Input() playerName: string;
   clueCards: Observable<CardSnapshot[]>;
   meansCards: Observable<CardSnapshot[]>;
+  @Input() disableSelection = false;
+  @Input() onClueSelect: (cardName: string) => void;
+  @Input() onMeansSelect: (cardName: string) => void;
+  @Input() selectedClue: string = null;
+  @Input() selectedMeans: string = null;
 
   constructor(public gameApi: GameApiService) {
+  }
+
+  meansClick(cardName) {
+    if (!this.disableSelection) {
+      // this.selectedMeans = cardName;
+      this.onMeansSelect(cardName);
+    }
+  }
+
+  clueClick(cardName) {
+    if (!this.disableSelection) {
+      // this.selectedClue = cardName;
+      this.onClueSelect(cardName);
+    }
   }
 
   ngOnInit() {
