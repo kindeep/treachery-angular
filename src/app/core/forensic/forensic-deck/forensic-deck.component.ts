@@ -1,7 +1,7 @@
-import { ForensicCardSnapshot } from './../firebase/GameSnapshot';
-import { GameApiService } from './../game-api.service';
+import { ForensicCardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
+import { GameApiService } from '../../../game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { GameInstanceSnapshot } from '../firebase/GameSnapshot';
+import { GameInstanceSnapshot } from '../../../shared/api/firebase/GameSnapshot';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

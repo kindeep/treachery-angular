@@ -1,4 +1,4 @@
-import { GameApiService } from './../game-api.service';
+import { GameApiService } from '../../../game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -14,7 +14,7 @@ export class MurdererSelectDialogComponent implements OnInit {
   }
 
   onClueSelect(cardName: string) {
-    
+
   }
 
   onMeansSelect(cardName: string) {

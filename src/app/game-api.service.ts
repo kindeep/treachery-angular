@@ -1,4 +1,4 @@
-import { GameInstanceSnapshot, ForensicCardSnapshot, DefaultPlayerSnapshot } from './firebase/GameSnapshot';
+import { GameInstanceSnapshot, ForensicCardSnapshot, DefaultPlayerSnapshot } from './shared/api/firebase/GameSnapshot';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';

@@ -1,5 +1,5 @@
 import { GameApiService } from './../game-api.service';
-import { MurdererSelectDialogComponent } from './../murderer-select-dialog/murderer-select-dialog.component';
+import { MurdererSelectDialogComponent } from '../core/game/murderer-select-dialog/murderer-select-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TestComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, public gameApi: GameApiService) { 
+  constructor(public dialog: MatDialog, public gameApi: GameApiService) {
 
     gameApi.setGameId("7gpi56uobw");
     gameApi.setPlayerName("fdsgdsfg");

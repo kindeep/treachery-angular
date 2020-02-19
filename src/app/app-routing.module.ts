@@ -1,10 +1,10 @@
 import { TestComponent } from './test/test.component';
-import { InvestigatorComponent } from './investigator/investigator.component';
-import { JoinGameComponent } from './join-game/join-game.component';
-import { AllGamesComponent } from './all-games/all-games.component';
-import { ForensicComponent } from './forensic/forensic.component';
-import { GameComponent } from './game/game.component';
-import { PlayerComponentComponent } from './player-component/player-component.component';
+import { InvestigatorComponent } from './core/game/investigator/investigator.component';
+import { JoinGameComponent } from './core/join-game/join-game.component';
+import { AllGamesComponent } from './core/all-games/all-games.component';
+import { ForensicComponent } from './core/forensic/forensic.component';
+import { GameComponent } from './core/game/game.component';
+import { PlayerComponentComponent } from './core/game/player-component/player-component.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

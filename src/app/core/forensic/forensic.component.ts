@@ -1,4 +1,4 @@
-import { GameApiService } from '../game-api.service';
+import { GameApiService } from '../../game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
@@ -25,7 +25,7 @@ export class ForensicComponent implements OnInit {
   }
 
   startGame() {
-    
+
   }
 
 }

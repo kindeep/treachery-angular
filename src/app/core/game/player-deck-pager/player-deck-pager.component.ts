@@ -1,5 +1,5 @@
-import { CardSnapshot } from './../firebase/GameSnapshot';
-import { GameApiService } from './../game-api.service';
+import { CardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
+import { GameApiService } from '../../../game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

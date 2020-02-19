@@ -1,4 +1,4 @@
-import { GameApiService } from './../game-api.service';
+import { GameApiService } from '../../game-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

@@ -1,4 +1,4 @@
-import { CardComponent } from './../card/card.component';
+import { CardComponent } from '../../../shared/card/card.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,5 +1,5 @@
-import { GameInstanceSnapshot } from './../firebase/GameSnapshot';
-import { GameApiService } from '../game-api.service';
+import { GameInstanceSnapshot } from '../../shared/api/firebase/GameSnapshot';
+import { GameApiService } from '../../game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 

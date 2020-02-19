@@ -1,7 +1,7 @@
-import { GameApiService } from '../game-api.service';
+import { GameApiService } from '../../game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AppModule } from '../app.module';
+import { AppModule } from '../../app.module';
 
 @Component({
   selector: 'app-game',
