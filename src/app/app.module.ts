@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { PlayerComponentComponent } from './player-component/player-component.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardHeader, MatCardActions, MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import {MatCardHeader, MatCardActions, MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardModule} from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { GameComponent } from './game/game.component';
@@ -45,12 +45,12 @@ import { TestComponent } from './test/test.component';
   declarations: [
     AppComponent,
     PlayerComponentComponent,
-    MatCardHeader,
-    MatCardActions,
-    MatCard,
-    MatCardTitle,
-    MatCardSubtitle,
-    MatCardContent,
+    // MatCardHeader,
+    // MatCardActions,
+    // MatCard,
+    // MatCardTitle,
+    // MatCardSubtitle,
+    // MatCardContent,
     GameComponent,
     ForensicComponent,
     AllGamesComponent,
@@ -87,6 +87,7 @@ import { TestComponent } from './test/test.component';
     MatInputModule,
     MatListModule,
     MatDialogModule,
+    MatCardModule,
   ],
   providers: [
     GameApiService,
