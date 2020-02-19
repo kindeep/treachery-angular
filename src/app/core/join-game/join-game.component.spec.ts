@@ -8,9 +8,8 @@ describe('JoinGameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JoinGameComponent ]
-    })
-    .compileComponents();
+      declarations: [JoinGameComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

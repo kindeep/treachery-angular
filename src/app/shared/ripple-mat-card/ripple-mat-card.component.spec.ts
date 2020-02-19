@@ -8,9 +8,8 @@ describe('RippleMatCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RippleMatCardComponent ]
-    })
-    .compileComponents();
+      declarations: [RippleMatCardComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

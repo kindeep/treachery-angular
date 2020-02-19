@@ -14,11 +14,11 @@ const routes: Routes = [
   { path: 'join/:gameId', component: JoinGameComponent },
   { path: '', component: AllGamesComponent },
   { path: 'play', component: InvestigatorComponent },
-  { path: 'test', component: TestComponent },
+  { path: 'test', component: TestComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

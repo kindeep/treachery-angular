@@ -1,5 +1,5 @@
 import { GameInstanceSnapshot } from '../../shared/api/firebase/GameSnapshot';
-import { GameApiService } from '../../game-api.service';
+import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -13,9 +13,7 @@ export class AllGamesComponent implements OnInit {
   empty: boolean;
   loading: boolean;
   gamesCollection: any;
-  constructor(
-    public cardApi: GameApiService
-  ) {
+  constructor(public cardApi: GameApiService) {
     this.loading = true;
     this.empty = false;
     const query = this.cardApi.activeGamesQuery();
@@ -25,21 +23,19 @@ export class AllGamesComponent implements OnInit {
     });
     console.log(this.games);
 
-    query.ref.get().then((querySnapshot) => {
+    query.ref.get().then(querySnapshot => {
       this.handleQuery(querySnapshot);
     });
 
-    query.ref.onSnapshot((querySnapshot) => {
+    query.ref.onSnapshot(querySnapshot => {
       this.handleQuery(querySnapshot);
     });
   }
 
   handleQuery(querySnapshot) {
     this.loading = false;
-    this.empty = (querySnapshot.docs.size > 0);
+    this.empty = querySnapshot.docs.size > 0;
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 }

@@ -8,9 +8,8 @@ describe('MurdererSelectDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MurdererSelectDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [MurdererSelectDialogComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

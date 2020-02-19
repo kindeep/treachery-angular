@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-component.component.scss']
 })
 export class PlayerComponentComponent implements OnInit {
-
   clues: CardComponent[];
   means: CardComponent[];
 
@@ -16,7 +15,5 @@ export class PlayerComponentComponent implements OnInit {
     this.means = [new CardComponent(), new CardComponent(), new CardComponent(), new CardComponent()];
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

@@ -1,5 +1,5 @@
 import { GameInstanceSnapshot } from '../../../shared/api/firebase/GameSnapshot';
-import { GameApiService } from '../../../game-api.service';
+import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -14,12 +14,9 @@ export class InvestigatorComponent implements OnInit {
     this.gameInstance$ = ga.gameReference.valueChanges() as Observable<GameInstanceSnapshot>;
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   toString(obj) {
     return JSON.stringify(obj);
   }
-
 }

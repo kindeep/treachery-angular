@@ -27,12 +27,12 @@ export class CardApiService {
     const expiredCreation = new Date(currTime - GAME_COMPLETE_EXPIRE_TIME);
     this.db.collection('games', query => {
       console.log(query);
-      query = query.where('started', '==', false)
+      query = query
+        .where('started', '==', false)
         .orderBy('createdTimestamp', 'desc')
         .where('createdTimestamp', '>', expiredCreation);
       console.log(query);
       callback(query);
     });
   }
-
 }

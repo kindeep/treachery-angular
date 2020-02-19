@@ -1,4 +1,4 @@
-import { GameApiService } from '../../game-api.service';
+import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AppModule } from '../../app.module';
@@ -10,11 +10,7 @@ import { AppModule } from '../../app.module';
 })
 export class GameComponent implements OnInit {
   gameId;
-  constructor(
-    private route: ActivatedRoute,
-    private cardApi: GameApiService
-  ) {
-
+  constructor(private route: ActivatedRoute, private cardApi: GameApiService) {
     console.log(cardApi.db);
   }
 
@@ -23,5 +19,4 @@ export class GameComponent implements OnInit {
       this.gameId = routeParams['gameId'];
     });
   }
-
 }

@@ -8,9 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class JoinedPlayerListItemComponent implements OnInit {
   @Input() playerName: string;
   @Input() gameId: string;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

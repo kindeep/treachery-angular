@@ -1,4 +1,4 @@
-import { GameApiService } from '../../game-api.service';
+import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
@@ -11,12 +11,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class ForensicComponent implements OnInit {
   gameId;
 
-  constructor(
-    private route: ActivatedRoute,
-    public cardApi: GameApiService
-  ) {
-
-  }
+  constructor(private route: ActivatedRoute, public cardApi: GameApiService) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
@@ -24,8 +19,5 @@ export class ForensicComponent implements OnInit {
     });
   }
 
-  startGame() {
-
-  }
-
+  startGame() {}
 }

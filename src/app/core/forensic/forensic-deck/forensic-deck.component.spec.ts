@@ -8,9 +8,8 @@ describe('ForensicDeckComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForensicDeckComponent ]
-    })
-    .compileComponents();
+      declarations: [ForensicDeckComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

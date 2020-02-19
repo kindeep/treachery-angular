@@ -1,5 +1,5 @@
 import { CardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
-import { GameApiService } from '../../../game-api.service';
+import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -11,9 +11,7 @@ export class PlayerDeckPagerComponent implements OnInit {
   @Input() disableSelection = false;
   selectedMeans: string;
   selectedClue: string;
-  constructor(public gameApi: GameApiService) {
-
-  }
+  constructor(public gameApi: GameApiService) {}
 
   onClueSelect(cardName: string) {
     this.gameApi.setSelectedClue(cardName);
@@ -25,8 +23,5 @@ export class PlayerDeckPagerComponent implements OnInit {
     this.selectedMeans = cardName;
   }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 }

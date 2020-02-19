@@ -1,4 +1,4 @@
-import { GameApiService } from '../../../game-api.service';
+import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -8,25 +8,15 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./murderer-select-dialog.component.scss']
 })
 export class MurdererSelectDialogComponent implements OnInit {
+  constructor(public dialogRef: MatDialogRef<MurdererSelectDialogComponent>, public gameApi: GameApiService) {}
 
-  constructor(public dialogRef: MatDialogRef<MurdererSelectDialogComponent>, public gameApi: GameApiService) {
+  onClueSelect(cardName: string) {}
 
-  }
+  onMeansSelect(cardName: string) {}
 
-  onClueSelect(cardName: string) {
-
-  }
-
-  onMeansSelect(cardName: string) {
-
-  }
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   closeDialog() {
     this.dialogRef.close();
   }
-
 }

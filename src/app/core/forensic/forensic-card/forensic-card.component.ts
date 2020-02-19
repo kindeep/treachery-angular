@@ -8,10 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ForensicCardComponent implements OnInit {
   @Input() forensicCard: ForensicCardSnapshot = new SampleForensicCardSnapshot();
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   isSelected(choice) {
     return choice === this.forensicCard.choices[this.forensicCard.selectedChoice];

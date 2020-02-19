@@ -1,5 +1,5 @@
 import { ForensicCardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
-import { GameApiService } from '../../../game-api.service';
+import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { GameInstanceSnapshot } from '../../../shared/api/firebase/GameSnapshot';
 import { map } from 'rxjs/operators';
@@ -25,10 +25,9 @@ export class ForensicDeckComponent implements OnInit {
         console.log('All cards');
         console.log(cards);
         return cards;
-      }));
+      })
+    );
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

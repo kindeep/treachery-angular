@@ -8,9 +8,8 @@ describe('PlayerDeckPagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerDeckPagerComponent ]
-    })
-    .compileComponents();
+      declarations: [PlayerDeckPagerComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

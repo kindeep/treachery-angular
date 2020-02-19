@@ -8,9 +8,8 @@ describe('JoinedPlayerListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JoinedPlayerListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [JoinedPlayerListItemComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

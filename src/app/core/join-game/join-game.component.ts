@@ -1,4 +1,4 @@
-import { GameApiService } from '../../game-api.service';
+import { GameApiService } from '../../shared/api/game/game-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class JoinGameComponent implements OnInit {
   gameId: string;
   playerName: string;
-  constructor(private route: ActivatedRoute, private gameApi: GameApiService) { }
+  constructor(private route: ActivatedRoute, private gameApi: GameApiService) {}
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
