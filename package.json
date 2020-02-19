@@ -25,10 +25,6 @@
     "class-transformer": "^0.2.3",
     "es6-shim": "^0.35.5",
     "firebase": "^7.5.0",
-    "hammerjs": "^2.0.8",
-    "nemex-angular2-viewpager": "0.0.6",
-    "ngx-infinite-scroll": "^8.0.1",
-    "ngx-viewpager": "0.0.12",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
