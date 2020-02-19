@@ -1,0 +1,21 @@
+<div class="player-deck">
+  <div><b>Player name:</b> {{ playerName }}</div>
+  <div class="flex-horizontal">
+    <app-card
+      *ngFor="let card of meansCards | async"
+      [imgSrc]="card.imgUrl"
+      [name]="card.name"
+      [active]="selectedMeans === card.name"
+      (click)="meansClick(card.name)"
+    ></app-card>
+  </div>
+  <div class="flex-horizontal">
+    <app-card
+      *ngFor="let card of clueCards | async"
+      [imgSrc]="card.imgUrl"
+      [name]="card.name"
+      [active]="selectedClue === card.name"
+      (click)="clueClick(card.name)"
+    ></app-card>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="mat-typography">
+  <h1 mat-dialog-title>You are the murderer!</h1>
+  <div>
+    <app-player-deck-pager [disableSelection]="false"></app-player-deck-pager>
+
+    <p>Select a clue and means card from your deck below.</p>
+    <app-player-deck
+      [onMeansSelect]="onMeansSelect"
+      [onClueSelect]="onClueSelect"
+      [playerName]="gameApi.playerName"
+    ></app-player-deck>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()" cdkFocusInitial>OK</button>
+</div>

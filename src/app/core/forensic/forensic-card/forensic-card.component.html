@@ -1,0 +1,20 @@
+<div style="margin: 4px;">
+  <mat-card style="padding: 0; width: 4.5cm;">
+    <!-- adding mat ripple to mat card has a bug, mat card resizes on click, workaround -->
+    <mat-card-content
+      matRipple
+      style="margin: 0; padding: 16px; border-radius: 4px;"
+    >
+      <h4>{{ forensicCard.cardName }}</h4>
+      <mat-list>
+        <mat-list-item
+          [ngClass]="[
+            isSelected(choice) ? 'option-selected' : 'option-not-selected'
+          ]"
+          *ngFor="let choice of forensicCard.choices"
+          >{{ choice }}</mat-list-item
+        >
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

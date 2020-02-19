@@ -1,0 +1,17 @@
+<div class="vertical-flex" style="height: 100%">
+  <app-forensic-deck></app-forensic-deck>
+  <app-player-deck-pager></app-player-deck-pager>
+  <div>
+    <div class="flex-horizontal" style="width: 100%;">
+      <div class="fill-remaining-space">
+        <div>
+          <b>Game Id:</b>
+          {{ (gameInstance$ | async).gameId }}
+        </div>
+        <div><b>Player Name:</b> {{ ga.playerName }}</div>
+      </div>
+      <app-guess class="fill-remaining-space"> </app-guess>
+    </div>
+  </div>
+  <app-chat class="fill-remaining-space"></app-chat>
+</div>

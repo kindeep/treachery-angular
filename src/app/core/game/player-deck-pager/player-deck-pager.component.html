@@ -1,0 +1,17 @@
+<div class="horizontal-scroll">
+  <div class="container flex-horizontal">
+    <div
+      *ngFor="let player of (gameApi.gameObserveable | async).players"
+      class="block fill-remaining-space"
+    >
+      <app-player-deck
+        [selectedClue]="selectedClue"
+        [selectedMeans]="selectedMeans"
+        [playerName]="player.playerName"
+        [disableSelection]="disableSelection"
+        [onClueSelect]="onClueSelect"
+        [onMeansSelect]="onMeansSelect"
+      ></app-player-deck>
+    </div>
+  </div>
+</div>
