@@ -11,7 +11,7 @@
     "lint:fix": "tslint --project . --fix",
     "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
     "format:fix": "prettier --config ./.prettierrc --list-different --write \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
-    "fixey": "lint:fix && format:fix"
+    "fixey": "npm run lint:fix && npm run format:fix"
   },
   "private": true,
   "dependencies": {

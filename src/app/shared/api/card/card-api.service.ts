@@ -9,9 +9,7 @@ import Timestamp = firestore.Timestamp;
   providedIn: 'root'
 })
 export class CardApiService {
-  db;
-  constructor(db: AngularFirestore) {
-    this.db = db;
+  constructor(private db: AngularFirestore) {
   }
 
   generateRandomGame() {
@@ -22,17 +20,17 @@ export class CardApiService {
     return this.db.collection('games').doc(gameId);
   }
 
-  activeGamesQuery(callback) {
-    const currTime = new Date().getTime(); // current Time in seconds
-    const expiredCreation = new Date(currTime - GAME_COMPLETE_EXPIRE_TIME);
-    this.db.collection('games', query => {
-      console.log(query);
-      query = query
-        .where('started', '==', false)
-        .orderBy('createdTimestamp', 'desc')
-        .where('createdTimestamp', '>', expiredCreation);
-      console.log(query);
-      callback(query);
-    });
-  }
+  // activeGamesQuery(callback) {
+  //   const currTime = new Date().getTime(); // current Time in seconds
+  //   const expiredCreation = new Date(currTime - GAME_COMPLETE_EXPIRE_TIME);
+  //   this.db.collection('games', query => {
+  //     console.log(query);
+  //     query = query
+  //       .where('started', '==', false)
+  //       .orderBy('createdTimestamp', 'desc')
+  //       .where('createdTimestamp', '>', expiredCreation);
+  //     console.log(query);
+  //     callback(query);
+  //   });
+  // }
 }

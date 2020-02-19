@@ -58,13 +58,13 @@ const sample = {
       selectedChoice: -1
     },
     {
-      cardName: "Victim's Expression",
+      cardName: 'Victim\'s Expression',
       choices: ['Peaceful', 'Struggling', 'Frightened', 'In Pain', 'Blank', 'Angry'],
       selected: false,
       selectedChoice: -1
     },
     {
-      cardName: "Victim's Build",
+      cardName: 'Victim\'s Build',
       choices: ['Large', 'Thin', 'Tall', 'Short', 'Disfigured', 'Fit'],
       selected: false,
       selectedChoice: -1
@@ -82,7 +82,7 @@ const sample = {
       selectedChoice: -1
     },
     {
-      cardName: "Victim's Identity",
+      cardName: 'Victim\'s Identity',
       choices: ['Child', 'Young Adult', 'Middle-Aged', 'Senior', 'Male', 'Female'],
       selected: false,
       selectedChoice: -1

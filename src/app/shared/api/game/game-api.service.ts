@@ -11,7 +11,6 @@ import { plainToClass, classToPlain } from 'class-transformer';
   providedIn: 'root'
 })
 export class GameApiService {
-  db;
   selectedClue: string;
   selectedMeans: string;
   private gameId: string;
@@ -20,8 +19,7 @@ export class GameApiService {
   gameReference: AngularFirestoreDocument;
   gameObserveable: Observable<GameInstanceSnapshot>;
 
-  constructor(db: AngularFirestore) {
-    this.db = db;
+  constructor(private db: AngularFirestore) {
     this.gameId = null;
   }
 
@@ -80,14 +78,14 @@ export class GameApiService {
   }
 
   addPlayer(playerName) {
-    let newPlayer = this.getPlainObject(new DefaultPlayerSnapshot());
+    const newPlayer = this.getPlainObject(new DefaultPlayerSnapshot());
     newPlayer.playerName = playerName;
     this.db.firestore
       .runTransaction(transaction =>
         // This code may get re-run multiple times if there are conflicts.
         transaction.get(this.gameReference.ref).then(sfDoc => {
           // const newPopulation = sfDoc.data().population + 1;
-          const gameInstance: GameInstanceSnapshot = sfDoc.data();
+          const gameInstance: GameInstanceSnapshot = sfDoc.data() as GameInstanceSnapshot;
           console.log(gameInstance.players);
           gameInstance.players.push(newPlayer);
           console.log(gameInstance.players);
@@ -99,7 +97,7 @@ export class GameApiService {
   }
 
   getPlainObject(obj) {
-    let result = Object.assign({}, obj);
+    const result = Object.assign({}, obj);
     console.log(result);
     return result;
   }
