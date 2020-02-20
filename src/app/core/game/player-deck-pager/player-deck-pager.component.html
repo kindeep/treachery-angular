@@ -1,17 +1,18 @@
 <div class="horizontal-scroll">
   <div class="container flex-horizontal">
     <div
-      *ngFor="let player of (gameApi.gameObserveable | async).players"
+      *ngFor="let player of players | async"
       class="block fill-remaining-space"
     >
       <app-player-deck
-        [selectedClue]="selectedClue"
-        [selectedMeans]="selectedMeans"
-        [playerName]="player.playerName"
+        [(clue)]="selectedClue"
+        [(means)]="selectedMeans"
         [disableSelection]="disableSelection"
-        [onClueSelect]="onClueSelect"
-        [onMeansSelect]="onMeansSelect"
+        [player]="player"
       ></app-player-deck>
     </div>
   </div>
 </div>
+ummm...
+{{ selectedClue | json}}
+{{ selectedMeans | json}}

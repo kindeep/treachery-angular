@@ -1,4 +1,4 @@
-import { GameInstanceSnapshot } from '../../../shared/api/firebase/GameSnapshot';
+import { TgGame } from '../../../shared/api/firebase/GameSnapshot';
 import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ActiveGamesListItemComponent implements OnInit {
   @Input() gameId: string;
   private gameDoc: any;
-  game: GameInstanceSnapshot;
+  game: TgGame;
   constructor(private gameApi: GameApiService) {}
 
   ngOnInit() {

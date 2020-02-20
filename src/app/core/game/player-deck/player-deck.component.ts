@@ -1,8 +1,9 @@
-import { CardSnapshot, GameInstanceSnapshot } from '../../../shared/api/firebase/GameSnapshot';
-import { GameApiService } from '../../../shared/api/game/game-api.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {TgCard, TgGame, TgPlayer} from '../../../shared/api/firebase/GameSnapshot';
+import {GameApiService} from '../../../shared/api/game/game-api.service';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {CardApiService} from '../../../shared/api/card/card-api.service';
 
 @Component({
   selector: 'app-player-deck',
@@ -10,43 +11,29 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./player-deck.component.scss']
 })
 export class PlayerDeckComponent implements OnInit {
-  @Input() playerName: string;
-  clueCards: Observable<CardSnapshot[]>;
-  meansCards: Observable<CardSnapshot[]>;
+  @Input() player: TgPlayer;
   @Input() disableSelection = false;
-  @Input() onClueSelect: (cardName: string) => void;
-  @Input() onMeansSelect: (cardName: string) => void;
-  @Input() selectedClue: string = null;
-  @Input() selectedMeans: string = null;
+  @Input() clue: string;
+  @Output() clueChange = new EventEmitter<string>().pipe(v => {
+    console.log(`Trickle ${JSON.stringify(v)} up`);
+    return v;
+  });
+  @Input() means: string;
+  @Output() meansChange = new EventEmitter<string>();
 
-  constructor(public gameApi: GameApiService) {}
 
-  meansClick(cardName) {
-    if (!this.disableSelection) {
-      // this.selectedMeans = cardName;
-      this.onMeansSelect(cardName);
-    }
+  constructor() {
   }
 
   clueClick(cardName) {
-    if (!this.disableSelection) {
-      // this.selectedClue = cardName;
-      this.onClueSelect(cardName);
-    }
+    this.clue = cardName;
   }
 
+  meansClick(cardName) {
+    this.means = cardName;
+  }
+
+
   ngOnInit() {
-    this.clueCards = this.gameApi.gameReference.snapshotChanges().pipe(
-      map(a => {
-        const data = a.payload.data() as GameInstanceSnapshot;
-        return data.players.find(el => el.playerName === this.playerName).clueCards;
-      })
-    );
-    this.meansCards = this.gameApi.gameReference.snapshotChanges().pipe(
-      map(a => {
-        const data = a.payload.data() as GameInstanceSnapshot;
-        return data.players.find(el => el.playerName === this.playerName).meansCards;
-      })
-    );
   }
 }

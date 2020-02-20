@@ -11,7 +11,6 @@ import { AppModule } from '../../app.module';
 export class GameComponent implements OnInit {
   gameId;
   constructor(private route: ActivatedRoute, private cardApi: GameApiService) {
-    console.log(cardApi.db);
   }
 
   ngOnInit() {

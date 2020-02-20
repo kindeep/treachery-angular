@@ -1,4 +1,4 @@
-import { ForensicCardSnapshot, SampleForensicCardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
+import { TgForensicCard, SampleForensicCardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./forensic-card.component.scss']
 })
 export class ForensicCardComponent implements OnInit {
-  @Input() forensicCard: ForensicCardSnapshot = new SampleForensicCardSnapshot();
+  @Input() forensicCard: TgForensicCard = new SampleForensicCardSnapshot();
   constructor() {}
 
   ngOnInit() {}

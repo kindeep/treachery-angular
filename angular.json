@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "trec",
+      "prefix": "tg",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

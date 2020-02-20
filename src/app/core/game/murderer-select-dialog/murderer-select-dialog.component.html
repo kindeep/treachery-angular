@@ -1,13 +1,11 @@
 <div class="mat-typography">
   <h1 mat-dialog-title>You are the murderer!</h1>
   <div>
-    <app-player-deck-pager [disableSelection]="false"></app-player-deck-pager>
+    <app-player-deck-pager></app-player-deck-pager>
 
     <p>Select a clue and means card from your deck below.</p>
     <app-player-deck
-      [onMeansSelect]="onMeansSelect"
-      [onClueSelect]="onClueSelect"
-      [playerName]="gameApi.playerName"
+      [player]="player"
     ></app-player-deck>
   </div>
 </div>

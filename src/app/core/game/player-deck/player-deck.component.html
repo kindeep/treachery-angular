@@ -1,21 +1,23 @@
 <div class="player-deck">
-  <div><b>Player name:</b> {{ playerName }}</div>
+  <div><b>Player name:</b> {{ player.playerName }}</div>
   <div class="flex-horizontal">
     <app-card
-      *ngFor="let card of meansCards | async"
+      *ngFor="let card of player.meansCards"
       [imgSrc]="card.imgUrl"
       [name]="card.name"
-      [active]="selectedMeans === card.name"
+      [active]="means === card.name"
       (click)="meansClick(card.name)"
     ></app-card>
   </div>
   <div class="flex-horizontal">
     <app-card
-      *ngFor="let card of clueCards | async"
+      *ngFor="let card of player.clueCards"
       [imgSrc]="card.imgUrl"
       [name]="card.name"
-      [active]="selectedClue === card.name"
+      [active]="clue === card.name"
       (click)="clueClick(card.name)"
     ></app-card>
   </div>
+  {{ clue }}
+  {{ means }}
 </div>

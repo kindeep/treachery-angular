@@ -1,6 +1,8 @@
-import { CardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
-import { GameApiService } from '../../../shared/api/game/game-api.service';
-import { Component, OnInit, Input } from '@angular/core';
+import {TgCard, TgPlayer} from '../../../shared/api/firebase/GameSnapshot';
+import {GameApiService} from '../../../shared/api/game/game-api.service';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import {Observable} from 'rxjs';
+import {PlayerApiService} from '../../../shared/api/player/player-api.service';
 
 @Component({
   selector: 'app-player-deck-pager',
@@ -9,19 +11,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PlayerDeckPagerComponent implements OnInit {
   @Input() disableSelection = false;
-  selectedMeans: string;
-  selectedClue: string;
-  constructor(public gameApi: GameApiService) {}
+  selectedMeans: string = 'fuck';
+  // @Output() selectedMeansChange = new EventEmitter<string>();
+  selectedClue: string = 'me';
+  // @Output() selectedClueChange = new EventEmitter<string>();
 
-  onClueSelect(cardName: string) {
-    this.gameApi.setSelectedClue(cardName);
-    this.selectedClue = cardName;
+  players: Observable<TgPlayer[]>;
+
+  constructor(private gameApi: GameApiService, private playerApiService: PlayerApiService) {
+    this.players = playerApiService.getAllPlayers();
   }
 
-  onMeansSelect(cardName: string) {
-    this.gameApi.setSelectedMeans(cardName);
-    this.selectedMeans = cardName;
+  ngOnInit() {
   }
-
-  ngOnInit() {}
 }
