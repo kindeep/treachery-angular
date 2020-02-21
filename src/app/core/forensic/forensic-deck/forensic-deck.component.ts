@@ -1,7 +1,7 @@
-import { TgForensicCard } from '../../../shared/api/firebase/GameSnapshot';
+import { TgForensicCard } from '../../../shared/api/models/GameSnapshot';
 import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { TgGame } from '../../../shared/api/firebase/GameSnapshot';
+import { TgGame } from '../../../shared/api/models/GameSnapshot';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

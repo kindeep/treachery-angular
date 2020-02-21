@@ -1,4 +1,4 @@
-import {TgCard, TgGame, TgPlayer} from '../../../shared/api/firebase/GameSnapshot';
+import {TgCard, TgGame, TgPlayer} from '../../../shared/api/models/GameSnapshot';
 import {GameApiService} from '../../../shared/api/game/game-api.service';
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
@@ -13,23 +13,23 @@ import {CardApiService} from '../../../shared/api/card/card-api.service';
 export class PlayerDeckComponent implements OnInit {
   @Input() player: TgPlayer;
   @Input() disableSelection = false;
-  @Input() clue: string;
-  @Output() clueChange = new EventEmitter<string>();
-  @Input() means: string;
-  @Output() meansChange = new EventEmitter<string>();
+  @Input() selectedClue: string;
+  @Output() selectedClueChange = new EventEmitter<string>();
+  @Input() selectedMeans: string;
+  @Output() selectedMeansChange = new EventEmitter<string>();
 
 
   constructor() {
   }
 
   clueClick(cardName) {
-    this.clue = cardName;
-    this.clueChange.emit(this.clue);
+    this.selectedClue = cardName;
+    this.selectedClueChange.emit(this.selectedClue);
   }
 
   meansClick(cardName) {
-    this.means = cardName;
-    this.meansChange.emit(this.means);
+    this.selectedMeans = cardName;
+    this.selectedMeansChange.emit(this.selectedMeans);
   }
 
 

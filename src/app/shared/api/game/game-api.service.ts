@@ -1,7 +1,7 @@
-import {TgGame, TgForensicCard, DefaultTgPlayer} from '../firebase/GameSnapshot';
+import {TgGame, TgForensicCard, DefaultTgPlayer} from '../models/GameSnapshot';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument, DocumentReference} from '@angular/fire/firestore';
 
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
 import {firestore} from 'firebase/app';
@@ -30,8 +30,12 @@ export class GameApiService {
     return this.db.collection('games').add({});
   }
 
-  getGameDoc(gameId: string) {
+  getGameDoc(gameId: string): AngularFirestoreDocument {
     return this.db.collection('games').doc(gameId);
+  }
+
+  getCurrentGameDoc(): AngularFirestoreDocument {
+    return this.getGameDoc(this.gameId);
   }
 
   activeGamesQuery() {

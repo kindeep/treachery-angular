@@ -6,7 +6,7 @@ const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 100;
 import {firestore} from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 import {GameApiService} from '../game/game-api.service';
-import {TgCard} from '../firebase/GameSnapshot';
+import {TgCard} from '../models/GameSnapshot';
 import {map} from 'rxjs/operators';
 import {PlayerApiService} from '../player/player-api.service';
 

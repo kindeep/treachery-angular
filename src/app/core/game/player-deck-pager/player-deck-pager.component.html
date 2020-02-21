@@ -5,10 +5,10 @@
       class="block fill-remaining-space"
     >
       <app-player-deck
-        [(clue)]="selectedClue"
-        (clueChange)="selectedClueChange.emit($event)"
-        [(means)]="selectedMeans"
-        (meansChange)="selectedMeansChange.emit($event)"
+        [(selectedClue)]="selectedClue"
+        (selectedClueChange)="selectedClueChange.emit($event)"
+        [(selectedMeans)]="selectedMeans"
+        (selectedMeansChange)="selectedMeansChange.emit($event)"
         [disableSelection]="disableSelection"
         [player]="player"
       ></app-player-deck>

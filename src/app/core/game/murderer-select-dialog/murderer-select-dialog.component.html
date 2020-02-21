@@ -5,10 +5,13 @@
 
     <p>Select a clue and means card from your deck below.</p>
     <app-player-deck
+      [(selectedClue)]="selectedClue" [(selectedMeans)]="selectedMeans"
       [player]="player$ | async"
     ></app-player-deck>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()" cdkFocusInitial>OK</button>
+  means: {{ selectedMeans }}
+  clue: {{ selectedClue }}
+  <button mat-button (click)="selectCards()" cdkFocusInitial>OK</button>
 </div>

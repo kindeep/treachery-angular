@@ -1,4 +1,4 @@
-import { TgForensicCard, SampleForensicCardSnapshot } from '../../../shared/api/firebase/GameSnapshot';
+import { TgForensicCard, SampleForensicCardSnapshot } from '../../../shared/api/models/GameSnapshot';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

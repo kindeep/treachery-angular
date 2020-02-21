@@ -1,7 +1,8 @@
-import { TgGame } from '../../../shared/api/firebase/GameSnapshot';
+import {TgGame, TgPlayer} from '../../../shared/api/models/GameSnapshot';
 import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import {PlayerApiService} from '../../../shared/api/player/player-api.service';
 
 @Component({
   selector: 'app-investigator',
@@ -10,8 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class InvestigatorComponent implements OnInit {
   gameInstance$: Observable<TgGame>;
-  constructor(public ga: GameApiService) {
+  player$: Observable<TgPlayer>;
+  constructor(private ga: GameApiService, private playerApiService: PlayerApiService) {
     this.gameInstance$ = ga.gameReference.valueChanges() as Observable<TgGame>;
+    this.player$ = playerApiService.getCurrentPlayer();
   }
 
   ngOnInit() {}
