@@ -1,4 +1,4 @@
-import {TgGame, TgPlayer} from '../../../shared/api/models/GameSnapshot';
+import {TgGame, TgPlayer} from '../../../shared/api/models/models';
 import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';

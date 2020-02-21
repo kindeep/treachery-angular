@@ -2,7 +2,7 @@ import {GameApiService} from '../../../shared/api/game/game-api.service';
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {PlayerApiService} from '../../../shared/api/player/player-api.service';
-import {TgCard, TgPlayer} from '../../../shared/api/models/GameSnapshot';
+import {TgCard, TgPlayer} from '../../../shared/api/models/models';
 import {Observable} from 'rxjs';
 
 @Component({

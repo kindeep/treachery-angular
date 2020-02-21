@@ -1,4 +1,4 @@
-import {TgCard, TgGame, TgPlayer} from '../../../shared/api/models/GameSnapshot';
+import {TgCard, TgGame, TgPlayer} from '../../../shared/api/models/models';
 import {GameApiService} from '../../../shared/api/game/game-api.service';
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';

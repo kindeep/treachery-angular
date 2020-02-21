@@ -1,5 +1,5 @@
 import { GameApiService } from '../../../shared/api/game/game-api.service';
-import { TgPlayer, TgGame } from '../../../shared/api/models/GameSnapshot';
+import { TgPlayer, TgGame } from '../../../shared/api/models/models';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

@@ -1,4 +1,4 @@
-import {TgGame, TgForensicCard, DefaultTgPlayer} from '../models/GameSnapshot';
+import {TgGame, TgForensicCard, DefaultTgPlayer} from '../models/models';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFirestore, AngularFirestoreDocument, DocumentReference} from '@angular/fire/firestore';
