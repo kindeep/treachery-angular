@@ -5,7 +5,7 @@
 
     <p>Select a clue and means card from your deck below.</p>
     <app-player-deck
-      [player]="player"
+      [player]="player$ | async"
     ></app-player-deck>
   </div>
 </div>

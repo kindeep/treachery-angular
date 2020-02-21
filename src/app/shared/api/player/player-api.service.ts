@@ -18,6 +18,10 @@ export class PlayerApiService {
     })) as Observable<TgPlayer>;
   }
 
+  getCurrentPlayer(): Observable<TgPlayer> {
+    return this.getPlayer(this.gameApiService.getPlayerName());
+  }
+
   getAllPlayers(): Observable<TgPlayer[]> {
     return this.gameApiService.getGame().pipe(map(game => {
       return game.players;

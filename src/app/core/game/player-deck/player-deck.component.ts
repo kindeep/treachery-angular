@@ -14,10 +14,7 @@ export class PlayerDeckComponent implements OnInit {
   @Input() player: TgPlayer;
   @Input() disableSelection = false;
   @Input() clue: string;
-  @Output() clueChange = new EventEmitter<string>().pipe(v => {
-    console.log(`Trickle ${JSON.stringify(v)} up`);
-    return v;
-  });
+  @Output() clueChange = new EventEmitter<string>();
   @Input() means: string;
   @Output() meansChange = new EventEmitter<string>();
 
@@ -27,10 +24,12 @@ export class PlayerDeckComponent implements OnInit {
 
   clueClick(cardName) {
     this.clue = cardName;
+    this.clueChange.emit(this.clue);
   }
 
   meansClick(cardName) {
     this.means = cardName;
+    this.meansChange.emit(this.means);
   }
 
 

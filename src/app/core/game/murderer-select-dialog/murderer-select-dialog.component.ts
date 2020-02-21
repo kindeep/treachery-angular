@@ -3,6 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {PlayerApiService} from '../../../shared/api/player/player-api.service';
 import {TgPlayer} from '../../../shared/api/firebase/GameSnapshot';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-murderer-select-dialog',
@@ -10,11 +11,13 @@ import {TgPlayer} from '../../../shared/api/firebase/GameSnapshot';
   styleUrls: ['./murderer-select-dialog.component.scss']
 })
 export class MurdererSelectDialogComponent implements OnInit {
-  @Input() player: TgPlayer;
+  @Input() player$: Observable<TgPlayer>;
 
   constructor(
     public dialogRef: MatDialogRef<MurdererSelectDialogComponent>,
+    private playerApiService: PlayerApiService
   ) {
+    this.player$ = playerApiService.getCurrentPlayer();
   }
 
   ngOnInit() {

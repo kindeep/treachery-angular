@@ -11,15 +11,14 @@ import {PlayerApiService} from '../../../shared/api/player/player-api.service';
 })
 export class PlayerDeckPagerComponent implements OnInit {
   @Input() disableSelection = false;
-  selectedMeans: string = 'fuck';
-  // @Output() selectedMeansChange = new EventEmitter<string>();
-  selectedClue: string = 'me';
-  // @Output() selectedClueChange = new EventEmitter<string>();
+  players$: Observable<TgPlayer[]>;
+  @Input() selectedMeans: string;
+  @Output() selectedMeansChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input() selectedClue: string;
+  @Output() selectedClueChange: EventEmitter<string> = new EventEmitter<string>();
 
-  players: Observable<TgPlayer[]>;
-
-  constructor(private gameApi: GameApiService, private playerApiService: PlayerApiService) {
-    this.players = playerApiService.getAllPlayers();
+  constructor(playerApiService: PlayerApiService) {
+    this.players$ = playerApiService.getAllPlayers();
   }
 
   ngOnInit() {

@@ -13,7 +13,7 @@ import {plainToClass, classToPlain} from 'class-transformer';
 })
 export class GameApiService {
   private gameId: string;
-  playerName: string;
+  private playerName: string;
   gameInstance: TgGame;
   gameReference: AngularFirestoreDocument;
   game: Observable<TgGame>;
@@ -25,6 +25,7 @@ export class GameApiService {
   getGame(): Observable<TgGame> {
     return this.game;
   }
+
   generateRandomGame() {
     return this.db.collection('games').add({});
   }
@@ -69,6 +70,10 @@ export class GameApiService {
 
   setPlayerName(value) {
     this.playerName = value;
+  }
+
+  getPlayerName() {
+    return this.playerName;
   }
 
   addPlayer(playerName) {
