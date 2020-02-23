@@ -38,6 +38,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import {MurdererSelectDialogComponent} from './core/game/murderer-select-dialog/murderer-select-dialog.component';
 import {TestComponent} from './test/test.component';
+import 'firebase/firestore';
 
 @NgModule({
   declarations: [
