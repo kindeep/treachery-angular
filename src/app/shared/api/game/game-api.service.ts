@@ -7,6 +7,7 @@ const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
 import {firestore} from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 import {plainToClass, classToPlain} from 'class-transformer';
+import {getPlainObject} from '../models/util';
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +82,7 @@ export class GameApiService {
   }
 
   addPlayer(playerName) {
-    const newPlayer = this.getPlainObject(new DefaultTgPlayer());
+    const newPlayer = getPlainObject(new DefaultTgPlayer());
     newPlayer.playerName = playerName;
     this.db.firestore
       .runTransaction(transaction =>
@@ -99,9 +100,4 @@ export class GameApiService {
       .catch(error => console.log('Player transaction failed: ', error));
   }
 
-  getPlainObject(obj) {
-    const result = Object.assign({}, obj);
-    console.log(result);
-    return result;
-  }
 }

@@ -30,7 +30,7 @@ import {RippleMatCardComponent} from './shared/ripple-mat-card/ripple-mat-card.c
 import {InvestigatorComponent} from './core/game/investigator/investigator.component';
 import {PlayerDeckComponent} from './core/game/player-deck/player-deck.component';
 import {ForensicDeckComponent} from './core/forensic/forensic-deck/forensic-deck.component';
-import {ChatComponent} from './core/chat/chat.component';
+import {ChatComponent} from './shared/chat/chat.component';
 import {PlayerDeckPagerComponent} from './core/game/player-deck-pager/player-deck-pager.component';
 import {GuessComponent} from './core/game/guess/guess.component';
 import {ForensicCardComponent} from './core/forensic/forensic-card/forensic-card.component';

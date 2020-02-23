@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyACTJoK2G2o4kAITrsqPwzthnCUR1zRMYg',
-    authDomain: 'treachery-e01b2.firebaseapp.com',
-    databaseURL: 'https://treachery-e01b2.firebaseio.com',
-    projectId: 'treachery-e01b2',
-    storageBucket: 'treachery-e01b2.appspot.com',
-    messagingSenderId: '146942732721',
-    appId: '1:146942732721:web:b596d4b727e707d01e3590',
-    measurementId: 'G-MD984QF211'
+    apiKey: 'AIzaSyCueIewpKToHjMcRgnmQYx2ThQjeO-tnHg',
+    authDomain: 'treachery2-871c6.firebaseapp.com',
+    databaseURL: 'https://treachery2-871c6.firebaseio.com',
+    projectId: 'treachery2-871c6',
+    storageBucket: 'treachery2-871c6.appspot.com',
+    messagingSenderId: '503179684249',
+    appId: '1:503179684249:web:eabd8e21823373899c0b08',
+    measurementId: 'G-WRVFMCCYEQ'
   }
 };
 /*
