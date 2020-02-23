@@ -2,14 +2,17 @@ import {Injectable} from '@angular/core';
 import {GameApiService} from '../game/game-api.service';
 import {map, take} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {TgCard, TgPlayer} from '../models/models';
+import {DefaultTgPlayer, TgCard, TgGame, TgGuess, TgPlayer} from '../models/models';
+import {getPlainObject, randomUuid} from '../util';
+import {classToPlain} from 'class-transformer';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerApiService {
 
-  constructor(private gameApiService: GameApiService) {
+  constructor(private gameApiService: GameApiService, private db: AngularFirestore) {
   }
 
   getPlayer(playerName: string): Observable<TgPlayer> {
@@ -42,17 +45,20 @@ export class PlayerApiService {
     });
   }
 
-  makeGuess(clueCardName: string, meansCardName: string) {
+  makeGuess(guess: TgGuess) {
     // TODO: figure out how to return a promise instead of logging
+    const gameRef = this.gameApiService.getCurrentGameDoc().ref;
     this.getCurrentPlayer().pipe(take(1)).subscribe(player => {
-      const clueCard = player.clueCards.find(card => card.name === clueCardName);
-      const meansCard = player.meansCards.find(card => card.name === meansCardName);
-      this.gameApiService.getCurrentGameDoc().update({murdererClueCard: clueCard, murdererMeansCard: meansCard}).then(() => {
-        console.log('Murder Successful!');
-      }).catch((e) => {
-        console.error('Murder failed');
-        console.error(e);
-      });
+      this.db.firestore
+        .runTransaction(transaction =>
+          transaction.get(gameRef).then(gameSnapshot => {
+            const game: TgGame = gameSnapshot.data() as TgGame;
+            game.guesses.push(getPlainObject(guess));
+            transaction.update(gameRef, {players: classToPlain(game.players)});
+          })
+        )
+        .then(() => console.log('Guess transaction successfully committed!'))
+        .catch(error => console.log('Guess transaction failed: ', error));
     });
   }
 }

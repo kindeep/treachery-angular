@@ -1,5 +1,4 @@
-import {TgCard, TgPlayer} from '../../../shared/api/models/models';
-import {GameApiService} from '../../../shared/api/game/game-api.service';
+import {TgCard, TgGuess, TgPlayer} from '../../../shared/api/models/models';
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PlayerApiService} from '../../../shared/api/player/player-api.service';
@@ -10,17 +9,34 @@ import {PlayerApiService} from '../../../shared/api/player/player-api.service';
   styleUrls: ['./player-deck-pager.component.scss']
 })
 export class PlayerDeckPagerComponent implements OnInit {
-  @Input() disableSelection = false;
   players$: Observable<TgPlayer[]>;
-  @Input() selectedMeans: string;
-  @Output() selectedMeansChange: EventEmitter<string> = new EventEmitter<string>();
-  @Input() selectedClue: string;
-  @Output() selectedClueChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input() guess: TgGuess;
+  selectedClue: string;
+  selectedMeans: string;
 
   constructor(playerApiService: PlayerApiService) {
     this.players$ = playerApiService.getAllPlayers();
   }
 
   ngOnInit() {
+  }
+
+
+  handleClueChange(player: TgPlayer) {
+    this.guess.guessedPlayer = player.playerName;
+    if (!player.meansCards.some(card => card.name = this.selectedMeans)) {
+      this.selectedMeans = null;
+    }
+    this.guess.meansCard = this.selectedMeans;
+    this.guess.clueCard = this.selectedClue;
+  }
+
+  handleMeansChange(player: TgPlayer) {
+    this.guess.guessedPlayer = player.playerName;
+    if (!player.clueCards.some(card => card.name = this.selectedClue)) {
+      this.selectedClue = null;
+    }
+    this.guess.meansCard = this.selectedMeans;
+    this.guess.clueCard = this.selectedClue;
   }
 }

@@ -30,11 +30,11 @@ export class DefaultCardSnapshot implements TgCard {
 }
 
 export interface TgGuess {
+  id: string;
   clueCard: string;
+  meansCard: string;
   guessedPlayer: string;
   guesserPlayer: string;
-  id: string;
-  meansCard: string;
   processed: boolean;
 }
 

@@ -1,12 +1,12 @@
 <div class="flex-horizontal" style="padding: 4px;">
   <div class="fill-remaining-space">
-    <div><b>Player:</b></div>
-    <div><b>Means card:</b></div>
-    <div><b>Clue Card:</b></div>
+    <div><b>Player:</b>{{guess.guessedPlayer}}</div>
+    <div><b>Means card:</b>{{guess.meansCard}}</div>
+    <div><b>Clue Card:</b>{{guess.clueCard}}</div>
   </div>
   <div class="flex-vertical">
     <span class="fill-remaining-space"></span>
-    <button mat-raised-button color="accent">Make Guess</button>
+    <button mat-raised-button color="accent" (click)="makeGuess()">Make Guess</button>
     <span class="fill-remaining-space"></span>
   </div>
 </div>

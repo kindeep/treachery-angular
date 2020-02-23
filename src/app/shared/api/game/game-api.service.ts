@@ -7,7 +7,7 @@ const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
 import {firestore} from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 import {plainToClass, classToPlain} from 'class-transformer';
-import {getPlainObject} from '../models/util';
+import {getPlainObject} from '../util';
 
 @Injectable({
   providedIn: 'root'
