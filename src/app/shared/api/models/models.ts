@@ -1,85 +1,90 @@
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
-export interface ForensicCardSnapshot {
+export interface TgForensicCard {
   cardName: string;
   choices: string[];
   selected: boolean;
   selectedChoice: number;
 }
 
-export class SampleForensicCardSnapshot implements ForensicCardSnapshot {
+export class SampleForensicCardSnapshot implements TgForensicCard {
   cardName = 'Ho Ho Ho';
   choices = ['Umm', 'sure', 'ok?'];
   selected = false;
   selectedChoice = 2;
 }
 
-export interface CardSnapshot {
+export interface TgCard {
   altImgUrl: string;
   guessedBy: string[];
   imgUrl: string;
   name: string;
 }
 
-export class DefaultCardSnapshot implements CardSnapshot {
+export class DefaultCardSnapshot implements TgCard {
   altImgUrl = 'https://picsum.photos/800';
   guessedBy: string[] = [];
   imgUrl = 'https://picsum.photos/800';
   name = 'Loading...';
 }
 
-export interface GuessSnapshot {
+export interface TgGuess {
+  id: string;
   clueCard: string;
+  meansCard: string;
   guessedPlayer: string;
   guesserPlayer: string;
-  id: string;
-  meansCard: string;
   processed: boolean;
 }
 
-export interface PlayerSnapshot {
+export interface TgPlayer {
   playerName: string;
-  clueCards: CardSnapshot[];
-  meansCards: CardSnapshot[];
+  clueCards: TgCard[];
+  meansCards: TgCard[];
   guessed: boolean;
 }
 
-export class DefaultPlayerSnapshot implements PlayerSnapshot {
+export class DefaultTgPlayer implements TgPlayer {
   playerName = 'Loading...';
   clueCards: DefaultCardSnapshot[] = [];
   meansCards: DefaultCardSnapshot[] = [];
   guessed = false;
 }
 
-export interface MessageSnapshot {
+export enum TgMessageType {
+  ONE,
+  TWO,
+}
+
+export interface TgMessage {
   playerName: string;
   message: string;
   timestamp: Timestamp;
-  type: number;
+  type: TgMessageType;
 }
 
-export interface GameInstanceSnapshot {
-  causeCard: ForensicCardSnapshot;
+export interface TgGame {
+  causeCard: TgForensicCard;
   causeCardDefined: boolean;
-  correctGuess: GuessSnapshot;
+  correctGuess: TgGuess;
   correctlyGuessed: boolean;
   createdTimestamp: Timestamp;
   expiredTimestamp: Timestamp;
   startedTimestamp: Timestamp;
   gameId: string;
-  guesses: GuessSnapshot[];
+  guesses: TgGuess[];
   guessesExpired: boolean;
-  locationCard: ForensicCardSnapshot;
+  locationCard: TgForensicCard;
   locationCardDefined: boolean;
-  messages: MessageSnapshot[];
+  messages: TgMessage[];
   murdererCardsDetermined: boolean;
-  murdererClueCard: CardSnapshot;
-  murdererMeansCard: CardSnapshot;
+  murdererClueCard: TgCard;
+  murdererMeansCard: TgCard;
   murdererName: string;
   murdererSelected: boolean;
-  otherCards: ForensicCardSnapshot[];
-  players: PlayerSnapshot[];
+  otherCards: TgForensicCard[];
+  players: TgPlayer[];
   snapshotVersion: string;
   started: false;
 }

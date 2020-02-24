@@ -1,5 +1,5 @@
 import { GameApiService } from '../../../shared/api/game/game-api.service';
-import { PlayerSnapshot, GameInstanceSnapshot } from '../../../shared/api/firebase/GameSnapshot';
+import { TgPlayer, TgGame } from '../../../shared/api/models/models';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -10,9 +10,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class JoinedPlayersListComponent implements OnInit {
   @Input() gameId: string;
 
-  players: PlayerSnapshot[];
+  players: TgPlayer[];
   gameDoc: any;
-  gameInstance: GameInstanceSnapshot;
+  gameInstance: TgGame;
   constructor(private gameApi: GameApiService) {}
 
   ngOnInit() {

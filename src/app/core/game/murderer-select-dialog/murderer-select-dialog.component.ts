@@ -1,6 +1,9 @@
-import { GameApiService } from '../../../shared/api/game/game-api.service';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import {GameApiService} from '../../../shared/api/game/game-api.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {PlayerApiService} from '../../../shared/api/player/player-api.service';
+import {TgCard, TgPlayer} from '../../../shared/api/models/models';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-murderer-select-dialog',
@@ -8,13 +11,24 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./murderer-select-dialog.component.scss']
 })
 export class MurdererSelectDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<MurdererSelectDialogComponent>, public gameApi: GameApiService) {}
+  @Input() player$: Observable<TgPlayer>;
+  selectedClue: string;
+  selectedMeans: string;
 
-  onClueSelect(cardName: string) {}
+  constructor(
+    public dialogRef: MatDialogRef<MurdererSelectDialogComponent>,
+    private playerApiService: PlayerApiService
+  ) {
+    this.player$ = playerApiService.getCurrentPlayer();
+  }
 
-  onMeansSelect(cardName: string) {}
+  ngOnInit() {
+  }
 
-  ngOnInit() {}
+  selectCards() {
+    this.playerApiService.selectMurdererCards(this.selectedClue, this.selectedMeans);
+    this.closeDialog();
+  }
 
   closeDialog() {
     this.dialogRef.close();

@@ -15,7 +15,7 @@ export class ForensicComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      this.gameId = routeParams['gameId'];
+      this.gameId = routeParams.gameId;
     });
   }
 

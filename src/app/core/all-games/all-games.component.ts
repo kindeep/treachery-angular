@@ -1,4 +1,4 @@
-import { GameInstanceSnapshot } from '../../shared/api/firebase/GameSnapshot';
+import { TgGame } from '../../shared/api/models/models';
 import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./all-games.component.scss']
 })
 export class AllGamesComponent implements OnInit {
-  games: Observable<GameInstanceSnapshot[]>;
+  games: Observable<TgGame[]>;
   empty: boolean;
   loading: boolean;
   gamesCollection: any;
@@ -17,7 +17,7 @@ export class AllGamesComponent implements OnInit {
     this.loading = true;
     this.empty = false;
     const query = this.cardApi.activeGamesQuery();
-    this.games = query.valueChanges();
+    this.games = query.valueChanges() as Observable<TgGame[]>;
     this.games.forEach(el => {
       console.log(el);
     });

@@ -1,38 +1,28 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
-const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 100;
-import { firestore } from 'firebase/app';
-import Timestamp = firestore.Timestamp;
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AngularFirestore} from '@angular/fire/firestore';
+
+import {GameApiService} from '../game/game-api.service';
+import {TgCard} from '../models/models';
+import {map} from 'rxjs/operators';
+import {PlayerApiService} from '../player/player-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardApiService {
-  db;
-  constructor(db: AngularFirestore) {
-    this.db = db;
+  constructor(private db: AngularFirestore, private gameApiService: GameApiService, private playerApiService: PlayerApiService) {
   }
 
-  generateRandomGame() {
-    return this.db.collection('games').add({});
+  getMeansCards(playerName: string): Observable<TgCard[]> {
+    return this.playerApiService.getPlayer(playerName).pipe(map(player => {
+      return player.meansCards;
+    })) as Observable<TgCard[]>;
   }
 
-  getGameDoc(gameId: string) {
-    return this.db.collection('games').doc(gameId);
-  }
-
-  activeGamesQuery(callback) {
-    const currTime = new Date().getTime(); // current Time in seconds
-    const expiredCreation = new Date(currTime - GAME_COMPLETE_EXPIRE_TIME);
-    this.db.collection('games', query => {
-      console.log(query);
-      query = query
-        .where('started', '==', false)
-        .orderBy('createdTimestamp', 'desc')
-        .where('createdTimestamp', '>', expiredCreation);
-      console.log(query);
-      callback(query);
-    });
+  getClueCards(playerName: string): Observable<TgCard[]> {
+    return this.playerApiService.getPlayer(playerName).pipe(map(player => {
+      return player.clueCards;
+    })) as Observable<TgCard[]>;
   }
 }

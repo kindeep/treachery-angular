@@ -11,7 +11,8 @@
     "lint:fix": "tslint --project . --fix",
     "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
     "format:fix": "prettier --config ./.prettierrc --list-different --write \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
-    "fixey": "lint:fix && format:fix"
+    "fixey": "npm run lint:fix && npm run format:fix",
+    "deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +21,7 @@
     "@angular/common": "~9.0.1",
     "@angular/compiler": "~9.0.1",
     "@angular/core": "~9.0.1",
-    "@angular/fire": "^5.2.3",
+    "@angular/fire": "^6.0.0-rc.1",
     "@angular/forms": "~9.0.1",
     "@angular/material": "^9.0.0",
     "@angular/platform-browser": "~9.0.1",
@@ -32,6 +33,7 @@
     "hammerjs": "^2.0.8",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "uuid": "^3.4.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
