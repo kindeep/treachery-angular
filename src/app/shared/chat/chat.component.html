@@ -1,1 +1,5 @@
 <p>chat works!</p>
+<app-ripple-mat-card *ngFor="let message of messages$ | async">
+  <mat-card-content>{{message.playerName}}</mat-card-content>
+  <mat-card-content>{{message.message}}</mat-card-content>
+</app-ripple-mat-card>

@@ -52,11 +52,16 @@ export class DefaultTgPlayer implements TgPlayer {
   guessed = false;
 }
 
+export enum TgMessageType {
+  ONE,
+  TWO,
+}
+
 export interface TgMessage {
   playerName: string;
   message: string;
   timestamp: Timestamp;
-  type: number;
+  type: TgMessageType;
 }
 
 export interface TgGame {

@@ -1,8 +1,6 @@
-import {GameInstanceService} from './shared/api/game-instance/game-instance.service';
 import {GameApiService} from './shared/api/game/game-api.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -60,7 +58,7 @@ import 'firebase/firestore';
     GuessComponent,
     ForensicCardComponent,
     MurdererSelectDialogComponent,
-    TestComponent
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +79,7 @@ import 'firebase/firestore';
     MatDialogModule,
     MatCardModule
   ],
-  providers: [GameApiService, GameInstanceService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  providers: [GameApiService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],
   entryComponents: [MurdererSelectDialogComponent]
 })

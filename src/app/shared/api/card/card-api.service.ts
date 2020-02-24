@@ -2,9 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 
-const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 100;
-import {firestore} from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 import {GameApiService} from '../game/game-api.service';
 import {TgCard} from '../models/models';
 import {map} from 'rxjs/operators';

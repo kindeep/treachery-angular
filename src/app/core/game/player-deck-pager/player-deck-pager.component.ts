@@ -24,7 +24,7 @@ export class PlayerDeckPagerComponent implements OnInit {
 
   handleClueChange(player: TgPlayer) {
     this.guess.guessedPlayer = player.playerName;
-    if (!player.meansCards.some(card => card.name = this.selectedMeans)) {
+    if (!player.meansCards.some(card => card.name === this.selectedMeans)) {
       this.selectedMeans = null;
     }
     this.guess.meansCard = this.selectedMeans;
@@ -33,7 +33,7 @@ export class PlayerDeckPagerComponent implements OnInit {
 
   handleMeansChange(player: TgPlayer) {
     this.guess.guessedPlayer = player.playerName;
-    if (!player.clueCards.some(card => card.name = this.selectedClue)) {
+    if (!player.clueCards.some(card => card.name === this.selectedClue)) {
       this.selectedClue = null;
     }
     this.guess.meansCard = this.selectedMeans;

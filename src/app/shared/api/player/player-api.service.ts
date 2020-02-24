@@ -2,17 +2,18 @@ import {Injectable} from '@angular/core';
 import {GameApiService} from '../game/game-api.service';
 import {map, take} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {DefaultTgPlayer, TgCard, TgGame, TgGuess, TgPlayer} from '../models/models';
-import {getPlainObject, randomUuid} from '../util';
+import {TgGame, TgGuess, TgPlayer} from '../models/models';
+import {getPlainObject} from '../util';
 import {classToPlain} from 'class-transformer';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {ChatApiService} from '../chat/chat-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerApiService {
 
-  constructor(private gameApiService: GameApiService, private db: AngularFirestore) {
+  constructor(private gameApiService: GameApiService, private db: AngularFirestore, private chatApi: ChatApiService) {
   }
 
   getPlayer(playerName: string): Observable<TgPlayer> {
@@ -46,7 +47,6 @@ export class PlayerApiService {
   }
 
   makeGuess(guess: TgGuess) {
-    // TODO: figure out how to return a promise instead of logging
     const gameRef = this.gameApiService.getCurrentGameDoc().ref;
     this.getCurrentPlayer().pipe(take(1)).subscribe(player => {
       this.db.firestore
@@ -57,7 +57,10 @@ export class PlayerApiService {
             transaction.update(gameRef, {players: classToPlain(game.players)});
           })
         )
-        .then(() => console.log('Guess transaction successfully committed!'))
+        .then(() => {
+          this.chatApi.sendGuessedMessage(guess);
+          console.log('Guess transaction successfully committed!');
+        })
         .catch(error => console.log('Guess transaction failed: ', error));
     });
   }
