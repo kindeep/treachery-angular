@@ -1,8 +1,6 @@
-import {GameInstanceService} from './shared/api/game-instance/game-instance.service';
 import {GameApiService} from './shared/api/game/game-api.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -30,7 +28,7 @@ import {RippleMatCardComponent} from './shared/ripple-mat-card/ripple-mat-card.c
 import {InvestigatorComponent} from './core/game/investigator/investigator.component';
 import {PlayerDeckComponent} from './core/game/player-deck/player-deck.component';
 import {ForensicDeckComponent} from './core/forensic/forensic-deck/forensic-deck.component';
-import {ChatComponent} from './core/chat/chat.component';
+import {ChatComponent} from './shared/chat/chat.component';
 import {PlayerDeckPagerComponent} from './core/game/player-deck-pager/player-deck-pager.component';
 import {GuessComponent} from './core/game/guess/guess.component';
 import {ForensicCardComponent} from './core/forensic/forensic-card/forensic-card.component';
@@ -38,6 +36,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import {MurdererSelectDialogComponent} from './core/game/murderer-select-dialog/murderer-select-dialog.component';
 import {TestComponent} from './test/test.component';
+import 'firebase/firestore';
 
 @NgModule({
   declarations: [
@@ -59,7 +58,7 @@ import {TestComponent} from './test/test.component';
     GuessComponent,
     ForensicCardComponent,
     MurdererSelectDialogComponent,
-    TestComponent
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +79,7 @@ import {TestComponent} from './test/test.component';
     MatDialogModule,
     MatCardModule
   ],
-  providers: [GameApiService, GameInstanceService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  providers: [GameApiService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],
   entryComponents: [MurdererSelectDialogComponent]
 })

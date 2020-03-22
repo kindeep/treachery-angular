@@ -6,10 +6,9 @@
     >
       <app-player-deck
         [(selectedClue)]="selectedClue"
-        (selectedClueChange)="selectedClueChange.emit($event)"
+        (selectedClueChange)="handleClueChange(player)"
         [(selectedMeans)]="selectedMeans"
-        (selectedMeansChange)="selectedMeansChange.emit($event)"
-        [disableSelection]="disableSelection"
+        (selectedMeansChange)="handleMeansChange(player)"
         [player]="player"
       ></app-player-deck>
     </div>

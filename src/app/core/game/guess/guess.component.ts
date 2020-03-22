@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {PlayerApiService} from '../../../shared/api/player/player-api.service';
+import {TgGuess} from '../../../shared/api/models/models';
 
 @Component({
   selector: 'app-guess',
@@ -6,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./guess.component.scss']
 })
 export class GuessComponent implements OnInit {
-  constructor() {}
+  @Input() guess: TgGuess;
 
-  ngOnInit() {}
+  constructor(private  playerApi: PlayerApiService) {
+  }
+
+  ngOnInit() {
+  }
+
+  makeGuess() {
+    this.playerApi.makeGuess(this.guess);
+  }
+
 }

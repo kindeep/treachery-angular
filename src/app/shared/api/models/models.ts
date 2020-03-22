@@ -30,11 +30,11 @@ export class DefaultCardSnapshot implements TgCard {
 }
 
 export interface TgGuess {
+  id: string;
   clueCard: string;
+  meansCard: string;
   guessedPlayer: string;
   guesserPlayer: string;
-  id: string;
-  meansCard: string;
   processed: boolean;
 }
 
@@ -52,11 +52,16 @@ export class DefaultTgPlayer implements TgPlayer {
   guessed = false;
 }
 
+export enum TgMessageType {
+  ONE,
+  TWO,
+}
+
 export interface TgMessage {
   playerName: string;
   message: string;
   timestamp: Timestamp;
-  type: number;
+  type: TgMessageType;
 }
 
 export interface TgGame {
