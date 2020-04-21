@@ -1,11 +1,10 @@
 import {TgGame, TgForensicCard, DefaultTgPlayer} from '../models/models';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {AngularFirestore, AngularFirestoreDocument, DocumentReference} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
 import {firestore} from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 import {plainToClass, classToPlain} from 'class-transformer';
 import {getPlainObject} from '../util';
 

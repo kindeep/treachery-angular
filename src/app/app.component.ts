@@ -1,12 +1,20 @@
+import { AuthService } from './core/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'deceptiongame';
-  constructor() {}
+  constructor(public authService: AuthService ) { }
+
+  ngOnInit() {
+    this.authService.anonymousLogin();
+  }
+  
 }

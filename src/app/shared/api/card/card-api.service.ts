@@ -1,28 +1,34 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {AngularFirestore} from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-import {GameApiService} from '../game/game-api.service';
-import {TgCard} from '../models/models';
-import {map} from 'rxjs/operators';
-import {PlayerApiService} from '../player/player-api.service';
+import { GameApiService } from '../game/game-api.service';
+import { TgCard } from '../models/models';
+import { map } from 'rxjs/operators';
+import { PlayerApiService } from '../player/player-api.service';
+import { getObservableInstance } from '../util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardApiService {
-  constructor(private db: AngularFirestore, private gameApiService: GameApiService, private playerApiService: PlayerApiService) {
+  private cardsDocument: AngularFirestoreDocument<any>;
+  private cards;
+
+  constructor(private db: AngularFirestore) {
+    this.cardsDocument = db.collection('resources').doc('cards');
+    this.initCards();
   }
 
-  getMeansCards(playerName: string): Observable<TgCard[]> {
-    return this.playerApiService.getPlayer(playerName).pipe(map(player => {
-      return player.meansCards;
-    })) as Observable<TgCard[]>;
+  initCards = async () => {
+    this.cards = await getObservableInstance(this.cardsDocument.valueChanges());
   }
 
-  getClueCards(playerName: string): Observable<TgCard[]> {
-    return this.playerApiService.getPlayer(playerName).pipe(map(player => {
-      return player.clueCards;
-    })) as Observable<TgCard[]>;
+  getMeansCards(): TgCard[] {
+    return this.cards.meansCards;
+  }
+
+  getClueCards(): TgCard[] {
+    return this.cards.clueCards;
   }
 }

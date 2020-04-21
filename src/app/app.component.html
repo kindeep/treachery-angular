@@ -4,6 +4,14 @@
       <span>Treachery</span>
     </mat-toolbar-row>
   </mat-toolbar>
+  <div>
+    <div *ngIf="authService.user$ | async as user; else showLogin">
+      <pre>Hello {{ user | json }}!</pre>
+    </div>
+    <ng-template #showLogin>
+      <p>Not logged in...</p>
+    </ng-template>
+  </div>
   <div class="app-router fill-remaining-space">
     <router-outlet></router-outlet>
   </div>

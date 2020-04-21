@@ -1,3 +1,4 @@
+import { CreateGameComponent } from './core/create-game/create-game.component';
 import { TestComponent } from './test/test.component';
 import { InvestigatorComponent } from './core/game/investigator/investigator.component';
 import { JoinGameComponent } from './core/join-game/join-game.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'games/:gameId', component: GameComponent },
   { path: 'forensic/:gameId', component: ForensicComponent },
   { path: 'join/:gameId', component: JoinGameComponent },
+  { path: 'create', component: CreateGameComponent },
   { path: '', component: AllGamesComponent },
   { path: 'play', component: GameComponent },
   { path: 'test', component: TestComponent }
