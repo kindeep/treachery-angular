@@ -66,25 +66,17 @@ export interface TgMessage {
 
 export interface TgGame {
   causeCard: TgForensicCard;
-  causeCardDefined: boolean;
-  correctGuess: TgGuess;
-  correctlyGuessed: boolean;
-  createdTimestamp: Timestamp;
-  expiredTimestamp: Timestamp;
-  startedTimestamp: Timestamp;
-  gameId: string;
-  guesses: TgGuess[];
-  guessesExpired: boolean;
   locationCard: TgForensicCard;
-  locationCardDefined: boolean;
-  messages: TgMessage[];
+  otherCards: TgForensicCard[];
+  gameId: string;
+  createdTimestamp: Timestamp;
+  startedTimestamp: Timestamp;
+  guesses: TgGuess[];
+  murdererSelected: boolean;
   murdererCardsDetermined: boolean;
   murdererClueCard: TgCard;
   murdererMeansCard: TgCard;
   murdererName: string;
-  murdererSelected: boolean;
-  otherCards: TgForensicCard[];
   players: TgPlayer[];
-  snapshotVersion: string;
   started: false;
 }

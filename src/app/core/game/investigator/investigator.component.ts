@@ -19,7 +19,7 @@ export class InvestigatorComponent implements OnInit {
   } as TgGuess;
 
   constructor(private ga: GameApiService, private playerApiService: PlayerApiService) {
-    this.gameInstance$ = ga.gameReference.valueChanges() as Observable<TgGame>;
+    this.gameInstance$ = ga.gameDocument.valueChanges() as Observable<TgGame>;
     this.player$ = playerApiService.getCurrentPlayer();
     this.player$.subscribe(pl => {
       this.guess.guesserPlayer = pl.playerName;

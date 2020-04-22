@@ -12,7 +12,7 @@ export class ChatComponent implements OnInit {
   messages$: Observable<TgMessage[]>;
 
   constructor(private chatApi: ChatApiService) {
-    this.messages$ = chatApi.getMessages();
+    // this.messages$ = chatApi.getMessages();
   }
 
   ngOnInit() {

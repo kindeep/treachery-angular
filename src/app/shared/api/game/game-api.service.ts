@@ -1,12 +1,13 @@
-import {TgGame, TgForensicCard, DefaultTgPlayer} from '../models/models';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import { AuthService } from './../../../core/auth.service';
+import { TgGame, TgForensicCard, DefaultTgPlayer } from '../models/models';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
-import {firestore} from 'firebase/app';
-import {plainToClass, classToPlain} from 'class-transformer';
-import {getPlainObject} from '../util';
+import { firestore } from 'firebase/app';
+import { plainToClass, classToPlain } from 'class-transformer';
+import { getPlainObject } from '../util';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,15 @@ export class GameApiService {
   private gameId: string;
   private playerName: string;
   gameInstance: TgGame;
-  gameReference: AngularFirestoreDocument;
+  gameDocument: AngularFirestoreDocument;
   game: Observable<TgGame>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private auth: AuthService) {
     this.gameId = null;
   }
 
   getGame(): Observable<TgGame> {
     return this.game;
-  }
-
-  generateRandomGame() {
-    return this.db.collection('games').add({});
   }
 
   getGameDoc(gameId: string): AngularFirestoreDocument {
@@ -42,26 +39,21 @@ export class GameApiService {
     const currTime = new Date().getTime(); // current Time in seconds
     const expiredCreation = new Date(currTime - GAME_COMPLETE_EXPIRE_TIME);
     console.log(`Expired creation: ${expiredCreation} ${expiredCreation.getTime()}`);
-    return this.db.collection('games', ref =>
-      ref
-        .where('started', '==', false)
-        .orderBy('createdTimestamp', 'desc')
-        .where('createdTimestamp', '>', expiredCreation)
-    );
+    return this.db.collection('games');
   }
 
   setGameId(gameId) {
     if (this.gameId !== gameId) {
       this.gameId = gameId;
       console.log(`Set game id to: ${this.gameId}`);
-      this.gameReference = this.getGameDoc(this.gameId);
-      this.game = this.gameReference.valueChanges() as Observable<TgGame>;
+      this.gameDocument = this.getGameDoc(this.gameId);
+      this.game = this.gameDocument.valueChanges() as Observable<TgGame>;
       // this.gameInstance = gameDoc.valueChanges();
-      this.gameReference.ref.get().then(snapshot => {
+      this.gameDocument.ref.get().then(snapshot => {
         this.gameInstance = snapshot.data() as TgGame;
         console.log('Game api instance set');
       });
-      this.gameReference.ref.onSnapshot(snapshot => {
+      this.gameDocument.ref.onSnapshot(snapshot => {
         this.gameInstance = snapshot.data() as TgGame;
         console.log('Game api instance update');
       });
@@ -86,16 +78,19 @@ export class GameApiService {
     this.db.firestore
       .runTransaction(transaction =>
         // This code may get re-run multiple times if there are conflicts.
-        transaction.get(this.gameReference.ref).then(sfDoc => {
+        transaction.get(this.gameDocument.ref).then(sfDoc => {
           // const newPopulation = sfDoc.data().population + 1;
           const gameInstance: TgGame = sfDoc.data() as TgGame;
           console.log(gameInstance.players);
           gameInstance.players.push(newPlayer);
           console.log(gameInstance.players);
-          transaction.update(this.gameReference.ref, {players: classToPlain(gameInstance.players)});
+          transaction.update(this.gameDocument.ref, { players: classToPlain(gameInstance.players) });
         })
       )
-      .then(() => console.log('Player transaction successfully committed!'))
+      .then(() => {
+        this.gameDocument.collection('users').doc(this.auth.user.uid).set({});
+        console.log('Player transaction successfully committed!');
+      })
       .catch(error => console.log('Player transaction failed: ', error));
   }
 

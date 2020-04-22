@@ -58,7 +58,7 @@ export class PlayerApiService {
           })
         )
         .then(() => {
-          this.chatApi.sendGuessedMessage(guess);
+          // this.chatApi.sendGuessedMessage(guess);
           console.log('Guess transaction successfully committed!');
         })
         .catch(error => console.log('Guess transaction failed: ', error));

@@ -1,21 +1,11 @@
-<mat-card
-  style="padding: 0;"
-  [routerLink]="['/join', gameId]"
-  routerLinkActive="active"
->
+<mat-card style="padding: 0;" [routerLink]="['/join', game.gameId]" routerLinkActive="active">
   <!-- adding mat ripple to mat card has a bug, mat card resizes on click, workaround -->
-  <mat-card-content
-    matRipple
-    style="margin: 0; padding: 16px; border-radius: 4px;"
-  >
-    <div><b>Game ID:</b> {{ gameId }}</div>
+  <mat-card-content matRipple style="margin: 0; padding: 16px; border-radius: 4px;">
+    <div>{{ game | json }}</div>
+    <div><b>Game ID:</b> {{ game.gameId }}</div>
     <div>
       <b>Created Time:</b>
-      {{
-        (game ? game.createdTimestamp.toDate() : "")
-          | date: "yyyy-mm-dd hh:mm a"
-      }}
+      {{ (game ? game.createdTimestamp.toDate() : '') | date: 'yyyy-mm-dd hh:mm a' }}
     </div>
-    <div><b>Joined Players:</b> {{ game ? game.players.length : "" }}</div>
   </mat-card-content>
 </mat-card>

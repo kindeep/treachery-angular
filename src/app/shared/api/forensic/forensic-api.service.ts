@@ -4,6 +4,7 @@ import { AuthService } from './../../../core/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { EMPTY, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,23 @@ import { EMPTY, Observable } from 'rxjs';
 export class ForensicApiService {
   public gameDoc: Observable<any> = EMPTY;
   public forensicDataDoc: Observable<any> = EMPTY;
-
-  constructor(private db: AngularFirestore, private authService: AuthService, private cardApi: CardApiService) {
+  gameId: string;
+  constructor(private db: AngularFirestore, private authService: AuthService, private cardApi: CardApiService, private router: Router) {
   }
 
   createGame() {
-    const gameDoc = this.db.collection('games').doc(randomReadableId());
+    this.gameId = randomReadableId();
+    const gameDoc = this.db.collection('games').doc(this.gameId);
+    gameDoc.set({ creatorUid: this.authService.user.uid, gameId: this.gameId, createdTimestamp: new Date(), players: [] });
     const forensicDataDoc = gameDoc.collection('users').doc(this.authService.user.uid);
+    this.router.navigateByUrl(`/forensic/${this.gameId}`);
+
     // const clueCards  = this.cardApi.getClueCards();
     // const meansCards = this.cardApi.getMeansCards();
     // forensicDataDoc.set({ 'noice': 'ok' });
+  }
+
+  startGame() {
+    // distribute cards, select murderer
   }
 }
