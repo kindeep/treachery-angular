@@ -13,6 +13,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireFunctionsModule} from '@angular/fire/functions';
 import {environment} from '../environments/environment';
 import {ForensicComponent} from './core/forensic/forensic.component';
 import {AllGamesComponent} from './core/all-games/all-games.component';
@@ -74,6 +75,7 @@ import { CreateGameComponent } from './core/create-game/create-game.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     MatProgressSpinnerModule,
     MatRippleModule,
     MatInputModule,
