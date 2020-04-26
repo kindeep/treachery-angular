@@ -28,7 +28,24 @@ interface Card {
     name: string;
 }
 
-function deepCopy(obj: any) {
+interface ForensicPrivateData {
+    murdererUid: string;
+    murdererMeansCardName: string;
+    murdererClueCardName: string;
+}
+
+interface Player {
+    uid: string;
+    name: string;
+    clueCards: Card[];
+    meansCards: Card[];
+}
+
+interface Game {
+    players: Player[];
+}
+
+function deepCopy<E>(obj: E): E {
     return JSON.parse(JSON.stringify(obj));
 }
 
@@ -126,22 +143,6 @@ async function _selectMurdererCards(gameId: string, murdererUid: string, clueCar
     await gameDoc.set({ murdererCardsSelected: true }, { merge: true })
 }
 
-interface ForensicPrivateData {
-    murdererUid: string;
-    murdererMeansCardName: string;
-    murdererClueCardName: string;
-}
-
-interface Player {
-    uid: string;
-    clueCards: Card[];
-    meansCards: Card[];
-}
-
-interface Game {
-    players: Player[];
-}
-
 async function startGameTimer(gameId: string) {
     const gameDoc = db.collection('games').doc(gameId);
     const users = gameDoc.collection('users');
@@ -197,6 +198,14 @@ async function startGameTimer(gameId: string) {
     setTimeout(() => { }, 1000 * 270)
 }
 
+async function _addPlayer(gameId: string, playerUid: string, playerName: string) {
+    const gameDoc = db.collection('games').doc(gameId);
+    const game = (await gameDoc.get()).data() as Game;
+    const players = deepCopy(game.players);
+    players.push({ uid: playerUid, name: playerName } as Player)
+    await gameDoc.set({ players }, { merge: true })
+}
+
 exports.createGame = functions.https.onCall(async ({ gameId }, context) => {
     // Message text passed from the client.
     // const text = data.text;
@@ -239,10 +248,9 @@ exports.startGame = functions.https.onCall(async ({ gameId }, context) => {
     }
 });
 
-exports.addPlayer = functions.https.onCall(async (data, context) => {
+exports.addPlayer = functions.https.onCall(async ({ gameId, playerName }, context) => {
     // Message text passed from the client.
     // const text = data.text;
-    console.log(data);
     if (context && context.auth) {
         // Authentication / user information is automatically added to the request.
         const uid = context.auth.uid;
@@ -250,12 +258,12 @@ exports.addPlayer = functions.https.onCall(async (data, context) => {
         // const picture = context.auth.token.picture || null;
         // const email = context.auth.token.email || null;
         console.log(uid);
+        await _addPlayer(gameId, uid, playerName);
     }
     // return await _createGame();
 });
 
 exports.selectMurdererCards = functions.https.onCall(async ({ gameId, clueCardName, meansCardName }, context) => {
-    ;
     if (context && context.auth) {
         const uid = context.auth.uid;
         console.log(uid);
