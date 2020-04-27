@@ -1,3 +1,4 @@
+import { TgForensicPrivateData } from './../models/models';
 import { CardApiService } from './../card/card-api.service';
 import { randomReadableId, getObservableInstance } from './../util';
 import { AuthService } from './../../../core/auth.service';
@@ -6,13 +7,12 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { EMPTY, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { TgGame } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ForensicApiService {
-  public gameDoc: Observable<any> = EMPTY;
-  public forensicDataDoc: Observable<any> = EMPTY;
   gameId: string;
   constructor(
     private db: AngularFirestore,
@@ -23,23 +23,46 @@ export class ForensicApiService {
   ) {
   }
 
-  createGame() {
-    this.gameId = randomReadableId();
-    const callable = this.fns.httpsCallable('createGame');
-    (async () => console.log(await callable({ gameId: this.gameId }).toPromise()))()
-
-    // this.gameId = randomReadableId();
-    // const gameDoc = this.db.collection('games').doc(this.gameId);
-    // gameDoc.set({ creatorUid: this.authService.user.uid, gameId: this.gameId, createdTimestamp: new Date(), players: [] });
-    // const forensicDataDoc = gameDoc.collection('users').doc(this.authService.user.uid);
-    // this.router.navigateByUrl(`/forensic/${this.gameId}`);
-
-    // const clueCards  = this.cardApi.getClueCards();
-    // const meansCards = this.cardApi.getMeansCards();
-    // forensicDataDoc.set({ 'noice': 'ok' });
+  updateGame(gameId: string) {
+    this.gameId = gameId;
   }
 
-  startGame() {
+  getGame(): Observable<TgGame> {
+    return this.getGameDoc().valueChanges();
+  }
+
+  getGameDoc(): AngularFirestoreDocument<TgGame> {
+    return this.db.collection('games').doc(this.gameId);
+  }
+
+  getPrivateData(): Observable<TgForensicPrivateData> {
+    return this.getGameDoc().collection('users').doc(this.authService.user.uid).valueChanges() as Observable<TgForensicPrivateData>;
+  }
+
+  async createGame() {
+    this.updateGame(randomReadableId());
+    const callable = this.fns.httpsCallable('createGame');
+
+    const response = await callable({ gameId: this.gameId }).toPromise();
+    console.log(response);
+
+    if (response.success) {
+      // Game successfully created, navigate to forensic waiting for players screen.
+      this.router.navigateByUrl(`/forensic/${this.gameId}`)
+    }
+
+  }
+
+  async startGame() {
     // distribute cards, select murderer
+    const _startGame = this.fns.httpsCallable('startGame');
+
+    const response = await _startGame({ gameId: this.gameId }).toPromise();
+
+    console.log(response);
+
+    if (response.success) {
+      console.log('Yess...');
+    }
   }
 }

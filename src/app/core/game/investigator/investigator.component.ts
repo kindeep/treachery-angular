@@ -1,9 +1,10 @@
-import {TgGame, TgGuess, TgPlayer} from '../../../shared/api/models/models';
-import {GameApiService} from '../../../shared/api/game/game-api.service';
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PlayerApiService} from '../../../shared/api/player/player-api.service';
-import {randomUuid} from '../../../shared/api/util';
+import { ActivatedRoute } from '@angular/router';
+import { TgGame, TgGuess, TgPlayer, TgPlayerPrivateData } from '../../../shared/api/models/models';
+import { GameApiService } from '../../../shared/api/game/game-api.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PlayerApiService } from '../../../shared/api/player/player-api.service';
+import { randomUuid } from '../../../shared/api/util';
 
 @Component({
   selector: 'app-investigator',
@@ -13,19 +14,30 @@ import {randomUuid} from '../../../shared/api/util';
 export class InvestigatorComponent implements OnInit {
   gameInstance$: Observable<TgGame>;
   player$: Observable<TgPlayer>;
+  privateData$: Observable<TgPlayerPrivateData>
+
   guess = {
     id: randomUuid(),
     processed: false,
   } as TgGuess;
 
-  constructor(private ga: GameApiService, private playerApiService: PlayerApiService) {
-    this.gameInstance$ = ga.gameDocument.valueChanges() as Observable<TgGame>;
-    this.player$ = playerApiService.getCurrentPlayer();
-    this.player$.subscribe(pl => {
-      this.guess.guesserPlayer = pl.playerName;
-    });
+  constructor(
+    private ga: GameApiService,
+    private playerApiService: PlayerApiService,
+    private route: ActivatedRoute
+  ) {
+
+    // this.player$ = playerApiService.getCurrentPlayer();
+    // this.player$.subscribe(pl => {
+    //   this.guess.guesserPlayer = pl.playerName;
+    // });
   }
 
   ngOnInit() {
+    this.route.params.subscribe(({ gameId }) => {
+      this.ga.setGameId(gameId);
+      this.gameInstance$ = this.ga.getGameDoc().valueChanges() as Observable<TgGame>;
+      // this.privateData$ = this.ga.getPrivateData(this.);
+    });
   }
 }

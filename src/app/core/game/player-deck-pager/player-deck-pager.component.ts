@@ -1,3 +1,4 @@
+import { GameApiService } from './../../../shared/api/game/game-api.service';
 import {TgCard, TgGuess, TgPlayer} from '../../../shared/api/models/models';
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Observable} from 'rxjs';
@@ -14,8 +15,8 @@ export class PlayerDeckPagerComponent implements OnInit {
   selectedClue: string;
   selectedMeans: string;
 
-  constructor(playerApiService: PlayerApiService) {
-    this.players$ = playerApiService.getAllPlayers();
+  constructor(gameApi: GameApiService) {
+    this.players$ = gameApi.getCurrentGamePlayers();
   }
 
   ngOnInit() {
@@ -23,7 +24,7 @@ export class PlayerDeckPagerComponent implements OnInit {
 
 
   handleClueChange(player: TgPlayer) {
-    this.guess.guessedPlayer = player.playerName;
+    this.guess.guessedPlayer = player.name;
     if (!player.meansCards.some(card => card.name === this.selectedMeans)) {
       this.selectedMeans = null;
     }
@@ -32,7 +33,7 @@ export class PlayerDeckPagerComponent implements OnInit {
   }
 
   handleMeansChange(player: TgPlayer) {
-    this.guess.guessedPlayer = player.playerName;
+    this.guess.guessedPlayer = player.name;
     if (!player.clueCards.some(card => card.name === this.selectedClue)) {
       this.selectedClue = null;
     }

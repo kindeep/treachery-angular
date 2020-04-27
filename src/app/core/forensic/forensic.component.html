@@ -1,2 +1,15 @@
 <!-- <p>Forensic for {{gameId}} is {{cardApi.getGameDoc(gameId)}}</p> -->
-<button mat-button (click)="startGame()">Start Game</button>
+<!-- <pre>{{ game$ | async | json }}</pre> -->
+<div *ngIf="game$ | async as game">
+  Game Id: {{ gameId }}
+  Private data:
+  <pre>{{ privateData$ | async | json }}</pre>
+  <div *ngIf="game.startedOn">
+    Game started!
+  </div>
+  <div *ngIf="!game.startedOn">
+    Joined players:
+    <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
+    <button mat-button (click)="startGame()">Start Game</button>
+  </div>
+</div>

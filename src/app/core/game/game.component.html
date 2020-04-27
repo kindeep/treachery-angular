@@ -1,3 +1,14 @@
-<div>jj{{gameId}}</div>
+<div>jj{{ gameId }}</div>
 <!-- <app-investigator></app-investigator> -->
+<!-- <pre>{{ privateData$ | async | json }}</pre> -->
+<div *ngIf="game$ | async as game">
+  <div *ngIf="player$ | async as player">
+    <div *ngIf="privateData$ | async as privateData">
+      <div *ngIf="privateData.isMurderer && !game.murdererCardsSelected">
+        Yo man you gotta select your cards man
+        <app-murderer-select-dialog [player]="player"></app-murderer-select-dialog>
+      </div>
+    </div>
+  </div>
+</div>
 <button mat-raised-button (click)="openDialog()">dialog</button>

@@ -9,20 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinGameComponent implements OnInit {
   gameId: string;
-  playerName: string;
-  constructor(private route: ActivatedRoute, private gameApi: GameApiService) {}
+  constructor(private route: ActivatedRoute, private gameApi: GameApiService) { }
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.gameId = routeParams.gameId;
     });
-    this.gameApi.setGameId(this.gameId);
+    // this.gameApi.setGameId(this.gameId);
   }
 
   joinGame(playerName: string) {
+    this.gameApi.joinGame(this.gameId, playerName);
     // TODO: Get player name from input
-    this.gameApi.setPlayerName(playerName);
-    this.gameApi.setGameId(this.gameId);
-    this.gameApi.addPlayer(playerName);
+    // this.gameApi.setPlayerName(playerName);
+    // this.gameApi.setGameId(this.gameId);
+    // this.gameApi.addPlayer(playerName);
   }
 }

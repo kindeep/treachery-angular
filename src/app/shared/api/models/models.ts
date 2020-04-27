@@ -39,17 +39,11 @@ export interface TgGuess {
 }
 
 export interface TgPlayer {
-  playerName: string;
+  name: string;
+  uid: string;
   clueCards: TgCard[];
   meansCards: TgCard[];
   guessed: boolean;
-}
-
-export class DefaultTgPlayer implements TgPlayer {
-  playerName = 'Loading...';
-  clueCards: DefaultCardSnapshot[] = [];
-  meansCards: DefaultCardSnapshot[] = [];
-  guessed = false;
 }
 
 export enum TgMessageType {
@@ -73,10 +67,20 @@ export interface TgGame {
   startedTimestamp: Timestamp;
   guesses: TgGuess[];
   murdererSelected: boolean;
-  murdererCardsDetermined: boolean;
+  murdererCardsSelected: boolean;
   murdererClueCard: TgCard;
   murdererMeansCard: TgCard;
   murdererName: string;
   players: TgPlayer[];
-  started: false;
+  startedOn: Timestamp;
+}
+
+export interface TgForensicPrivateData {
+  murderer: TgPlayer;
+}
+
+export interface TgPlayerPrivateData {
+  isMurderer: boolean;
+  clueCardName: string;
+  meansCardName: string;
 }

@@ -16,30 +16,28 @@
     </div>
   </div>
   <div class="fill-remaining-space listSection">
-    <div *ngIf="games!! && !empty; else noGamesYet">
-      <div>{{ games | async | json }}</div>
-      <div *ngFor="let game of games | async" class="card">
-        {{ game | json }}
+    <div *ngIf="games$ | async as games">
+      <div *ngFor="let game of games" class="card">
         <app-active-games-list-item [game]="game"></app-active-games-list-item>
       </div>
-    </div>
-    <ng-template #noGamesYet>
-      <div style="display: flex; flex-direction: column; height: 100%;" align="center" *ngIf="loading; else noGames">
-        <span class="fill-remaining-space"></span>
-        <div style="display: flex; flex-direction: row;">
+      <div *ngIf="games.length === 0">
+        <div style="display: flex; flex-direction: column; height: 100%;" align="center" *ngIf="loading; else noGames">
           <span class="fill-remaining-space"></span>
-          <mat-spinner></mat-spinner>
+          <div style="display: flex; flex-direction: row;">
+            <span class="fill-remaining-space"></span>
+            <mat-spinner></mat-spinner>
+            <span class="fill-remaining-space"></span>
+          </div>
           <span class="fill-remaining-space"></span>
         </div>
-        <span class="fill-remaining-space"></span>
+        <ng-template #noGames>
+          <div style="display: flex; flex-direction: column; height: 100%;" align="center">
+            <div class="fill-remaining-space"></div>
+            No active games. Maybe create one?
+            <div class="fill-remaining-space"></div>
+          </div>
+        </ng-template>
       </div>
-      <ng-template #noGames>
-        <div style="display: flex; flex-direction: column; height: 100%;" align="center">
-          <div class="fill-remaining-space"></div>
-          No active games. Maybe create one?
-          <div class="fill-remaining-space"></div>
-        </div>
-      </ng-template>
-    </ng-template>
+    </div>
   </div>
 </div>

@@ -17,7 +17,7 @@ export class GuessComponent implements OnInit {
   }
 
   makeGuess() {
-    this.playerApi.makeGuess(this.guess);
+    // this.playerApi.makeGuess(this.guess);
   }
 
 }

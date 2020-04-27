@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./all-games.component.scss']
 })
 export class AllGamesComponent implements OnInit {
-  games: Observable<TgGame[]>;
+  games$: Observable<TgGame[]>;
   empty: boolean;
   loading: boolean;
   gamesCollection: any;
@@ -18,12 +18,8 @@ export class AllGamesComponent implements OnInit {
     this.loading = true;
     this.empty = false;
     const query = this.cardApi.activeGamesQuery();
-    this.games = query.valueChanges() as Observable<TgGame[]>;
-    this.games.forEach(el => {
-      console.log(el);
-    });
-    console.log(this.games);
-
+    this.games$ = query.valueChanges() as Observable<TgGame[]>;
+    
     query.ref.get().then(querySnapshot => {
       this.handleQuery(querySnapshot);
     });

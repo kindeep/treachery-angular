@@ -16,9 +16,9 @@ export class TestComponent implements OnInit {
   selectedClue = null;
   players$: Observable<TgPlayer[]>;
   constructor(public dialog: MatDialog, private gameApi: GameApiService, private playerApiService: PlayerApiService) {
-    gameApi.setGameId('7gpi56uobw');
-    gameApi.setPlayerName('fdsgdsfg');
-    this.players$ = playerApiService.getAllPlayers();
+    // gameApi.setGameId('7gpi56uobw');
+    // gameApi.setPlayerName('fdsgdsfg');
+    // this.players$ = playerApiService.getAllPlayers();
   }
 
   ngOnInit() {}
