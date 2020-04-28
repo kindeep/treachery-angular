@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PlayerApiService} from '../../../shared/api/player/player-api.service';
-import {TgGuess} from '../../../shared/api/models/models';
+import { GameApiService } from './../../../shared/api/game/game-api.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { PlayerApiService } from '../../../shared/api/player/player-api.service';
+import { TgGuess } from '../../../shared/api/models/models';
 
 @Component({
   selector: 'app-guess',
@@ -10,7 +11,7 @@ import {TgGuess} from '../../../shared/api/models/models';
 export class GuessComponent implements OnInit {
   @Input() guess: TgGuess;
 
-  constructor(private  playerApi: PlayerApiService) {
+  constructor(private gameApi: GameApiService) {
   }
 
   ngOnInit() {
@@ -18,6 +19,7 @@ export class GuessComponent implements OnInit {
 
   makeGuess() {
     // this.playerApi.makeGuess(this.guess);
+    
   }
 
 }

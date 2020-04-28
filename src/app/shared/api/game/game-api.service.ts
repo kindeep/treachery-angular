@@ -39,7 +39,7 @@ export class GameApiService {
   }
 
   getCurrentGamePlayer(): Observable<TgPlayer> {
-    return this.getCurrentGame().pipe(map(value => value.players.find(player => player.uid === this.auth.user.uid)));
+    return this.getGameDoc().collection('players').doc(this.auth.user.uid).valueChanges() as Observable<TgPlayer>;
   }
 
   getGameDoc(gameId?: string): AngularFirestoreDocument<TgGame> {
@@ -51,7 +51,7 @@ export class GameApiService {
   }
 
   getJoinedPlayers(gameId: string): Observable<TgPlayer[]> {
-    return this.getGameDoc(gameId).valueChanges().pipe(map(game => game.players));
+    return this.db.collection('games').doc(gameId).collection('players').valueChanges() as Observable<TgPlayer[]>
   }
 
   getCurrentGamePlayers() {
@@ -91,9 +91,13 @@ export class GameApiService {
     const _selectMurdererCards = this.fns.httpsCallable('selectMurdererCards');
     const response = await _selectMurdererCards({ gameId: this.gameId, clueCardName, meansCardName }).toPromise();
     console.log(response);
-    if(response.success) {
+    if (response.success) {
       console.log("Yaay cards selected");
     }
+  }
+
+  async makeGuess(murdererUid, clueCardName, meansCardName) {
+
   }
   // setGameId(gameId) {
   //   if (this.gameId !== gameId) {

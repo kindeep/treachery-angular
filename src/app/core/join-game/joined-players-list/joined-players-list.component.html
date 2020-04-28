@@ -1,6 +1,3 @@
-<div *ngFor="let player of players" class="card">
-  <app-joined-player-list-item
-    [gameId]="gameId"
-    [playerName]="player.name"
-  ></app-joined-player-list-item>
+<div *ngFor="let player of players$ | async" class="card">
+  <app-joined-player-list-item [gameId]="gameId" [playerName]="player.name"></app-joined-player-list-item>
 </div>

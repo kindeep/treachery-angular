@@ -71,7 +71,6 @@ export interface TgGame {
   murdererClueCard: TgCard;
   murdererMeansCard: TgCard;
   murdererName: string;
-  players: TgPlayer[];
   startedOn: Timestamp;
 }
 

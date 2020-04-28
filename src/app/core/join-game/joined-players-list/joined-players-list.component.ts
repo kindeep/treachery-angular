@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { GameApiService } from '../../../shared/api/game/game-api.service';
 import { TgPlayer, TgGame } from '../../../shared/api/models/models';
 import { Component, OnInit, Input } from '@angular/core';
@@ -10,30 +11,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class JoinedPlayersListComponent implements OnInit {
   @Input() gameId: string;
 
-  players: TgPlayer[];
-  gameDoc: any;
-  gameInstance: TgGame;
-  constructor(private gameApi: GameApiService) {}
+  players$: Observable<TgPlayer[]>;
+  game$: Observable<TgGame>;
+  
+  constructor(private gameApi: GameApiService) { }
 
   ngOnInit() {
-    this.gameDoc = this.gameApi.getGameDoc(this.gameId);
-
-    this.gameDoc.ref.get().then(snapshot => {
-      this.gameInstance = snapshot.data();
-      this.players = this.gameInstance.players;
-      console.log(snapshot);
-      console.log(this.players);
-    });
-
-    this.gameDoc.ref.onSnapshot(snapshot => {
-      this.initWithSnapshot(snapshot);
-    });
+    // this.gameDoc = this.gameApi.getGameDoc(this.gameId);
+    this.players$ = this.gameApi.getJoinedPlayers(this.gameId);
+    this.game$ = this.gameApi.getGameDoc(this.gameId).valueChanges();
   }
 
-  initWithSnapshot(snapshot: any) {
-    this.gameInstance = snapshot.data();
-    this.players = this.gameInstance.players;
-    console.log(snapshot);
-    console.log(this.players);
-  }
 }
