@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { CollectionReference } from '@google-cloud/firestore';
 
 admin.initializeApp();
 
@@ -28,11 +29,11 @@ interface Card {
     name: string;
 }
 
-// interface ForensicPrivateData {
-//     murdererUid: string;
-//     murdererMeansCardName: string;
-//     murdererClueCardName: string;
-// }
+interface ForensicPrivateData {
+    murderer: Player;
+    murdererClueCardName: string;
+    murdererMeansCardName: string;
+}
 
 interface Player {
     uid: string;
@@ -41,13 +42,23 @@ interface Player {
     meansCards: Card[];
 }
 
-interface Game {
-    players: Player[];
+interface Guess {
+    guessedByUid: string;
+    murdererUid: string;
+    meansCardName: string;
+    clueCardName: string;
+    correct: boolean;
+    processed: boolean;
 }
 
-function deepCopy<E>(obj: E): E {
-    return JSON.parse(JSON.stringify(obj));
+interface Game {
+    creatorUid: string;
+    guesses: Guess[]
 }
+
+// function deepCopy<E>(obj: E): E {
+//     return JSON.parse(JSON.stringify(obj));
+// }
 
 function getRandom<E>(arr: E[], n: number = 1): E[] {
     var result = new Array(n),
@@ -64,18 +75,26 @@ function getRandom<E>(arr: E[], n: number = 1): E[] {
 }
 
 async function _createGame(gameId: string, creatorUid: string) {
-    const game = { gameId, creatorUid, createdTimestamp: new Date(), players: [] };
+    const game = { gameId, creatorUid, createdTimestamp: new Date() };
     db.collection('games')
         .doc(gameId)
         .set(game);
+}
+
+async function collectionToArray<E>(collection: CollectionReference): Promise<E[]> {
+    return (await collection.get()).docs.map(doc => doc.data() as E);
 }
 
 async function _startGame(gameId: string, creatorUid: string) {
     const gameDoc = db.collection('games').doc(gameId);
     const cardsDoc = await db.collection('resources').doc('cards').get();
     const cards: CardsResource = cardsDoc.data() as CardsResource;
-    const gameSnapshot = await gameDoc.get();
-    const game = gameSnapshot.data() as Game;
+    // const gameSnapshot = await gameDoc.get();
+    // const game = gameSnapshot.data() as Game;
+    const playersCol = gameDoc.collection('players');
+    const players: Player[] = await collectionToArray<Player>(playersCol);
+
+    const playerDoc = (uid: string) => playersCol.doc(uid);
 
     // Select 'other' forensic cards. 
 
@@ -83,23 +102,30 @@ async function _startGame(gameId: string, creatorUid: string) {
 
     // Distribute cards to players
 
-    const numPlayers = game.players.length;
+    const numPlayers = players.length;
 
     const clueCards = getRandom(cards.clueCards, numPlayers * 4);
     const meansCards = getRandom(cards.meansCards, numPlayers * 4);
 
     for (let i = 0; i < numPlayers; i++) {
-        game.players[i].clueCards = clueCards.splice(0, 4);
-        game.players[i].meansCards = meansCards.splice(0, 4);
+        const { uid } = players[i];
+        const selectedClueCards = clueCards.splice(0, 4);
+        const selectedMeansCards = meansCards.splice(0, 4)
+        playerDoc(uid).set({
+            clueCards: selectedClueCards,
+            meansCards: selectedMeansCards
+        }, { merge: true })
+        players[i].clueCards = selectedClueCards
+        players[i].meansCards = selectedMeansCards
     }
 
     // Select murderer.
 
-    const murderer = getRandom(game.players)[0] as Player;
+    const murderer = getRandom(players)[0] as Player;
 
     // Add murderer info to private data for murderer and forensic.
 
-    await gameDoc.set({ players: game.players, otherCards, startedOn: new Date() }, { merge: true });
+    await gameDoc.set({ otherCards, startedOn: new Date() }, { merge: true });
 
     await gameDoc.collection('users').doc(creatorUid).set({ murderer }, { merge: true });
 
@@ -132,11 +158,28 @@ async function _selectMurdererCards(gameId: string, murdererUid: string, clueCar
 
 async function _addPlayer(gameId: string, playerUid: string, playerName: string) {
     const gameDoc = db.collection('games').doc(gameId);
-    const game = (await gameDoc.get()).data() as Game;
-    const players = deepCopy(game.players);
-    players.push({ uid: playerUid, name: playerName } as Player)
-    await gameDoc.set({ players }, { merge: true })
+    // const game = (await gameDoc.get()).data() as Game;
+    const playersCol = gameDoc.collection('players');
+    // const players = ;
+    playersCol.doc(playerUid).set({ uid: playerUid, name: playerName } as Player)
 }
+
+// async function _makeGuess(gameId: string, gussedByUid: string, guessedPlayerUid: string, clueCardName: string, meansCardName: string) {
+//     const gameDoc = db.collection('games').doc(gameId);
+//     let { guesses } = (await gameDoc.get()).data() as Game;
+//     guesses = guesses ? guesses : [];
+//     const users = gameDoc.collection('users');
+//     const forensicPrivateDoc = users.doc(game.creatorUid);
+//     const { murderer, murdererClueCardName, murdererMeansCardName } = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
+//     if (murderer.uid === guessedPlayerUid && murdererClueCardName === clueCardName && murdererMeansCardName === meansCardName) {
+//         // Correct guess
+
+//         gameDoc.set({ guesses: })
+//     } else {
+//         // Wrong guess
+//     }
+
+// }
 
 exports.createGame = functions.https.onCall(async ({ gameId }, context) => {
     console.log(`Create game: ${gameId}`);
@@ -199,3 +242,42 @@ exports.selectMurdererCards = functions.https.onCall(async ({ gameId, clueCardNa
     }
 });
 
+// exports.makeGuess = functions.https.onCall(async ({ gameId, guessedPlayerUid, clueCardName, meansCardName, }, context) => {
+//     if (context && context.auth) {
+//         const uid = context.auth.uid;
+//         console.log(uid);
+//         await _makeGuess(gameId, uid, guessedPlayerUid, clueCardName, meansCardName);
+//         return { success: true }
+//     }
+//     else {
+//         return { success: false, error: 'Not logged in!' };
+//     }
+// });
+
+exports.processGuess = functions.firestore
+    .document('games/{gameId}/guesses/{guessId}')
+    .onCreate(async (snap, context) => {
+        const newGuess = snap.data() as Guess;
+        const gameDoc = db.collection('games').doc(context.params.gameId);
+        const setGame = (obj: any, merge = true) => gameDoc.collection('guesses').doc(snap.id).set(obj, { merge })
+        if (context.auth?.uid) {
+            const game = (await gameDoc.get()).data() as Game;
+            const forensicPrivateDoc = gameDoc.collection('users').doc(game.creatorUid);
+            const forensicPrivateData = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
+
+            if (!newGuess.processed) {
+                setGame({
+                    murdererUid: context.auth?.uid,
+                    processed: true, correct: (
+                        forensicPrivateData.murderer.uid === newGuess.murdererUid &&
+                        forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
+                        forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
+                    )
+                } as Guess)
+            }
+        }
+        else {
+            // Remove the record...?
+            setGame({}, false)
+        }
+    });
