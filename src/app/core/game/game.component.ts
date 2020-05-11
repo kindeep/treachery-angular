@@ -1,4 +1,4 @@
-import { TgPlayer } from './../../shared/api/models/models';
+import { TgPlayer, TgGuess, TgPartialGuess } from './../../shared/api/models/models';
 import { AuthService } from './../auth.service';
 import { auth } from 'firebase/app';
 import { Observable } from 'rxjs';
@@ -20,7 +20,8 @@ export class GameComponent implements OnInit {
   game$: Observable<TgGame>;
   privateData$: Observable<TgPlayerPrivateData>;
   player$: Observable<TgPlayer>;
-
+  guess: TgPartialGuess = {} as TgPartialGuess;
+  guesses$: Observable<TgGuess[]>;
   constructor(
     private route: ActivatedRoute,
     private cardApi: GameApiService,
@@ -30,17 +31,24 @@ export class GameComponent implements OnInit {
   ) {
   }
 
+  
+
   ngOnInit() {
     this.route.params.subscribe(({ gameId }) => {
-      this.gameApi.setGameId(gameId)
+      this.gameApi.setGameId(gameId);
       this.gameId = gameId;
       this.game$ = this.gameApi.getCurrentGame();
       this.player$ = this.gameApi.getCurrentGamePlayer();
       this.privateData$ = this.gameApi.getPrivateData();
+      this.guesses$ = this.gameApi.getGameGuesses();
     });
   }
 
   openDialog() {
     this.dialog.open(MurdererSelectDialogComponent, {});
+  }
+
+  makeGuess() {
+    this.gameApi.makeGuess(this.guess);
   }
 }

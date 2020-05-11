@@ -254,30 +254,35 @@ exports.selectMurdererCards = functions.https.onCall(async ({ gameId, clueCardNa
 //     }
 // });
 
-exports.processGuess = functions.firestore
-    .document('games/{gameId}/guesses/{guessId}')
-    .onCreate(async (snap, context) => {
-        const newGuess = snap.data() as Guess;
-        const gameDoc = db.collection('games').doc(context.params.gameId);
-        const setGame = (obj: any, merge = true) => gameDoc.collection('guesses').doc(snap.id).set(obj, { merge })
-        if (context.auth?.uid) {
-            const game = (await gameDoc.get()).data() as Game;
-            const forensicPrivateDoc = gameDoc.collection('users').doc(game.creatorUid);
-            const forensicPrivateData = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
+exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
 
-            if (!newGuess.processed) {
-                setGame({
-                    murdererUid: context.auth?.uid,
-                    processed: true, correct: (
-                        forensicPrivateData.murderer.uid === newGuess.murdererUid &&
-                        forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
-                        forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
-                    )
-                } as Guess)
-            }
+    const gameDoc = db.collection('games').doc(gameId);
+    if (context.auth) {
+        const uid = context.auth.uid;
+        const newGuess = {
+            clueCardName,
+            meansCardName,
+            murdererUid,
+            guessedByUid: uid
+        } as Guess;
+        console.log(`logged in, uid: ${context.auth.uid}`)
+        const game = (await gameDoc.get()).data() as Game;
+        const forensicPrivateDoc = gameDoc.collection('users').doc(game.creatorUid);
+        const forensicPrivateData = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
+
+        if (!newGuess.processed) {
+            gameDoc.collection('guesses').add({
+                murdererUid: context.auth?.uid,
+                processed: true, correct: (
+                    forensicPrivateData.murderer.uid === newGuess.murdererUid &&
+                    forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
+                    forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
+                )
+            } as Guess)
         }
-        else {
-            // Remove the record...?
-            setGame({}, false)
-        }
-    });
+    }
+    else {
+        console.log('Why no logged in...');
+        // Remove the record...?
+    }
+});

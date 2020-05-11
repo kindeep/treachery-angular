@@ -1,4 +1,4 @@
-import { TgPlayerPrivateData } from './../models/models';
+import { TgPlayerPrivateData, TgGuess, TgPartialGuess } from './../models/models';
 import { Router } from '@angular/router';
 import { TgPlayer, TgGame, TgForensicCard } from '../models/models';
 import { AuthService } from './../../../core/auth.service';
@@ -18,7 +18,6 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 })
 export class GameApiService {
   private gameId: string;
-  private playerName: string;
 
   constructor(
     private db: AngularFirestore,
@@ -29,9 +28,9 @@ export class GameApiService {
     this.gameId = null;
   }
 
-  // getGame(): Observable<TgGame> {
-  //   return this.game;
-  // }
+  getGameGuesses(): Observable<TgGuess[]> {
+    return this.getGameDoc().collection('guesses').valueChanges() as Observable<TgGuess[]>;
+  }
 
   getPrivateData(): Observable<TgPlayerPrivateData> {
     console.log(`Emm get player data for ${this.auth.user.uid}`);
@@ -60,21 +59,13 @@ export class GameApiService {
 
   async joinGame(gameId: string, playerName: string) {
     this.gameId = gameId;
-    this.playerName = playerName;
     const addPlayer = this.fns.httpsCallable('addPlayer');
-
-    const response = await addPlayer({ gameId, playerName }).toPromise();
-
+    const response = await addPlayer({ gameId, playerName}).toPromise();
     console.log(response);
-
     if (response.success) {
       this.router.navigateByUrl(`/play/${gameId}`)
     }
   }
-
-  // getCurrentGameDoc(): AngularFirestoreDocument {
-  //   return this.getGameDoc(this.gameId);
-  // }
 
   activeGamesQuery() {
     const currTime = new Date().getTime(); // current Time in seconds
@@ -96,59 +87,13 @@ export class GameApiService {
     }
   }
 
-  async makeGuess(murdererUid, clueCardName, meansCardName) {
-
+  async makeGuess({ clueCardName, meansCardName, murdererUid }: TgPartialGuess) {
+    this.getGameDoc().collection('guesses').add({
+      clueCardName,
+      meansCardName,
+      murdererUid,
+      guessedByUid: this.auth.user.uid
+    });
   }
-  // setGameId(gameId) {
-  //   if (this.gameId !== gameId) {
-  //     this.gameId = gameId;
-  //     console.log(`Set game id to: ${this.gameId}`);
-  //     this.gameDocument = this.getGameDoc(this.gameId);
-  //     this.game = this.gameDocument.valueChanges() as Observable<TgGame>;
-  //     // this.gameInstance = gameDoc.valueChanges();
-  //     this.gameDocument.ref.get().then(snapshot => {
-  //       this.gameInstance = snapshot.data() as TgGame;
-  //       console.log('Game api instance set');
-  //     });
-  //     this.gameDocument.ref.onSnapshot(snapshot => {
-  //       this.gameInstance = snapshot.data() as TgGame;
-  //       console.log('Game api instance update');
-  //     });
-  //   }
-  // }
-
-  // getGameObservable() {
-  //   return this.game;
-  // }
-
-  // setPlayerName(value) {
-  //   this.playerName = value;
-  // }
-
-  // getPlayerName() {
-  //   return this.playerName;
-  // }
-
-  // addPlayer(playerName) {
-  //   const newPlayer = getPlainObject(new DefaultTgPlayer());
-  //   newPlayer.playerName = playerName;
-  //   this.db.firestore
-  //     .runTransaction(transaction =>
-  //       // This code may get re-run multiple times if there are conflicts.
-  //       transaction.get(this.gameDocument.ref).then(sfDoc => {
-  //         // const newPopulation = sfDoc.data().population + 1;
-  //         const gameInstance: TgGame = sfDoc.data() as TgGame;
-  //         console.log(gameInstance.players);
-  //         gameInstance.players.push(newPlayer);
-  //         console.log(gameInstance.players);
-  //         transaction.update(this.gameDocument.ref, { players: classToPlain(gameInstance.players) });
-  //       })
-  //     )
-  //     .then(() => {
-  //       this.gameDocument.collection('users').doc(this.auth.user.uid).set({});
-  //       console.log('Player transaction successfully committed!');
-  //     })
-  //     .catch(error => console.log('Player transaction failed: ', error));
-  // }
 
 }

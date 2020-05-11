@@ -2,7 +2,35 @@
 <!-- <app-investigator></app-investigator> -->
 <!-- <pre>{{ privateData$ | async | json }}</pre> -->
 <div *ngIf="game$ | async as game">
+  <div *ngIf="guesses$ | async as guesses">
+    Guesses yes
+    <ol>
+      <li *ngFor="let guess of guesses">
+        <pre>{{ guess | json }}</pre>
+      </li>
+    </ol>
+  </div>
   <div *ngIf="player$ | async as player">
+    emm...
+    <div *ngIf="!game.startedOn">
+      Not started yet...
+    </div>
+    <div *ngIf="game.startedOn">
+      Game started!
+    </div>
+    <div *ngIf="!game.murdererCardsSelected">
+      Murderer still selecting cards ... WAIT
+    </div>
+    <div *ngIf="game.murdererCardsSelected">
+      Murderer cards selected!
+    </div>
+    <div>
+      Current guess:
+      <pre>
+        {{ guess | json }}
+      </pre>
+    </div>
+    <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
     <div *ngIf="privateData$ | async as privateData">
       <div *ngIf="privateData.isMurderer && !game.murdererCardsSelected">
         Yo man you gotta select your cards man
@@ -10,5 +38,5 @@
       </div>
     </div>
   </div>
+  <button mat-raised-button color="accent" (click)="makeGuess()">Make guess</button>
 </div>
-<button mat-raised-button (click)="openDialog()">dialog</button>

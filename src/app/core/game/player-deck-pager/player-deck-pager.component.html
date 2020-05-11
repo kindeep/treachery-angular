@@ -1,10 +1,9 @@
-<div class="horizontal-scroll">
+<div *ngIf="player$ | async as me" class="horizontal-scroll">
+  yess player
   <div class="container flex-horizontal">
-    <div
-      *ngFor="let player of players$ | async"
-      class="block fill-remaining-space"
-    >
+    <div *ngFor="let player of players$ | async" class="block fill-remaining-space">
       <app-player-deck
+        *ngIf="player.uid !== me.uid"
         [(selectedClue)]="selectedClue"
         (selectedClueChange)="handleClueChange(player)"
         [(selectedMeans)]="selectedMeans"

@@ -38,6 +38,12 @@ export interface TgGuess {
   processed: boolean;
 }
 
+export interface TgPartialGuess {
+  murdererUid: string;
+  meansCardName: string;
+  clueCardName: string;
+}
+
 export interface TgPlayer {
   name: string;
   uid: string;
