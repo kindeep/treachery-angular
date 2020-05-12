@@ -1,4 +1,4 @@
-import { TgForensicCard, SampleForensicCardSnapshot } from '../../../shared/api/models/models';
+import { TgForensicCard } from '../../../shared/api/models/models';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,12 +7,19 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./forensic-card.component.scss']
 })
 export class ForensicCardComponent implements OnInit {
-  @Input() forensicCard: TgForensicCard = new SampleForensicCardSnapshot();
+  @Input() forensicCard: TgForensicCard;
+  @Input() disabled: boolean;
+  @Input() selected: boolean;
+  
   constructor() {}
 
   ngOnInit() {}
 
-  isSelected(choice) {
-    return choice === this.forensicCard.choices[this.forensicCard.selectedChoice];
+  isSelected(choice: string) {
+    return choice === this.forensicCard.selectedChoice;
+  }
+
+  choiceClick(choice: string) {
+    this.forensicCard.selectedChoice = choice;
   }
 }

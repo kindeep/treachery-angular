@@ -1,17 +1,13 @@
 <div style="margin: 4px;" *ngIf="!!forensicCard">
-  <mat-card style="padding: 0; width: 4.5cm;">
+  <mat-card style="padding: 0; width: 4.5cm;" [ngClass]="[disabled ? 'disabled-card' : '', selected ? 'selected-card' : '']">
     <!-- adding mat ripple to mat card has a bug, mat card resizes on click, workaround -->
-    <mat-card-content
-      matRipple
-      style="margin: 0; padding: 16px; border-radius: 4px;"
-    >
+    <mat-card-content matRipple style="margin: 0; padding: 16px; border-radius: 4px;">
       <h4>{{ forensicCard.cardName }}</h4>
       <mat-list>
         <mat-list-item
-          [ngClass]="[
-            isSelected(choice) ? 'option-selected' : 'option-not-selected'
-          ]"
+          [ngClass]="[!disabled && isSelected(choice) ? 'option-selected' : 'option-not-selected']"
           *ngFor="let choice of forensicCard.choices"
+          (click)="choiceClick(choice)"
           >{{ choice }}</mat-list-item
         >
       </mat-list>

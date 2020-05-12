@@ -5,14 +5,7 @@ export interface TgForensicCard {
   cardName: string;
   choices: string[];
   selected: boolean;
-  selectedChoice: number;
-}
-
-export class SampleForensicCardSnapshot implements TgForensicCard {
-  cardName = 'Ho Ho Ho';
-  choices = ['Umm', 'sure', 'ok?'];
-  selected = false;
-  selectedChoice = 2;
+  selectedChoice: string;
 }
 
 export interface TgCard {
@@ -20,13 +13,6 @@ export interface TgCard {
   guessedBy: string[];
   imgUrl: string;
   name: string;
-}
-
-export class DefaultCardSnapshot implements TgCard {
-  altImgUrl = 'https://picsum.photos/800';
-  guessedBy: string[] = [];
-  imgUrl = 'https://picsum.photos/800';
-  name = 'Loading...';
 }
 
 export interface TgGuess {
@@ -88,4 +74,16 @@ export interface TgPlayerPrivateData {
   isMurderer: boolean;
   clueCardName: string;
   meansCardName: string;
+}
+
+interface TgForensicCardResource {
+  causeCards: TgForensicCard[];
+  locationCards: TgForensicCard[];
+  otherCards: TgForensicCard[];
+}
+
+export interface TgCardResources {
+  clueCards: TgCard[];
+  meansCards: TgCard[];
+  forensicCards: TgForensicCardResource;
 }

@@ -48,17 +48,12 @@ interface Guess {
     meansCardName: string;
     clueCardName: string;
     correct: boolean;
-    processed: boolean;
 }
 
 interface Game {
     creatorUid: string;
     guesses: Guess[]
 }
-
-// function deepCopy<E>(obj: E): E {
-//     return JSON.parse(JSON.stringify(obj));
-// }
 
 function getRandom<E>(arr: E[], n: number = 1): E[] {
     var result = new Array(n),
@@ -89,8 +84,6 @@ async function _startGame(gameId: string, creatorUid: string) {
     const gameDoc = db.collection('games').doc(gameId);
     const cardsDoc = await db.collection('resources').doc('cards').get();
     const cards: CardsResource = cardsDoc.data() as CardsResource;
-    // const gameSnapshot = await gameDoc.get();
-    // const game = gameSnapshot.data() as Game;
     const playersCol = gameDoc.collection('players');
     const players: Player[] = await collectionToArray<Player>(playersCol);
 
@@ -158,28 +151,9 @@ async function _selectMurdererCards(gameId: string, murdererUid: string, clueCar
 
 async function _addPlayer(gameId: string, playerUid: string, playerName: string) {
     const gameDoc = db.collection('games').doc(gameId);
-    // const game = (await gameDoc.get()).data() as Game;
     const playersCol = gameDoc.collection('players');
-    // const players = ;
     playersCol.doc(playerUid).set({ uid: playerUid, name: playerName } as Player)
 }
-
-// async function _makeGuess(gameId: string, gussedByUid: string, guessedPlayerUid: string, clueCardName: string, meansCardName: string) {
-//     const gameDoc = db.collection('games').doc(gameId);
-//     let { guesses } = (await gameDoc.get()).data() as Game;
-//     guesses = guesses ? guesses : [];
-//     const users = gameDoc.collection('users');
-//     const forensicPrivateDoc = users.doc(game.creatorUid);
-//     const { murderer, murdererClueCardName, murdererMeansCardName } = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
-//     if (murderer.uid === guessedPlayerUid && murdererClueCardName === clueCardName && murdererMeansCardName === meansCardName) {
-//         // Correct guess
-
-//         gameDoc.set({ guesses: })
-//     } else {
-//         // Wrong guess
-//     }
-
-// }
 
 exports.createGame = functions.https.onCall(async ({ gameId }, context) => {
     console.log(`Create game: ${gameId}`);
@@ -199,8 +173,6 @@ exports.createGame = functions.https.onCall(async ({ gameId }, context) => {
 
 exports.startGame = functions.https.onCall(async ({ gameId }, context) => {
     // Message text passed from the client.
-    // const text = data.text;
-    // console.log(data);
     console.log(`Start game: ${gameId}`);
     if (context && context.auth) {
         // Authentication / user information is automatically added to the request.
@@ -208,10 +180,6 @@ exports.startGame = functions.https.onCall(async ({ gameId }, context) => {
         console.log(`Triggered by uid: ${uid}`);
 
         await _startGame(gameId, uid);
-        // const name = context.auth.token.name || null;
-        // const picture = context.auth.token.picture || null;
-        // const email = context.auth.token.email || null;
-        // creatorUid: this.authService.user.uid, gameId: this.gameId, createdTimestamp: new Date(), players: []
         return { success: true };
     } else {
         return { success: false, error: 'User not authenticated' };
@@ -242,20 +210,7 @@ exports.selectMurdererCards = functions.https.onCall(async ({ gameId, clueCardNa
     }
 });
 
-// exports.makeGuess = functions.https.onCall(async ({ gameId, guessedPlayerUid, clueCardName, meansCardName, }, context) => {
-//     if (context && context.auth) {
-//         const uid = context.auth.uid;
-//         console.log(uid);
-//         await _makeGuess(gameId, uid, guessedPlayerUid, clueCardName, meansCardName);
-//         return { success: true }
-//     }
-//     else {
-//         return { success: false, error: 'Not logged in!' };
-//     }
-// });
-
 exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
-
     const gameDoc = db.collection('games').doc(gameId);
     if (context.auth) {
         const uid = context.auth.uid;
@@ -265,24 +220,46 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
             murdererUid,
             guessedByUid: uid
         } as Guess;
-        console.log(`logged in, uid: ${context.auth.uid}`)
+
         const game = (await gameDoc.get()).data() as Game;
         const forensicPrivateDoc = gameDoc.collection('users').doc(game.creatorUid);
         const forensicPrivateData = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
 
-        if (!newGuess.processed) {
-            gameDoc.collection('guesses').add({
-                murdererUid: context.auth?.uid,
-                processed: true, correct: (
-                    forensicPrivateData.murderer.uid === newGuess.murdererUid &&
-                    forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
-                    forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
-                )
-            } as Guess)
-        }
+
+        gameDoc.collection('guesses').add({
+            correct: (
+                forensicPrivateData.murderer.uid === newGuess.murdererUid &&
+                forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
+                forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
+            ),
+            ...newGuess
+        } as Guess)
+
+        return { success: true }
     }
     else {
-        console.log('Why no logged in...');
-        // Remove the record...?
+        return { success: false, error: 'auth error' }
+    }
+});
+
+exports.chooseCauseCard = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
+    if (context.auth) {
+        const uid = context.auth.uid;
+
+        return { success: true }
+    }
+    else {
+        return { success: false, error: 'auth error' }
+    }
+});
+
+exports.chooseLocationCard = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
+    if (context.auth) {
+        const uid = context.auth.uid;
+
+        return { success: true }
+    }
+    else {
+        return { success: false, error: 'auth error' }
     }
 });

@@ -1,9 +1,10 @@
-import { TgGame, TgForensicPrivateData } from './../../shared/api/models/models';
+import { TgGame, TgForensicPrivateData, TgForensicCard, TgCard } from './../../shared/api/models/models';
 import { ForensicApiService } from './../../shared/api/forensic/forensic-api.service';
 import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
+import { CardApiService } from './../../shared/api/card/card-api.service';
 
 @Component({
   selector: 'app-forensic',
@@ -14,10 +15,12 @@ export class ForensicComponent implements OnInit {
   gameId: string;
   game$: Observable<TgGame>;
   privateData$: Observable<TgForensicPrivateData>;
+  selectedCauseCardName: string;
+  locationCauseCardName: string;
 
   constructor(
     private route: ActivatedRoute,
-    public cardApi: GameApiService,
+    public cardApi: CardApiService,
     public forensicApi: ForensicApiService,
     public gameApi: GameApiService
   ) { }
@@ -34,5 +37,14 @@ export class ForensicComponent implements OnInit {
 
   startGame() {
     this.forensicApi.startGame();
+  }
+
+  causeCardClick(card: TgForensicCard) {
+    this.selectedCauseCardName = card.cardName;
+  }
+
+
+  locationCardClick(card: TgForensicCard) {
+    this.selectedLocationCardName = card.cardName;
   }
 }

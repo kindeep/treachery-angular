@@ -1,34 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-
-import { GameApiService } from '../game/game-api.service';
-import { TgCard } from '../models/models';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { PlayerApiService } from '../player/player-api.service';
-import { getObservableInstance } from '../util';
+import { TgCardResources } from './../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardApiService {
-  private cardsDocument: AngularFirestoreDocument<any>;
-  private cards;
+  public cards$: Observable<TgCardResources>;
 
   constructor(private db: AngularFirestore) {
-    this.cardsDocument = db.collection('resources').doc('cards');
-    this.initCards();
+    this.cards$ = db.collection('resources').doc('cards').get().pipe(map(value => value.data())) as Observable<TgCardResources>;
   }
 
-  initCards = async () => {
-    this.cards = await getObservableInstance(this.cardsDocument.valueChanges());
-  }
-
-  getMeansCards(): TgCard[] {
-    return this.cards.meansCards;
-  }
-
-  getClueCards(): TgCard[] {
-    return this.cards.clueCards;
-  }
 }

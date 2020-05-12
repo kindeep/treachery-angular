@@ -60,7 +60,7 @@ export class GameApiService {
   async joinGame(gameId: string, playerName: string) {
     this.gameId = gameId;
     const addPlayer = this.fns.httpsCallable('addPlayer');
-    const response = await addPlayer({ gameId, playerName}).toPromise();
+    const response = await addPlayer({ gameId, playerName }).toPromise();
     console.log(response);
     if (response.success) {
       this.router.navigateByUrl(`/play/${gameId}`)
@@ -87,13 +87,10 @@ export class GameApiService {
     }
   }
 
-  async makeGuess({ clueCardName, meansCardName, murdererUid }: TgPartialGuess) {
-    this.getGameDoc().collection('guesses').add({
-      clueCardName,
-      meansCardName,
-      murdererUid,
-      guessedByUid: this.auth.user.uid
-    });
+  async makeGuess(guess: TgPartialGuess) {
+    const _makeGuess = this.fns.httpsCallable('makeGuess');
+    const response = await _makeGuess({ ...guess, gameId: this.gameId }).toPromise();
+    console.log(response);
   }
 
 }

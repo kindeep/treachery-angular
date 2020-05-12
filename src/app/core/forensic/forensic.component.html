@@ -1,11 +1,32 @@
-<!-- <p>Forensic for {{gameId}} is {{cardApi.getGameDoc(gameId)}}</p> -->
-<!-- <pre>{{ game$ | async | json }}</pre> -->
 <div *ngIf="game$ | async as game">
   Game Id: {{ gameId }}
   Private data:
-  <pre>{{ privateData$ | async | json }}</pre>
+  <div style="height: 200px; overflow: scroll">
+    <pre>{{ privateData$ | async | json }}</pre>
+  </div>
   <div *ngIf="game.startedOn">
     Game started!
+
+    <div *ngIf="cardApi.cards$ | async as cards">
+      <div style="display: flex;">
+        <app-forensic-card
+          *ngFor="let card of cards.forensicCards.causeCards"
+          [forensicCard]="card"
+          (click)="causeCardClick(card)"
+          [selected]="card.cardName === selectedCauseCardName"
+          [disabled]="card.cardName !== selectedCauseCardName"
+        ></app-forensic-card>
+      </div>
+      <div style="display: flex;">
+        <app-forensic-card
+          *ngFor="let card of cards.forensicCards.locationCards"
+          [forensicCard]="card"
+          (click)="locationCardClick(card)"
+          [selected]="card.cardName === selectedLocationCardName"
+          [disabled]="card.cardName !== selectedLocationCardName"
+        ></app-forensic-card>
+      </div>
+    </div>
   </div>
   <div *ngIf="!game.startedOn">
     Joined players:
