@@ -16,7 +16,7 @@ export class ForensicComponent implements OnInit {
   game$: Observable<TgGame>;
   privateData$: Observable<TgForensicPrivateData>;
   selectedCauseCardName: string;
-  locationCauseCardName: string;
+  selectedLocationCardName: string;
 
   constructor(
     private route: ActivatedRoute,
