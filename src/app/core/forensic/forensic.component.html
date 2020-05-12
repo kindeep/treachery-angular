@@ -12,6 +12,7 @@
         <app-forensic-card
           *ngFor="let card of cards.forensicCards.causeCards"
           [forensicCard]="card"
+          [(selectedOptionName)]="selectedCauseCardOption"
           (click)="causeCardClick(card)"
           [selected]="card.cardName === selectedCauseCardName"
           [disabled]="card.cardName !== selectedCauseCardName"
@@ -21,12 +22,20 @@
         <app-forensic-card
           *ngFor="let card of cards.forensicCards.locationCards"
           [forensicCard]="card"
+          [(selectedOptionName)]="selectedLocationCardOption"
           (click)="locationCardClick(card)"
           [selected]="card.cardName === selectedLocationCardName"
           [disabled]="card.cardName !== selectedLocationCardName"
         ></app-forensic-card>
       </div>
-    </div>
+      <div style="display: flex;">
+        <app-forensic-card
+        [(selectedOptionName)]="selectedOtherCardOption"
+          [forensicCard]="nextCard(game)"
+          [selected]="true"
+        ></app-forensic-card>
+      </div>
+    </div>\
   </div>
   <div *ngIf="!game.startedOn">
     Joined players:

@@ -1,5 +1,5 @@
 import { TgForensicCard } from '../../../shared/api/models/models';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-forensic-card',
@@ -10,16 +10,18 @@ export class ForensicCardComponent implements OnInit {
   @Input() forensicCard: TgForensicCard;
   @Input() disabled: boolean;
   @Input() selected: boolean;
-  
-  constructor() {}
+  @Input() selectedOptionName;
+  @Output() selectedOptionNameChange = new EventEmitter();
 
-  ngOnInit() {}
+  constructor() { }
 
-  isSelected(choice: string) {
-    return choice === this.forensicCard.selectedChoice;
+  ngOnInit() { }
+
+  isSelected(choiceName: string) {
+    return choiceName === this.forensicCard.selectedChoice || choiceName === this.selectedOptionName;
   }
 
   choiceClick(choice: string) {
-    this.forensicCard.selectedChoice = choice;
+    this.selectedOptionNameChange.emit(choice);
   }
 }

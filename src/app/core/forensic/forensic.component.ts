@@ -17,6 +17,9 @@ export class ForensicComponent implements OnInit {
   privateData$: Observable<TgForensicPrivateData>;
   selectedCauseCardName: string;
   selectedLocationCardName: string;
+  selectedCauseCardOption: string;
+  selectedLocationCardOption: string;
+  selectedOtherCardOption: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +46,11 @@ export class ForensicComponent implements OnInit {
     this.selectedCauseCardName = card.cardName;
   }
 
-
   locationCardClick(card: TgForensicCard) {
     this.selectedLocationCardName = card.cardName;
+  }
+
+  nextCard(game: TgGame) {
+    return game.otherCards.find(value => !value.selectedChoice);
   }
 }

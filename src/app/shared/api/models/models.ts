@@ -4,7 +4,6 @@ import Timestamp = firestore.Timestamp;
 export interface TgForensicCard {
   cardName: string;
   choices: string[];
-  selected: boolean;
   selectedChoice: string;
 }
 
