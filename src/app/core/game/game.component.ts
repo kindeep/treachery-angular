@@ -16,18 +16,17 @@ import { TgPlayerPrivateData, TgGame } from 'src/app/shared/api/models/models';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  gameId;
-  game$: Observable<TgGame>;
-  privateData$: Observable<TgPlayerPrivateData>;
-  player$: Observable<TgPlayer>;
+  // gameId;
+  // game$: Observable<TgGame>;
+  // privateData$: Observable<TgPlayerPrivateData>;
+  // player$: Observable<TgPlayer>;
   guess: TgPartialGuess = {} as TgPartialGuess;
-  guesses$: Observable<TgGuess[]>;
-  
+  // guesses$: Observable<TgGuess[]>;
+
   constructor(
     private route: ActivatedRoute,
-    private cardApi: GameApiService,
     public dialog: MatDialog,
-    private gameApi: GameApiService,
+    public gameApi: GameApiService,
     private auth: AuthService
   ) {
   }
@@ -35,11 +34,6 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(({ gameId }) => {
       this.gameApi.setGameId(gameId);
-      this.gameId = gameId;
-      this.game$ = this.gameApi.getCurrentGame();
-      this.player$ = this.gameApi.getCurrentGamePlayer();
-      this.privateData$ = this.gameApi.getPrivateData();
-      this.guesses$ = this.gameApi.getGameGuesses();
     });
   }
 

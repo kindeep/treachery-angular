@@ -13,9 +13,9 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./forensic.component.scss']
 })
 export class ForensicComponent implements OnInit {
-  gameId: string;
-  game$: Observable<TgGame>;
-  privateData$: Observable<TgForensicPrivateData>;
+  // gameId: string;
+  // game$: Observable<TgGame>;
+  // privateData$: Observable<TgForensicPrivateData>;
   selectedCauseCardName: string;
   selectedLocationCardName: string;
   selectedCauseCardOption: string;
@@ -30,13 +30,8 @@ export class ForensicComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(routeParams => {
-      this.gameId = routeParams.gameId;
-      this.forensicApi.updateGame(this.gameId);
-      this.gameApi.setGameId(this.gameId)
-      this.game$ = this.forensicApi.getGame();
-      this.privateData$ = this.forensicApi.getPrivateData();
-      this.privateData$.subscribe(value => { console.log(value) })
+    this.route.params.subscribe(({ gameId }) => {
+      this.gameApi.setGameId(gameId);
     });
   }
 
@@ -68,7 +63,7 @@ export class ForensicComponent implements OnInit {
 
     this.gameApi.selectForensicCauseCard(
       await this.cardApi.getCauseCard(this.selectedCauseCardName, this.selectedCauseCardOption)
-      );
+    );
   }
 
   async selectLocationCard() {
@@ -78,7 +73,7 @@ export class ForensicComponent implements OnInit {
   }
 
   async selectNextOtherCard() {
-    this.game$.pipe(take(1)).subscribe(game => {
+    this.gameApi.game$.pipe(take(1)).subscribe(game => {
       this.gameApi.selectNextForensicOtherCard({
         ...this.nextCard(game),
         selectedChoice: this.selectedOtherCardOption

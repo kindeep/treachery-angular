@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TgPlayer, TgGame, TgForensicCard } from '../models/models';
 import { AuthService } from './../../../core/auth.service';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { take, switchMap, map } from 'rxjs/operators';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -18,9 +18,10 @@ export class GameApiService {
   public game$: Observable<TgGame>;
   public players$: Observable<TgPlayer[]>;
   public me$: Observable<TgPlayer>;
-  public gameId$: Subject<string>;
+  public gameId$: BehaviorSubject<string>;
   public guesses$: Observable<TgGuess[]>;
   public playerPrivateData$: Observable<TgPlayerPrivateData>;
+  public gameDoc$: Observable<AngularFirestoreDocument<TgGame>>
 
   constructor(
     private db: AngularFirestore,
@@ -28,7 +29,7 @@ export class GameApiService {
     private fns: AngularFireFunctions,
     private router: Router
   ) {
-    this.gameId$ = new Subject<string>();
+    this.gameId$ = new BehaviorSubject<string>(null);
 
     this.gameId$.next(null);
 
@@ -67,21 +68,34 @@ export class GameApiService {
 
     this.playerPrivateData$ = this.gameId$.pipe(switchMap(gameId => {
       if (gameId) {
-        return this.getDocForGame(gameId).collection('users').valueChanges();
+        return this.getDocForGame(gameId).collection('users').doc(this.auth.user.uid).valueChanges();
       }
       else {
         return of(null);
       }
     }))
 
+    this.gameDoc$ = this.gameId$.pipe(map(gameId => {
+      console.log('at least map for gameDoc triggers');
+      if (gameId) {
+        return this.getDocForGame(gameId);
+      } else {
+        return null;
+      }
+    }
+    ))
+
+    this.gameId$.next(null);
+
 
   }
 
-  getDocForGame(gameId: string) {
+  getDocForGame(gameId: string): AngularFirestoreDocument<TgGame> {
     return this.db.collection('games').doc(gameId);
   }
 
   setGameId(gameId: string) {
+    console.log('Set game id called');
     this.gameId$.next(gameId);
   }
 

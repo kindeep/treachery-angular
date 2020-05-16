@@ -1,6 +1,6 @@
-<div>jj{{ gameId }}</div>
-<div *ngIf="game$ | async as game">
-  <div *ngIf="guesses$ | async as guesses">
+<h1>Game ID: {{ gameApi.gameId$ | async }}</h1>
+<div *ngIf="gameApi.game$ | async as game">
+  <div *ngIf="gameApi.guesses$ | async as guesses">
     Guesses yes
     <ol>
       <li *ngFor="let guess of guesses">
@@ -9,7 +9,7 @@
     </ol>
   </div>
 
-  <div *ngIf="player$ | async as player">
+  <div *ngIf="gameApi.me$ | async as player">
     emm...
     <div *ngIf="!game.startedOn">
       Not started yet...
@@ -37,7 +37,8 @@
       </pre>
     </div>
     <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
-    <div *ngIf="privateData$ | async as privateData">
+    <div *ngIf="gameApi.playerPrivateData$ | async as privateData">
+      Private data loaded!!!
       <div *ngIf="privateData.isMurderer && !game.murdererCardsSelected">
         Yo man you gotta select your cards man
         <app-murderer-select-dialog [player]="player"></app-murderer-select-dialog>
