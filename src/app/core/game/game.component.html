@@ -1,6 +1,4 @@
 <div>jj{{ gameId }}</div>
-<!-- <app-investigator></app-investigator> -->
-<!-- <pre>{{ privateData$ | async | json }}</pre> -->
 <div *ngIf="game$ | async as game">
   <div *ngIf="guesses$ | async as guesses">
     Guesses yes
@@ -10,6 +8,7 @@
       </li>
     </ol>
   </div>
+
   <div *ngIf="player$ | async as player">
     emm...
     <div *ngIf="!game.startedOn">
@@ -17,6 +16,13 @@
     </div>
     <div *ngIf="game.startedOn">
       Game started!
+      <div style="display: flex;">
+        <app-forensic-card *ngIf="game.causeCard" [forensicCard]="game.causeCard"></app-forensic-card>
+        <app-forensic-card *ngIf="game.locationCard" [forensicCard]="game.locationCard"></app-forensic-card>
+        <div *ngFor="let card of game.otherCards">
+          <app-forensic-card *ngIf="card.selectedChoice" [forensicCard]="card"></app-forensic-card>
+        </div>
+      </div>
     </div>
     <div *ngIf="!game.murdererCardsSelected">
       Murderer still selecting cards ... WAIT

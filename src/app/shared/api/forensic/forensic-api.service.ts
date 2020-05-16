@@ -24,6 +24,7 @@ export class ForensicApiService {
   }
 
   updateGame(gameId: string) {
+    console.log(`Whippete whoo game id for forensic service is now ${gameId} yoo hoo`)
     this.gameId = gameId;
   }
 

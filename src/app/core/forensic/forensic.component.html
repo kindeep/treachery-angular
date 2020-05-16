@@ -18,6 +18,8 @@
           [disabled]="card.cardName !== selectedCauseCardName"
         ></app-forensic-card>
       </div>
+      <button mat-raised-button color="accent" (click)="selectCauseCard()">Start Cause Card</button>
+
       <div style="display: flex;">
         <app-forensic-card
           *ngFor="let card of cards.forensicCards.locationCards"
@@ -28,18 +30,21 @@
           [disabled]="card.cardName !== selectedLocationCardName"
         ></app-forensic-card>
       </div>
+      <button mat-raised-button color="accent" (click)="selectLocationCard()">Start Location Card</button>
+
       <div style="display: flex;">
         <app-forensic-card
-        [(selectedOptionName)]="selectedOtherCardOption"
+          [(selectedOptionName)]="selectedOtherCardOption"
           [forensicCard]="nextCard(game)"
           [selected]="true"
         ></app-forensic-card>
       </div>
-    </div>\
+      <button mat-raised-button color="accent" (click)="selectNextOtherCard()">Start Next Other Card</button>
+    </div>
   </div>
   <div *ngIf="!game.startedOn">
     Joined players:
     <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
-    <button mat-button (click)="startGame()">Start Game</button>
+    <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
   </div>
 </div>

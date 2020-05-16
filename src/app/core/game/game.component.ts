@@ -22,6 +22,7 @@ export class GameComponent implements OnInit {
   player$: Observable<TgPlayer>;
   guess: TgPartialGuess = {} as TgPartialGuess;
   guesses$: Observable<TgGuess[]>;
+  
   constructor(
     private route: ActivatedRoute,
     private cardApi: GameApiService,
@@ -30,8 +31,6 @@ export class GameComponent implements OnInit {
     private auth: AuthService
   ) {
   }
-
-  
 
   ngOnInit() {
     this.route.params.subscribe(({ gameId }) => {

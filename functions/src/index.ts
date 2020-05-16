@@ -50,9 +50,16 @@ interface Guess {
     correct: boolean;
 }
 
+// interface ForensicCards {
+//     causeCard: ForensicCard;
+//     locationCard: Forensi9cCard;
+//     otherCards: ForensicCard[];
+// }
+
 interface Game {
     creatorUid: string;
-    guesses: Guess[]
+    guesses: Guess[];
+    // forensicCards: ForensicCards;
 }
 
 function getRandom<E>(arr: E[], n: number = 1): E[] {
@@ -245,6 +252,10 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
 exports.chooseCauseCard = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
     if (context.auth) {
         const uid = context.auth.uid;
+        const gameDoc = db.collection('games').doc(gameId);
+        const gameData = (await gameDoc.get()).data() as Game;
+
+        gameDoc.set({ forensicCards: })
 
         return { success: true }
     }

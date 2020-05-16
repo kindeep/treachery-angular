@@ -5,13 +5,10 @@ import { AuthService } from './../../../core/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { take } from 'rxjs/operators';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
-import { firestore } from 'firebase/app';
-import { plainToClass, classToPlain } from 'class-transformer';
-import { getPlainObject } from '../util';
-import { map } from 'rxjs/operators';
-import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -93,4 +90,21 @@ export class GameApiService {
     console.log(response);
   }
 
+  async selectForensicCauseCard(card: TgForensicCard) {
+    this.getGameDoc().set({ causeCard: card } as any, { merge: true })
+  }
+
+  async selectForensicLocationCard(card: TgForensicCard) {
+    this.getGameDoc().set({ locationCard: card } as any, { merge: true })
+  }
+
+  async selectNextForensicOtherCard(card: TgForensicCard) {
+    this.getCurrentGame().pipe(take(1)).subscribe((game: TgGame) => {
+      const otherCards = game.otherCards;
+      const newCardIndex = otherCards.findIndex(value => value.cardName === card.cardName);
+
+      otherCards[newCardIndex] = card;
+      this.getGameDoc().set({ otherCards } as any, { merge: true })
+    })
+  }
 }
