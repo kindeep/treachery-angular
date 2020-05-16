@@ -67,6 +67,8 @@ export interface TgGame {
 
 export interface TgForensicPrivateData {
   murderer: TgPlayer;
+  murdererClueCardName: string,
+  murdererMeansCardName: string
 }
 
 export interface TgPlayerPrivateData {

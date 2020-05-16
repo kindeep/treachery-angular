@@ -40,6 +40,14 @@ export class ForensicComponent implements OnInit {
     });
   }
 
+  getChosenMeansCard(privateObj: TgForensicPrivateData) {
+    return privateObj.murderer.clueCards.find((card: TgCard) => card.name === privateObj.murdererClueCardName)
+  }
+
+  getChosenClueCard(privateObj: TgForensicPrivateData) {
+    return privateObj.murderer.meansCards.find((card: TgCard) => card.name === privateObj.murdererMeansCardName)
+  }
+
   startGame() {
     this.forensicApi.startGame();
   }

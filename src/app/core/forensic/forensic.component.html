@@ -1,47 +1,74 @@
 <div *ngIf="game$ | async as game">
-  Game Id: {{ gameId }}
-  Private data:
-  <div style="height: 200px; overflow: scroll">
-    <pre>{{ privateData$ | async | json }}</pre>
+  <h2>Game Id: {{ gameId }}</h2>
+  <!-- Private data: -->
+  <!-- <div style="height: 200px; overflow: scroll"> -->
+  <!-- <pre>{{ privateData$ | async | json }}</pre> -->
+  <!-- </div> -->
+
+  <div *ngIf="privateData$ | async as privateData">
+    <h2>{{ privateData.murderer.name }} is the murderer!</h2>
+    <h3>Selected cards:</h3>
+    <div style="display: flex;">
+      <tg-card-wrapper [card]="getChosenMeansCard(privateData)"></tg-card-wrapper>
+      <tg-card-wrapper [card]="getChosenClueCard(privateData)"></tg-card-wrapper>
+    </div>
   </div>
+
   <div *ngIf="game.startedOn">
     Game started!
 
+    <h2>Selected Forensic Cards</h2>
+    <div style="display: flex;">
+      <app-forensic-card [forensicCard]="game.causeCard"></app-forensic-card>
+      <app-forensic-card [forensicCard]="game.locationCard"></app-forensic-card>
+      <ng-container *ngFor="let card of game.otherCards">
+        <app-forensic-card [forensicCard]="card" *ngIf="card.selectedChoice"></app-forensic-card>
+      </ng-container>
+    </div>
+
     <div *ngIf="cardApi.cards$ | async as cards">
-      <div style="display: flex;">
-        <app-forensic-card
-          *ngFor="let card of cards.forensicCards.causeCards"
-          [forensicCard]="card"
-          [(selectedOptionName)]="selectedCauseCardOption"
-          (click)="causeCardClick(card)"
-          [selected]="card.cardName === selectedCauseCardName"
-          [disabled]="card.cardName !== selectedCauseCardName"
-        ></app-forensic-card>
+      <div *ngIf="!game.causeCard">
+        <h2>Select a Cause Card</h2>
+        <div style="display: flex;">
+          <app-forensic-card
+            *ngFor="let card of cards.forensicCards.causeCards"
+            [forensicCard]="card"
+            [(selectedOptionName)]="selectedCauseCardOption"
+            (click)="causeCardClick(card)"
+            [selected]="card.cardName === selectedCauseCardName"
+          ></app-forensic-card>
+        </div>
+        <button mat-raised-button color="accent" (click)="selectCauseCard()">Start Cause Card</button>
       </div>
-      <button mat-raised-button color="accent" (click)="selectCauseCard()">Start Cause Card</button>
 
-      <div style="display: flex;">
-        <app-forensic-card
-          *ngFor="let card of cards.forensicCards.locationCards"
-          [forensicCard]="card"
-          [(selectedOptionName)]="selectedLocationCardOption"
-          (click)="locationCardClick(card)"
-          [selected]="card.cardName === selectedLocationCardName"
-          [disabled]="card.cardName !== selectedLocationCardName"
-        ></app-forensic-card>
+      <div *ngIf="!game.locationCard && game.causeCard">
+        <h2>Select a Location Card</h2>
+        <div style="display: flex;">
+          <app-forensic-card
+            *ngFor="let card of cards.forensicCards.locationCards"
+            [forensicCard]="card"
+            [(selectedOptionName)]="selectedLocationCardOption"
+            (click)="locationCardClick(card)"
+            [selected]="card.cardName === selectedLocationCardName"
+          ></app-forensic-card>
+        </div>
+        <button mat-raised-button color="accent" (click)="selectLocationCard()">Start Location Card</button>
       </div>
-      <button mat-raised-button color="accent" (click)="selectLocationCard()">Start Location Card</button>
 
-      <div style="display: flex;">
-        <app-forensic-card
-          [(selectedOptionName)]="selectedOtherCardOption"
-          [forensicCard]="nextCard(game)"
-          [selected]="true"
-        ></app-forensic-card>
+      <div *ngIf="game.causeCard && game.locationCard">
+        <h2>Select a card</h2>
+        <div style="display: flex;">
+          <app-forensic-card
+            [(selectedOptionName)]="selectedOtherCardOption"
+            [forensicCard]="nextCard(game)"
+            [selected]="true"
+          ></app-forensic-card>
+        </div>
+        <button mat-raised-button color="accent" (click)="selectNextOtherCard()">Start Next Other Card</button>
       </div>
-      <button mat-raised-button color="accent" (click)="selectNextOtherCard()">Start Next Other Card</button>
     </div>
   </div>
+
   <div *ngIf="!game.startedOn">
     Joined players:
     <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
