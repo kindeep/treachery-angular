@@ -39,7 +39,7 @@ import {MurdererSelectDialogComponent} from './core/game/murderer-select-dialog/
 import {TestComponent} from './test/test.component';
 import 'firebase/firestore';
 import { CreateGameComponent } from './core/create-game/create-game.component';
-import { CardWrapperComponent } from './app/shared/card-wrapper/card-wrapper.component';
+import { CardWrapperComponent } from './shared/card-wrapper/card-wrapper.component';
 
 @NgModule({
   declarations: [
