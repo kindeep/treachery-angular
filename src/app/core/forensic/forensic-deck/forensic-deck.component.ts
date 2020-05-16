@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
 export class ForensicDeckComponent implements OnInit {
   forensicCards: Observable<TgForensicCard[]>;
   constructor(public gameApi: GameApiService) {
-    this.forensicCards = this.gameApi.getGameDoc().snapshotChanges().pipe(
-      map(a => {
-        const data = a.payload.data() as TgGame;
+    this.forensicCards = this.gameApi.game$.pipe(
+      map(game => {
+        const data = game;
         let cards = [];
         cards.push(data.causeCard);
         cards.push(data.locationCard);

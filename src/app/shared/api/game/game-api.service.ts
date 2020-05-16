@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { TgPlayer, TgGame, TgForensicCard } from '../models/models';
 import { AuthService } from './../../../core/auth.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { take } from 'rxjs/operators';
+import { take, switchMap, map } from 'rxjs/operators';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
@@ -14,7 +14,13 @@ const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
   providedIn: 'root'
 })
 export class GameApiService {
-  private gameId: string;
+  // private gameId: string;
+  public game$: Observable<TgGame>;
+  public players$: Observable<TgPlayer[]>;
+  public me$: Observable<TgPlayer>;
+  public gameId$: Subject<string>;
+  public guesses$: Observable<TgGuess[]>;
+  public playerPrivateData$: Observable<TgPlayerPrivateData>;
 
   constructor(
     private db: AngularFirestore,
@@ -22,40 +28,89 @@ export class GameApiService {
     private fns: AngularFireFunctions,
     private router: Router
   ) {
-    this.gameId = null;
+    this.gameId$ = new Subject<string>();
+
+    this.gameId$.next(null);
+
+    this.game$ = this.gameId$.pipe(switchMap(gameId => {
+      if (gameId) {
+        return this.getDocForGame(gameId).valueChanges();
+      } else {
+        return of(null);
+      }
+    }
+    ));
+
+    this.players$ = this.gameId$.pipe(switchMap(gameId => {
+      if (gameId) {
+        return this.getDocForGame(gameId).collection('players').valueChanges();
+      } else {
+        return of(null);
+      }
+    }));
+
+    this.me$ = this.players$.pipe(map(players => {
+      if (players) {
+        return players.find(player => player.uid === this.auth.user.uid);
+      } else {
+        return null;
+      }
+    }))
+
+    this.guesses$ = this.gameId$.pipe(switchMap(gameId => {
+      if (gameId) {
+        return this.getDocForGame(gameId).collection('guesses').valueChanges();
+      } else {
+        return of(null);
+      }
+    }))
+
+    this.playerPrivateData$ = this.gameId$.pipe(switchMap(gameId => {
+      if (gameId) {
+        return this.getDocForGame(gameId).collection('users').valueChanges();
+      }
+      else {
+        return of(null);
+      }
+    }))
+
+
+  }
+
+  getDocForGame(gameId: string) {
+    return this.db.collection('games').doc(gameId);
+  }
+
+  setGameId(gameId: string) {
+    this.gameId$.next(gameId);
   }
 
   getGameGuesses(): Observable<TgGuess[]> {
-    return this.getGameDoc().collection('guesses').valueChanges() as Observable<TgGuess[]>;
+    return this.guesses$;
   }
 
   getPrivateData(): Observable<TgPlayerPrivateData> {
-    console.log(`Emm get player data for ${this.auth.user.uid}`);
-    return this.getGameDoc().collection('users').doc(this.auth.user.uid).valueChanges() as Observable<TgPlayerPrivateData>;
+    return this.playerPrivateData$;
   }
 
   getCurrentGamePlayer(): Observable<TgPlayer> {
-    return this.getGameDoc().collection('players').doc(this.auth.user.uid).valueChanges() as Observable<TgPlayer>;
-  }
-
-  getGameDoc(gameId?: string): AngularFirestoreDocument<TgGame> {
-    return this.db.collection('games').doc(gameId ? gameId : this.gameId);
+    return this.me$;
   }
 
   getCurrentGame(): Observable<TgGame> {
-    return this.getGameDoc(this.gameId).valueChanges() as Observable<TgGame>;
+    return this.game$;
   }
 
   getJoinedPlayers(gameId: string): Observable<TgPlayer[]> {
-    return this.db.collection('games').doc(gameId).collection('players').valueChanges() as Observable<TgPlayer[]>
+    return this.getDocForGame(gameId).collection('players').valueChanges() as Observable<TgPlayer[]>
   }
 
-  getCurrentGamePlayers() {
-    return this.getJoinedPlayers(this.gameId);
+  getCurrentGamePlayers(): Observable<TgPlayer[]> {
+    return this.players$;
   }
 
   async joinGame(gameId: string, playerName: string) {
-    this.gameId = gameId;
+    this.gameId$.next(gameId);
     const addPlayer = this.fns.httpsCallable('addPlayer');
     const response = await addPlayer({ gameId, playerName }).toPromise();
     console.log(response);
@@ -71,31 +126,36 @@ export class GameApiService {
     return this.db.collection('games');
   }
 
-  setGameId(gameId) {
-    this.gameId = gameId;
-  }
-
   async selectMurdererCards(clueCardName, meansCardName) {
-    const _selectMurdererCards = this.fns.httpsCallable('selectMurdererCards');
-    const response = await _selectMurdererCards({ gameId: this.gameId, clueCardName, meansCardName }).toPromise();
-    console.log(response);
-    if (response.success) {
-      console.log("Yaay cards selected");
-    }
+    this.gameId$.pipe(take(1)).subscribe(async (gameId) => {
+      const _selectMurdererCards = this.fns.httpsCallable('selectMurdererCards');
+
+      const response = await _selectMurdererCards({ gameId, clueCardName, meansCardName }).toPromise();
+      console.log(response);
+      if (response.success) {
+        console.log("Yaay cards selected");
+      }
+    });
   }
 
   async makeGuess(guess: TgPartialGuess) {
-    const _makeGuess = this.fns.httpsCallable('makeGuess');
-    const response = await _makeGuess({ ...guess, gameId: this.gameId }).toPromise();
-    console.log(response);
+    this.gameId$.pipe(take(1)).subscribe(async (gameId) => {
+      const _makeGuess = this.fns.httpsCallable('makeGuess');
+      const response = await _makeGuess({ ...guess, gameId }).toPromise();
+      console.log(response);
+    });
   }
 
   async selectForensicCauseCard(card: TgForensicCard) {
-    this.getGameDoc().set({ causeCard: card } as any, { merge: true })
+    this.gameId$.pipe(take(1)).subscribe(gameId => {
+      this.getDocForGame(gameId).set({ causeCard: card } as any, { merge: true })
+    })
   }
 
   async selectForensicLocationCard(card: TgForensicCard) {
-    this.getGameDoc().set({ locationCard: card } as any, { merge: true })
+    this.gameId$.pipe(take(1)).subscribe(gameId => {
+      this.getDocForGame(gameId).set({ locationCard: card } as any, { merge: true })
+    })
   }
 
   async selectNextForensicOtherCard(card: TgForensicCard) {
@@ -104,7 +164,9 @@ export class GameApiService {
       const newCardIndex = otherCards.findIndex(value => value.cardName === card.cardName);
 
       otherCards[newCardIndex] = card;
-      this.getGameDoc().set({ otherCards } as any, { merge: true })
+      this.gameId$.pipe(take(1)).subscribe(gameId => {
+        this.getDocForGame(gameId).set({ otherCards } as any, { merge: true })
+      });
     })
   }
 }

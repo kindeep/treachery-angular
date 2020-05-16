@@ -9,10 +9,7 @@ import {TgMessage} from '../api/models/models';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  messages$: Observable<TgMessage[]>;
-
-  constructor(private chatApi: ChatApiService) {
-    // this.messages$ = chatApi.getMessages();
+  constructor(public chatApi: ChatApiService) {
   }
 
   ngOnInit() {

@@ -1,6 +1,5 @@
 import { CreateGameComponent } from './core/create-game/create-game.component';
 import { TestComponent } from './test/test.component';
-import { InvestigatorComponent } from './core/game/investigator/investigator.component';
 import { JoinGameComponent } from './core/join-game/join-game.component';
 import { AllGamesComponent } from './core/all-games/all-games.component';
 import { ForensicComponent } from './core/forensic/forensic.component';

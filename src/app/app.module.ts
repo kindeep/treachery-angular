@@ -26,7 +26,6 @@ import {JoinGameComponent} from './core/join-game/join-game.component';
 import {JoinedPlayersListComponent} from './core/join-game/joined-players-list/joined-players-list.component';
 import {JoinedPlayerListItemComponent} from './core/join-game/joined-player-list-item/joined-player-list-item.component';
 import {RippleMatCardComponent} from './shared/ripple-mat-card/ripple-mat-card.component';
-import {InvestigatorComponent} from './core/game/investigator/investigator.component';
 import {PlayerDeckComponent} from './core/game/player-deck/player-deck.component';
 import {ForensicDeckComponent} from './core/forensic/forensic-deck/forensic-deck.component';
 import {ChatComponent} from './shared/chat/chat.component';
@@ -53,7 +52,6 @@ import { CardWrapperComponent } from './shared/card-wrapper/card-wrapper.compone
     JoinedPlayersListComponent,
     JoinedPlayerListItemComponent,
     RippleMatCardComponent,
-    InvestigatorComponent,
     PlayerDeckComponent,
     ForensicDeckComponent,
     ChatComponent,

@@ -11,15 +11,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class JoinedPlayersListComponent implements OnInit {
   @Input() gameId: string;
 
-  players$: Observable<TgPlayer[]>;
-  game$: Observable<TgGame>;
   
-  constructor(private gameApi: GameApiService) { }
+  constructor(public gameApi: GameApiService) { }
 
   ngOnInit() {
-    // this.gameDoc = this.gameApi.getGameDoc(this.gameId);
-    this.players$ = this.gameApi.getJoinedPlayers(this.gameId);
-    this.game$ = this.gameApi.getGameDoc(this.gameId).valueChanges();
   }
 
 }
