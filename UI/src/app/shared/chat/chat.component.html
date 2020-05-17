@@ -4,8 +4,8 @@ chat work
   <mat-card class="message-container" *ngFor="let message of chatApi.messages$ | async">
     <ng-container *ngIf="playersDict.get(message.playerUid) as player">
       <div class="info">
-      <div class="time">{{ message.timestamp.toDate() }}</div>
       <div class="name">{{ player.name }}</div>
+      <div class="time">{{ message.timestamp.toDate() }}</div>
       </div>
       <mat-card-content class="message">{{ message.message }}</mat-card-content>
     </ng-container>

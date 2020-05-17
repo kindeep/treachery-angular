@@ -56,13 +56,13 @@ export interface TgGame {
   gameId: string;
   createdTimestamp: Timestamp;
   startedTimestamp: Timestamp;
-  guesses: TgGuess[];
   murdererSelected: boolean;
   murdererCardsSelected: boolean;
   murdererClueCard: TgCard;
   murdererMeansCard: TgCard;
   murdererName: string;
   startedOn: Timestamp;
+  finished: boolean;
 }
 
 export interface TgForensicPrivateData {

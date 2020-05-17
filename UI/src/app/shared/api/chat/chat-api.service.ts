@@ -24,7 +24,7 @@ export class ChatApiService {
   ) {
     this.messagesCollection$ = this.gameApi.gameDoc$.pipe(map(gameDoc => {
       if (gameDoc) {
-        return gameDoc.collection<TgMessage>('messages');
+        return gameDoc.collection<TgMessage>('messages', ref => ref.orderBy('timestamp'));
       } else {
         return null;
       }

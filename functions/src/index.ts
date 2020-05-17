@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { CollectionReference } from '@google-cloud/firestore';
+import { CollectionReference, Timestamp } from '@google-cloud/firestore';
 
 admin.initializeApp();
 
@@ -50,16 +50,21 @@ interface Guess {
     correct: boolean;
 }
 
-// interface ForensicCards {
-//     causeCard: ForensicCard;
-//     locationCard: Forensi9cCard;
-//     otherCards: ForensicCard[];
-// }
-
 interface Game {
     creatorUid: string;
-    guesses: Guess[];
-    // forensicCards: ForensicCards;
+    causeCard: ForensicCard;
+    locationCard: ForensicCard;
+    otherCards: ForensicCard[];
+    gameId: string;
+    createdTimestamp: Timestamp;
+    startedTimestamp: Timestamp;
+    murdererSelected: boolean;
+    murdererCardsSelected: boolean;
+    murdererClueCard: Card;
+    murdererMeansCard: Card;
+    murdererName: string;
+    startedOn: Timestamp;
+    finished: boolean;
 }
 
 function getRandom<E>(arr: E[], n: number = 1): E[] {
@@ -231,42 +236,20 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
         const game = (await gameDoc.get()).data() as Game;
         const forensicPrivateDoc = gameDoc.collection('users').doc(game.creatorUid);
         const forensicPrivateData = (await forensicPrivateDoc.get()).data() as ForensicPrivateData;
-
+        const correct = (
+            forensicPrivateData.murderer.uid === newGuess.murdererUid &&
+            forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
+            forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
+        );
 
         gameDoc.collection('guesses').add({
-            correct: (
-                forensicPrivateData.murderer.uid === newGuess.murdererUid &&
-                forensicPrivateData.murdererClueCardName === newGuess.clueCardName &&
-                forensicPrivateData.murdererMeansCardName === newGuess.meansCardName
-            ),
+            correct,
             ...newGuess
         } as Guess)
 
-        return { success: true }
-    }
-    else {
-        return { success: false, error: 'auth error' }
-    }
-});
-
-exports.chooseCauseCard = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
-    if (context.auth) {
-        const uid = context.auth.uid;
-        const gameDoc = db.collection('games').doc(gameId);
-        const gameData = (await gameDoc.get()).data() as Game;
-
-        gameDoc.set({ forensicCards: })
-
-        return { success: true }
-    }
-    else {
-        return { success: false, error: 'auth error' }
-    }
-});
-
-exports.chooseLocationCard = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
-    if (context.auth) {
-        const uid = context.auth.uid;
+        if (correct) {
+            gameDoc.set({ finished: true }, { merge: true })
+        }
 
         return { success: true }
     }
