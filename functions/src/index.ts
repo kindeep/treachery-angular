@@ -149,7 +149,7 @@ async function _startGame(gameId: string, creatorUid: string) {
 
     await gameDoc.collection('users').doc(murderer.uid).set({ isMurderer: true }, { merge: true });
 
-    sendMessage(gameId, "Game started! Murderer, select your cards. Don't let anyone else find out!", MessageType.FORENSIC);
+    sendForensicMessage(gameId, "Game started! Murderer, select your cards. Don't let anyone else find out!");
 }
 
 async function _selectMurdererCards(gameId: string, murdererUid: string, clueCardName: string, meansCardName: string) {
@@ -174,7 +174,7 @@ async function _selectMurdererCards(gameId: string, murdererUid: string, clueCar
 
     await gameDoc.set({ murdererCardsSelected: true }, { merge: true })
 
-    sendMessage(gameId, 'Murderer selected their cards.', MessageType.FORENSIC);
+    sendForensicMessage(gameId, 'Murderer selected their cards. Time to figure out who he is. Good luck!');
 }
 
 async function _addPlayer(gameId: string, playerUid: string, playerName: string) {
@@ -238,11 +238,19 @@ exports.selectMurdererCards = functions.https.onCall(async ({ gameId, clueCardNa
     }
 });
 
-function sendMessage(gameId: string, message: string, type: MessageType = MessageType.CHAT, playerUid: string | undefined = undefined) {
+function sendMessage(gameId: string, message: string, type: MessageType = MessageType.CHAT, playerUid: string) {
     db.collection('games').doc(gameId).collection('messages').add({
         playerUid,
         message,
         type,
+        timestamp: Timestamp.now()
+    })
+}
+
+function sendForensicMessage(gameId: string, message: string) {
+    db.collection('games').doc(gameId).collection('messages').add({
+        message,
+        type: MessageType.FORENSIC,
         timestamp: Timestamp.now()
     })
 }
@@ -276,7 +284,7 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
         } as Guess)
 
         sendMessage(gameId, `I think '${guessedPlayerData.name}' is the murderer, with clue '${clueCardName} and means ${meansCardName}.`, MessageType.GUESS, uid );
-        sendMessage(gameId, correct ? 'That is correct!' : 'Nope.', MessageType.FORENSIC );
+        sendForensicMessage(gameId, correct ? 'That is correct!' : 'Nope.');
 
         if (correct) {
             gameDoc.set({ finished: true }, { merge: true })

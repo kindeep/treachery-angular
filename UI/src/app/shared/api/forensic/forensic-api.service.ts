@@ -64,7 +64,7 @@ export class ForensicApiService {
 
       // distribute cards, select murderer
       const _startGame = this.fns.httpsCallable('startGame');
-
+      console.log('Starting game', gameId);
       const response = await _startGame({ gameId }).toPromise();
 
       console.log(response);
