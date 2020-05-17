@@ -17,7 +17,7 @@ import {AngularFireFunctionsModule} from '@angular/fire/functions';
 import {environment} from '../environments/environment';
 import {ForensicComponent} from './core/forensic/forensic.component';
 import {AllGamesComponent} from './core/all-games/all-games.component';
-import {CardComponent} from './shared/card/card.component';
+import {CardComponent} from './shared/components/card/card.component';
 import {ActiveGamesListItemComponent} from './core/all-games/active-games-list-item/active-games-list-item.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -25,10 +25,10 @@ import {MatRippleModule} from '@angular/material/core';
 import {JoinGameComponent} from './core/join-game/join-game.component';
 import {JoinedPlayersListComponent} from './core/join-game/joined-players-list/joined-players-list.component';
 import {JoinedPlayerListItemComponent} from './core/join-game/joined-player-list-item/joined-player-list-item.component';
-import {RippleMatCardComponent} from './shared/ripple-mat-card/ripple-mat-card.component';
+import {RippleMatCardComponent} from './shared/components/ripple-mat-card/ripple-mat-card.component';
 import {PlayerDeckComponent} from './core/game/player-deck/player-deck.component';
 import {ForensicDeckComponent} from './core/forensic/forensic-deck/forensic-deck.component';
-import {ChatComponent} from './shared/chat/chat.component';
+import {ChatComponent} from './shared/components/chat/chat.component';
 import {PlayerDeckPagerComponent} from './core/game/player-deck-pager/player-deck-pager.component';
 import {GuessComponent} from './core/game/guess/guess.component';
 import {ForensicCardComponent} from './core/forensic/forensic-card/forensic-card.component';
@@ -37,8 +37,9 @@ import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dia
 import {MurdererSelectDialogComponent} from './core/game/murderer-select-dialog/murderer-select-dialog.component';
 import {TestComponent} from './test/test.component';
 import 'firebase/firestore';
-import { CardWrapperComponent } from './shared/card-wrapper/card-wrapper.component';
+import { CardWrapperComponent } from './shared/components/card-wrapper/card-wrapper.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CenteringFlexComponent } from './shared/components/centering-flex/centering-flex/centering-flex.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MurdererSelectDialogComponent,
     TestComponent,
     CardWrapperComponent,
+    CenteringFlexComponent,
   ],
   imports: [
     BrowserModule,

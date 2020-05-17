@@ -1,12 +1,9 @@
 .app-root {
   height: 100vh;
-  overflow-y: scroll;
+  max-height: 100vh;
 }
 
 .app-router {
-  flex: 0 1 auto;
-
-  router-outlet {
-    flex: 0 1 auto;
-  }
+  flex: 1 1 auto;
+  overflow: auto;
 }
