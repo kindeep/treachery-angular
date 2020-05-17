@@ -1,5 +1,23 @@
-<p>chat works!</p>
-<app-ripple-mat-card *ngFor="let message of chatApi.messages$ | async">
-  <mat-card-content>{{message.playerName}}</mat-card-content>
-  <mat-card-content>{{message.message}}</mat-card-content>
-</app-ripple-mat-card>
+chat work
+<div *ngIf="gameApi.playersDict$ | async as playersDict">
+  dick exist
+  <mat-card class="message-container" *ngFor="let message of chatApi.messages$ | async">
+    <ng-container *ngIf="playersDict.get(message.playerUid) as player">
+      <div class="info">
+      <div class="time">{{ message.timestamp.toDate() }}</div>
+      <div class="name">{{ player.name }}</div>
+      </div>
+      <mat-card-content class="message">{{ message.message }}</mat-card-content>
+    </ng-container>
+  </mat-card>
+  <div class="flex-horizontal">
+    <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
+      <input matInput placeholder="Type a message" #messageInput />
+    </mat-form-field>
+    <div class="vertical-centered">
+      <button mat-raised-button color="accent" name="message" autocomplete="off" (click)="chatApi.sendMessage(messageInput.value)">
+        Send
+      </button>
+    </div>
+  </div>
+</div>

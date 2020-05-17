@@ -37,8 +37,8 @@ import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dia
 import {MurdererSelectDialogComponent} from './core/game/murderer-select-dialog/murderer-select-dialog.component';
 import {TestComponent} from './test/test.component';
 import 'firebase/firestore';
-import { CreateGameComponent } from './core/create-game/create-game.component';
 import { CardWrapperComponent } from './shared/card-wrapper/card-wrapper.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import { CardWrapperComponent } from './shared/card-wrapper/card-wrapper.compone
     ForensicCardComponent,
     MurdererSelectDialogComponent,
     TestComponent,
-    CreateGameComponent,
     CardWrapperComponent,
   ],
   imports: [
@@ -81,7 +80,8 @@ import { CardWrapperComponent } from './shared/card-wrapper/card-wrapper.compone
     MatInputModule,
     MatListModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule
   ],
   providers: [GameApiService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],

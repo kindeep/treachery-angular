@@ -24,6 +24,10 @@ body {
     flex: 1 1 auto;
 }
 
+.vertical-centered {
+    display: flex; flex-direction: column; justify-content: center;
+}
+
 /**
 * Generated theme by Material Theme Generator
 * https://material-theme-generator.travetto.io

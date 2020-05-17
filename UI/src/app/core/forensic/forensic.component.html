@@ -1,10 +1,7 @@
-<div *ngIf="gameApi.gameId$ | async as gameId">
+<div class="container">
+<div *ngIf="!loading && (gameApi.gameId$ | async) as gameId; else showLoading">
   <div *ngIf="gameApi.game$ | async as game">
-    <h2>Game Id: {{ gameId }}</h2>
-    <!-- Private data: -->
-    <!-- <div style="height: 200px; overflow: scroll"> -->
-    <!-- <pre>{{ privateData$ | async | json }}</pre> -->
-    <!-- </div> -->
+    <h2>Game ID: {{ gameId }}</h2>
 
     <div *ngIf="forensicApi.forensicPrivateData$ | async as privateData">
       <div *ngIf="privateData.murderer">
@@ -77,10 +74,20 @@
       </div>
     </div>
 
-    <div *ngIf="!game.startedOn">
-      Joined players:
+    <div *ngIf="!game.startedOn" class="flex-vertical">
+      <h3>Joined players</h3>
       <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
       <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
     </div>
   </div>
+  <app-chat></app-chat>
+</div>
+<ng-template #showLoading>
+  <div class="flex-vertical">
+    <mat-spinner></mat-spinner>
+    <div *ngIf="!loading">
+      Huh, something seems to have gone wrong. It should not take this long. Try again? <a mat-button [routerLink]="['/']">Back to home</a>
+    </div>
+  </div>
+</ng-template>
 </div>

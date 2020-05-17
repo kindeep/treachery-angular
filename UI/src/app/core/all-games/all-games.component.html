@@ -1,5 +1,5 @@
-<div class="mat-typography container">
-  <div class="infoSection">
+<div class="grid-container mat-typography">
+  <div class="info-container">
     <p>
       Welcome to Treachery! A fun game to play with your friends. You need at least 4 people to play this game. You can either create a game
       or join one from the list below. When you create a game, you act as the forensic scientist, and your 3 friends can join the game as
@@ -8,14 +8,28 @@
       guess to figure out who the murderer is. If you're chosen as the murderer, you get to choose a means and a clue card. Use the chat to
       discuss amongst yourselves, and find the murderer! Or deceive investigators if you are the murderer.
     </p>
-    <div align="end">
-      <span class="fill-remaining-space"></span>
-      <button mat-raised-button color="accent" (click)="forensicApi.createGame()" style="align-self: right;">
+  </div>
+
+  <div class="create-container">
+    <div class="vertical-centered">
+      <button mat-raised-button color="accent" (click)="forensicApi.createGame()">
         Create Game
       </button>
     </div>
   </div>
-  <div class="fill-remaining-space listSection">
+
+  <div class="join-container">
+    <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
+      <input matInput placeholder="Game ID" #gameIdInput />
+    </mat-form-field>
+    <div class="vertical-centered">
+      <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
+        Join Game
+      </button>
+    </div>
+  </div>
+</div>
+<!-- <div class="fill-remaining-space listSection">
     <div *ngIf="games$ | async as games">
       <div *ngFor="let game of games" class="card">
         <app-active-games-list-item [game]="game"></app-active-games-list-item>
@@ -38,6 +52,6 @@
           </div>
         </ng-template>
       </div>
-    </div>
-  </div>
-</div>
+    </div> -->
+<!-- </div>
+</div> -->

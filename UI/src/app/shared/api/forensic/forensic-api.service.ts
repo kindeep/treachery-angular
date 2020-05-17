@@ -33,7 +33,7 @@ export class ForensicApiService {
     ))
   }
 
-  updateGame(gameId: string) {
+  updateGameId(gameId: string) {
     this.gameApi.setGameId(gameId);
   }
 
@@ -45,20 +45,18 @@ export class ForensicApiService {
     return this.forensicPrivateData$;
   }
 
-  createGame() {
-    this.gameApi.gameId$.pipe(take(1)).subscribe(async (gameId) => {
-      this.updateGame(randomReadableId());
-      const callable = this.fns.httpsCallable('createGame');
+  async createGame() {
+    const gameId = randomReadableId();
+    this.updateGameId(gameId);
+    const callable = this.fns.httpsCallable('createGame');
 
-      const response = await callable({ gameId }).toPromise();
-      console.log(response);
+    const response = await callable({ gameId }).toPromise();
+    console.log(response);
 
-      if (response.success) {
-        // Game successfully created, navigate to forensic waiting for players screen.
-        this.router.navigateByUrl(`/forensic/${gameId}`)
-      }
-
-    })
+    if (response.success) {
+      // Game successfully created, navigate to forensic waiting for players screen.
+      this.router.navigateByUrl(`/forensic/${gameId}`)
+    }
   }
 
   async startGame() {

@@ -1,9 +1,9 @@
-<div class="root-container flex-vertical">
+<div *ngIf="gameApi.game$ | async; else notAGame" class="root-container flex-vertical">
   <div style="padding: 8px">
     <div><b>Game ID</b>: {{ gameId }}</div>
     <div class="flex-horizontal">
       <mat-form-field color="accent" class="fill-remaining-space">
-        <input matInput placeholder="Gamer Tag" #playerInput/>
+        <input matInput placeholder="Gamer Tag" #playerInput />
       </mat-form-field>
       <div class="flex-vertical" style="padding-left: 8px">
         <span class="fill-remaining-space"></span>
@@ -18,3 +18,4 @@
     <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
   </div>
 </div>
+<ng-template #notAGame> No such game, <a mat-button [routerLink]="['/']">Go back home</a> to create one?</ng-template>

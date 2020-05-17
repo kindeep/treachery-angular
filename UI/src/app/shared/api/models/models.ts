@@ -38,12 +38,12 @@ export interface TgPlayer {
 }
 
 export enum TgMessageType {
-  ONE,
-  TWO,
+  CHAT = 'chat',
+  GUESS = 'guess',
 }
 
 export interface TgMessage {
-  playerName: string;
+  playerUid: string;
   message: string;
   timestamp: Timestamp;
   type: TgMessageType;

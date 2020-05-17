@@ -1,15 +1,26 @@
-.infoSection {
-  margin: 8px;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'info info'
+    'join create';
   height: 100%;
+  padding: 1rem;
 }
 
-.listSection {
-  min-height: 200px;
-  background-color: #00000022;
-  flex-grow: 1;
+.info-container {
+  grid-area: info;
+}
+
+.join-container {
+  grid-area: join;
+  display: flex;
+  padding: 2rem;
+}
+
+.create-container {
+  grid-area: create;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }

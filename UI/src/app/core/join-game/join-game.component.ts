@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinGameComponent implements OnInit {
   gameId: string;
-  constructor(private route: ActivatedRoute, private gameApi: GameApiService) { }
+  constructor(private route: ActivatedRoute, public gameApi: GameApiService) { }
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
@@ -20,9 +20,5 @@ export class JoinGameComponent implements OnInit {
 
   joinGame(playerName: string) {
     this.gameApi.joinGame(this.gameId, playerName);
-    // TODO: Get player name from input
-    // this.gameApi.setPlayerName(playerName);
-    // this.gameApi.setGameId(this.gameId);
-    // this.gameApi.addPlayer(playerName);
   }
 }

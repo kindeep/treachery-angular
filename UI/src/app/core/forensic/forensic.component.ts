@@ -21,6 +21,7 @@ export class ForensicComponent implements OnInit {
   selectedCauseCardOption: string;
   selectedLocationCardOption: string;
   selectedOtherCardOption: string;
+  loading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,9 @@ export class ForensicComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 10000);
     this.route.params.subscribe(({ gameId }) => {
       this.gameApi.setGameId(gameId);
     });

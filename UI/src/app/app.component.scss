@@ -2,3 +2,11 @@
   height: 100vh;
   overflow-y: scroll;
 }
+
+.app-router {
+  flex: 0 1 auto;
+
+  router-outlet {
+    flex: 0 1 auto;
+  }
+}

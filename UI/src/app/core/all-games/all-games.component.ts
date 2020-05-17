@@ -3,6 +3,7 @@ import { TgGame } from '../../shared/api/models/models';
 import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-games',
@@ -14,7 +15,7 @@ export class AllGamesComponent implements OnInit {
   empty: boolean;
   loading: boolean;
   gamesCollection: any;
-  constructor(public cardApi: GameApiService, public forensicApi: ForensicApiService) {
+  constructor(public cardApi: GameApiService, public forensicApi: ForensicApiService, public gameApi: GameApiService, private router: Router) {
     this.loading = true;
     this.empty = false;
     const query = this.cardApi.activeGamesQuery();
@@ -35,4 +36,8 @@ export class AllGamesComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  joinGame(gameId) {
+    this.router.navigateByUrl(`/join/${gameId}`)
+  }
 }

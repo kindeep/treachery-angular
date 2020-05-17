@@ -21,7 +21,8 @@ export class GameApiService {
   public gameId$: BehaviorSubject<string>;
   public guesses$: Observable<TgGuess[]>;
   public playerPrivateData$: Observable<TgPlayerPrivateData>;
-  public gameDoc$: Observable<AngularFirestoreDocument<TgGame>>
+  public gameDoc$: Observable<AngularFirestoreDocument<TgGame>>;
+  public playersDict$: Observable<Map<string, TgPlayer>>;
 
   constructor(
     private db: AngularFirestore,
@@ -76,7 +77,6 @@ export class GameApiService {
     }))
 
     this.gameDoc$ = this.gameId$.pipe(map(gameId => {
-      console.log('at least map for gameDoc triggers');
       if (gameId) {
         return this.getDocForGame(gameId);
       } else {
@@ -84,6 +84,18 @@ export class GameApiService {
       }
     }
     ))
+
+    this.playersDict$ = this.players$.pipe(map(players => {
+      if(players) {
+        const result = new Map();
+        players.forEach(player => {
+          result.set(player.uid, player);
+        })
+        return result;
+      } else {
+        return null;
+      }
+    }))
 
     this.gameId$.next(null);
 
@@ -95,7 +107,6 @@ export class GameApiService {
   }
 
   setGameId(gameId: string) {
-    console.log('Set game id called');
     this.gameId$.next(gameId);
   }
 

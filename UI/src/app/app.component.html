@@ -7,12 +7,10 @@
 
   <div *ngIf="authService.user$ | async as user; else showLogin">
     <pre>Hello {{ user.uid }}!</pre>
-    <div class="app-router fill-remaining-space">
+    <div class="app-router">
       <router-outlet></router-outlet>
     </div>
   </div>
 
-  <ng-template #showLogin>
-    <p>Not logged in...</p>
-  </ng-template>
+  <ng-template #showLogin> <mat-spinner> </mat-spinner> </ng-template>
 </div>
