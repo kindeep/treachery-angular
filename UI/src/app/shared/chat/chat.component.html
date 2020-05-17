@@ -1,12 +1,10 @@
 <div *ngIf="gameApi.playersDict$ | async as playersDict">
   <mat-card class="message-container" *ngFor="let message of chatApi.messages$ | async">
-    <ng-container *ngIf="playersDict.get(message.playerUid) as player">
-      <div class="info">
-      <div class="name">{{ player.name }}</div>
+    <div class="info">
+      <div *ngIf="playersDict.get(message.playerUid) as player" class="name">{{ player.name }}</div>
       <div class="time">{{ message.timestamp.toDate() }}</div>
-      </div>
-      <mat-card-content class="message">{{ message.message }}</mat-card-content>
-    </ng-container>
+    </div>
+    <mat-card-content class="message">{{ message.message }}</mat-card-content>
   </mat-card>
   <div class="flex-horizontal">
     <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
