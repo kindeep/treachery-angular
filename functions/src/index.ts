@@ -149,6 +149,7 @@ async function _startGame(gameId: string, creatorUid: string) {
 
     await gameDoc.collection('users').doc(murderer.uid).set({ isMurderer: true }, { merge: true });
 
+    sendMessage(gameId, "Game started! Murderer, select your cards. Don't let anyone else find out!", MessageType.FORENSIC);
 }
 
 async function _selectMurdererCards(gameId: string, murdererUid: string, clueCardName: string, meansCardName: string) {
@@ -172,6 +173,8 @@ async function _selectMurdererCards(gameId: string, murdererUid: string, clueCar
     }, { merge: true });
 
     await gameDoc.set({ murdererCardsSelected: true }, { merge: true })
+
+    sendMessage(gameId, 'Murderer selected their cards.', MessageType.FORENSIC);
 }
 
 async function _addPlayer(gameId: string, playerUid: string, playerName: string) {
