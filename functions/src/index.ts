@@ -67,6 +67,19 @@ interface Game {
     finished: boolean;
 }
 
+export enum MessageType {
+    CHAT = 'chat',
+    GUESS = 'guess',
+    FORENSIC = 'forensic'
+}
+
+export interface Message {
+    playerUid: string;
+    message: string;
+    timestamp: Timestamp;
+    type: MessageType;
+}
+
 function getRandom<E>(arr: E[], n: number = 1): E[] {
     var result = new Array(n),
         len = arr.length,
@@ -222,6 +235,15 @@ exports.selectMurdererCards = functions.https.onCall(async ({ gameId, clueCardNa
     }
 });
 
+function sendMessage(gameId: string, message: string, type: MessageType = MessageType.CHAT, playerUid: string | undefined = undefined) {
+    db.collection('games').doc(gameId).collection('messages').add({
+        playerUid,
+        message,
+        type,
+        timestamp: Timestamp.now()
+    })
+}
+
 exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansCardName, murdererUid }, context) => {
     const gameDoc = db.collection('games').doc(gameId);
     if (context.auth) {
@@ -232,6 +254,9 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
             murdererUid,
             guessedByUid: uid
         } as Guess;
+
+        const guessedPlayerDoc = gameDoc.collection('players').doc(murdererUid);
+        const guessedPlayerData = (await guessedPlayerDoc.get()).data() as Player;
 
         const game = (await gameDoc.get()).data() as Game;
         const forensicPrivateDoc = gameDoc.collection('users').doc(game.creatorUid);
@@ -246,6 +271,9 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
             correct,
             ...newGuess
         } as Guess)
+
+        sendMessage(gameId, `I think '${guessedPlayerData.name}' is the murderer, with clue '${clueCardName} and means ${meansCardName}.`, MessageType.GUESS, uid );
+        sendMessage(gameId, correct ? 'That is correct!' : 'Nope.', MessageType.FORENSIC );
 
         if (correct) {
             gameDoc.set({ finished: true }, { merge: true })

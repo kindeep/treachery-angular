@@ -1,6 +1,4 @@
-chat work
 <div *ngIf="gameApi.playersDict$ | async as playersDict">
-  dick exist
   <mat-card class="message-container" *ngFor="let message of chatApi.messages$ | async">
     <ng-container *ngIf="playersDict.get(message.playerUid) as player">
       <div class="info">
