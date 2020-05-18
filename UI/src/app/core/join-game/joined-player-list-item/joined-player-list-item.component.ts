@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TgPlayer } from './../../../shared/api/models/models';
+import { AvatarService } from './../../../shared/api/avatar/avatar.service';
 
 @Component({
   selector: 'app-joined-player-list-item',
@@ -6,9 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./joined-player-list-item.component.scss']
 })
 export class JoinedPlayerListItemComponent implements OnInit {
-  @Input() playerName: string;
-  @Input() gameId: string;
-  constructor() {}
+  @Input() player: TgPlayer;
+  constructor(public avatar: AvatarService) {}
 
   ngOnInit() {}
 }

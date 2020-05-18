@@ -14,7 +14,6 @@ const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
   providedIn: 'root'
 })
 export class GameApiService {
-  // private gameId: string;
   public game$: Observable<TgGame>;
   public players$: Observable<TgPlayer[]>;
   public me$: Observable<TgPlayer>;
@@ -86,7 +85,7 @@ export class GameApiService {
     ))
 
     this.playersDict$ = this.players$.pipe(map(players => {
-      if(players) {
+      if (players) {
         const result = new Map();
         players.forEach(player => {
           result.set(player.uid, player);
@@ -183,11 +182,19 @@ export class GameApiService {
     })
   }
 
-  async selectNextForensicOtherCard(card: TgForensicCard) {
+  countSelectedOtherCards(game: TgGame): number {
+    return game.otherCards.filter(card => card.selectedChoice).length;
+  }
+
+  async selectNextForensicOtherCard(card: TgForensicCard, replaceCardName?: string) {
     this.getCurrentGame().pipe(take(1)).subscribe((game: TgGame) => {
+      const count = this.countSelectedOtherCards(game)
       const otherCards = game.otherCards;
       const newCardIndex = otherCards.findIndex(value => value.cardName === card.cardName);
-
+      if (count >= 4) {
+        const replaceIndex = otherCards.findIndex(value => value.cardName === replaceCardName);
+        otherCards[replaceIndex].replaced = true;
+      }
       otherCards[newCardIndex] = card;
       this.gameId$.pipe(take(1)).subscribe(gameId => {
         this.getDocForGame(gameId).set({ otherCards } as any, { merge: true })

@@ -5,6 +5,7 @@ export interface TgForensicCard {
   cardName: string;
   choices: string[];
   selectedChoice: string;
+  replaced: boolean;
 }
 
 export interface TgCard {
@@ -50,6 +51,7 @@ export interface TgMessage {
 }
 
 export interface TgGame {
+  creatorUid: string;
   causeCard: TgForensicCard;
   locationCard: TgForensicCard;
   otherCards: TgForensicCard[];

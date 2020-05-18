@@ -15,6 +15,7 @@ interface CardsResource {
 interface ForensicCard {
     cardName: string;
     choices: string[];
+    replaced: boolean;
 }
 
 interface ForensicCardResource {
@@ -116,7 +117,7 @@ async function _startGame(gameId: string, creatorUid: string) {
 
     // Select 'other' forensic cards. 
 
-    const otherCards = getRandom(cards.forensicCards.otherCards, 5);
+    const otherCards = getRandom(cards.forensicCards.otherCards, 6);
 
     // Distribute cards to players
 
@@ -283,7 +284,7 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
             ...newGuess
         } as Guess)
 
-        sendMessage(gameId, `I think '${guessedPlayerData.name}' is the murderer, with clue '${clueCardName} and means ${meansCardName}.`, MessageType.GUESS, uid );
+        sendMessage(gameId, `I think '${guessedPlayerData.name}' is the murderer, with clue '${clueCardName}' and means '${meansCardName}'.`, MessageType.GUESS, uid );
         sendForensicMessage(gameId, correct ? 'That is correct!' : 'Nope.');
 
         if (correct) {

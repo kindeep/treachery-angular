@@ -1,19 +1,35 @@
-<div *ngIf="gameApi.playersDict$ | async as playersDict">
-  <mat-card class="message-container" *ngFor="let message of chatApi.messages$ | async">
-    <div class="info">
-      <div *ngIf="playersDict.get(message.playerUid) as player" class="name">{{ player.name }}</div>
-      <div class="time">{{ message.timestamp.toDate() }}</div>
+<ng-container *ngIf="gameApi.playersDict$ | async as playersDict">
+  <ng-container *ngIf="gameApi.game$ | async as game">
+    <div class="container">
+      <div class="messages">
+        <ng-container *ngFor="let message of chatApi.messages$ | async">
+          <div class="message-container">
+            <div class="image-container">
+              <img *ngIf="!mine(message)" [src]="getAvatarUrl(message, game)" />
+            </div>
+            <mat-card class="message-card">
+              <div class="info">
+                <div *ngIf="playersDict.get(message.playerUid) as player" class="name">{{ player.name }}</div>
+                <div class="time">{{ message.timestamp.toDate() }}</div>
+              </div>
+              <mat-card-content class="message">{{ message.message }}</mat-card-content>
+            </mat-card>
+            <div class="image-container">
+              <img *ngIf="mine(message)" [src]="getAvatarUrl(message, game)" />
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="input">
+        <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
+          <input matInput placeholder="Type a message" #messageInput />
+        </mat-form-field>
+        <div class="vertical-centered">
+          <button mat-raised-button color="accent" name="message" autocomplete="off" (click)="chatApi.sendMessage(messageInput.value)">
+            Send
+          </button>
+        </div>
+      </div>
     </div>
-    <mat-card-content class="message">{{ message.message }}</mat-card-content>
-  </mat-card>
-  <div class="flex-horizontal">
-    <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
-      <input matInput placeholder="Type a message" #messageInput />
-    </mat-form-field>
-    <div class="vertical-centered">
-      <button mat-raised-button color="accent" name="message" autocomplete="off" (click)="chatApi.sendMessage(messageInput.value)">
-        Send
-      </button>
-    </div>
-  </div>
-</div>
+  </ng-container>
+</ng-container>

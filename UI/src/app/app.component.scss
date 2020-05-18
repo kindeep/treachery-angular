@@ -1,9 +1,10 @@
 .app-root {
   height: 100vh;
-  max-height: 100vh;
 }
 
 .app-router {
   flex: 1 1 auto;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
 }

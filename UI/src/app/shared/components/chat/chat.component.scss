@@ -1,20 +1,44 @@
-.message-container {
- margin: 1rem;   
+.message-card {
+  flex: 1 1 auto;
 }
 
 .name {
-    font-size: 0.7em;
+  font-size: 0.7em;
 }
 
 .time {
-    font-size: 0.7em;
+  font-size: 0.7em;
 }
 
 .message {
+}
 
+.message-container {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  img {
+    height: 50px;
+    width: 50px;
+    margin: 8px;
+  }
 }
 
 .info {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  overflow: auto;
+  flex: 1 1 auto;
+}
+
+.input {
+  display: flex;
 }

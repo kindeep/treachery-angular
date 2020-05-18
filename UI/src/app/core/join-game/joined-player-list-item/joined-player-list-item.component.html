@@ -1,5 +1,8 @@
 <div class="card">
+  <div class="img-container">
+  <img [src]="avatar.getAvatar(player.uid)" height="50" width="50">
+  </div>
   <app-ripple-mat-card>
-    {{ playerName }}
+    {{ player.name }}
   </app-ripple-mat-card>
 </div>

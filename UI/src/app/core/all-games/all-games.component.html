@@ -9,49 +9,29 @@
       discuss amongst yourselves, and find the murderer! Or deceive investigators if you are the murderer.
     </p>
   </div>
+  
+  <div class="fill-remaining-space vertical-centered">
+    <div class="create-or-join">
+      <div class="create-container">
+        <div class="vertical-centered">
+          <button mat-raised-button color="accent" (click)="forensicApi.createGame()">
+            Create Game
+          </button>
+        </div>
+      </div>
 
-  <div class="create-container">
-    <div class="vertical-centered">
-      <button mat-raised-button color="accent" (click)="forensicApi.createGame()">
-        Create Game
-      </button>
-    </div>
-  </div>
+      <div>OR</div>
 
-  <div class="join-container">
-    <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
-      <input matInput placeholder="Game ID" #gameIdInput />
-    </mat-form-field>
-    <div class="vertical-centered">
-      <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
-        Join Game
-      </button>
+      <div class="join-container">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Game ID" #gameIdInput />
+        </mat-form-field>
+        <div class="vertical-centered">
+          <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
+            Join Game
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<!-- <div class="fill-remaining-space listSection">
-    <div *ngIf="games$ | async as games">
-      <div *ngFor="let game of games" class="card">
-        <app-active-games-list-item [game]="game"></app-active-games-list-item>
-      </div>
-      <div *ngIf="games.length === 0">
-        <div style="display: flex; flex-direction: column; height: 100%;" align="center" *ngIf="loading; else noGames">
-          <span class="fill-remaining-space"></span>
-          <div style="display: flex; flex-direction: row;">
-            <span class="fill-remaining-space"></span>
-            <mat-spinner></mat-spinner>
-            <span class="fill-remaining-space"></span>
-          </div>
-          <span class="fill-remaining-space"></span>
-        </div>
-        <ng-template #noGames>
-          <div style="display: flex; flex-direction: column; height: 100%;" align="center">
-            <div class="fill-remaining-space"></div>
-            No active games. Maybe create one?
-            <div class="fill-remaining-space"></div>
-          </div>
-        </ng-template>
-      </div>
-    </div> -->
-<!-- </div>
-</div> -->

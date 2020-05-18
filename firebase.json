@@ -7,7 +7,7 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "UI/dist",
+    "public": "UI/dist/deceptiongame",
     "ignore": [
       "firebase.json",
       "**/.*",

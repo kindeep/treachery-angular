@@ -21,7 +21,8 @@ export class ForensicComponent implements OnInit {
   selectedCauseCardOption: string;
   selectedLocationCardOption: string;
   selectedOtherCardOption: string;
-  loading = true;
+  replaceCardName: string;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,9 +32,9 @@ export class ForensicComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 10000);
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 10000);
     this.route.params.subscribe(({ gameId }) => {
       this.gameApi.setGameId(gameId);
     });
@@ -77,11 +78,18 @@ export class ForensicComponent implements OnInit {
   }
 
   async selectNextOtherCard() {
+
     this.gameApi.game$.pipe(take(1)).subscribe(game => {
+      const nextCard = this.nextCard(game);
+      this.replaceCardName = nextCard.cardName;
       this.gameApi.selectNextForensicOtherCard({
-        ...this.nextCard(game),
+        ...nextCard,
         selectedChoice: this.selectedOtherCardOption
       })
     })
+  }
+
+  selectReplaceCard(card: TgForensicCard) {
+    this.replaceCardName = card.cardName;
   }
 }

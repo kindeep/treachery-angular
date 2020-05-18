@@ -1,3 +1,16 @@
+:host {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
-    padding: 1rem;
+  padding: 1rem;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.game-info-container {
+  overflow: scroll;
 }
