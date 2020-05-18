@@ -1,6 +1,6 @@
 import { TgForensicPrivateData } from './../models/models';
 import { randomReadableId } from './../util';
-import { AuthService } from './../../../core/auth.service';
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';

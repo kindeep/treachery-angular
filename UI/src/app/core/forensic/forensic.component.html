@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="game-info-container" *ngIf="!loading && (gameApi.gameId$ | async) as gameId; else showLoading">
+  <div class="game-info-container" *ngIf="(gameApi.gameId$ | async) as gameId; else showLoading">
     <div *ngIf="gameApi.game$ | async as game">
       <h2>Game ID: {{ gameId }}</h2>
 

@@ -3,7 +3,7 @@ import { TgCard, TgGuess, TgPlayer, TgPartialGuess } from '../../../shared/api/m
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlayerApiService } from '../../../shared/api/player/player-api.service';
-import { AuthService } from '../../auth.service';
+import { AuthService } from './../../../shared/api/auth/auth.service';
 
 @Component({
   selector: 'app-player-deck-pager',

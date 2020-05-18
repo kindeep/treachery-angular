@@ -1,7 +1,7 @@
 import { TgPlayerPrivateData, TgGuess, TgPartialGuess } from './../models/models';
 import { Router } from '@angular/router';
 import { TgPlayer, TgGame, TgForensicCard } from '../models/models';
-import { AuthService } from './../../../core/auth.service';
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';

@@ -1,5 +1,5 @@
 import { TgPlayer, TgGuess, TgPartialGuess } from './../../shared/api/models/models';
-import { AuthService } from './../auth.service';
+import { AuthService } from './../../shared/api/auth/auth.service';
 import { auth } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { GameApiService } from '../../shared/api/game/game-api.service';

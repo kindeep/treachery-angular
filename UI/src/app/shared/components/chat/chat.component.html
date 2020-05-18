@@ -5,17 +5,17 @@
         <ng-container *ngFor="let message of chatApi.messages$ | async">
           <div class="message-container">
             <div class="image-container">
-              <img *ngIf="!mine(message)" [src]="getAvatarUrl(message, game)" />
+              <tg-avatar *ngIf="!mine(message)" [uid]="getUid(message, game) | async"></tg-avatar>
             </div>
             <mat-card class="message-card">
               <div class="info">
                 <div *ngIf="playersDict.get(message.playerUid) as player" class="name">{{ player.name }}</div>
-                <div class="time">{{ message.timestamp.toDate() }}</div>
+                <!-- <div class="time">{{ message.timestamp.toDate() }}</div> -->
               </div>
               <mat-card-content class="message">{{ message.message }}</mat-card-content>
             </mat-card>
             <div class="image-container">
-              <img *ngIf="mine(message)" [src]="getAvatarUrl(message, game)" />
+              <tg-avatar *ngIf="mine(message)" [uid]="getUid(message, game)"></tg-avatar>
             </div>
           </div>
         </ng-container>

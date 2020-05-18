@@ -8,7 +8,7 @@ import { firestore } from 'firebase';
 import Timestamp = firestore.Timestamp;
 import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { AuthService } from './../../../core/auth.service';
+import { AuthService } from './../auth/auth.service';
 import { auth } from 'firebase/app';
 
 @Injectable({

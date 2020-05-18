@@ -1,13 +1,5 @@
-<div class="app-root flex-vertical mat-typography ">
-  <mat-toolbar color="primary" class="app-navbar">
-    <mat-toolbar-row style="display: flex; justify-content: space-between;">
-      <span>Treachery</span>
-      <img *ngIf="authService.user$ | async as user; else showLoading" width="50" height="50" [src]="avatar.getAvatar(user.uid)" />
-      <ng-template #showLoading>
-        <mat-spinner [diameter]="50" color="accent"></mat-spinner>
-      </ng-template>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<div class="app-root mat-typography">
+  <tg-navbar></tg-navbar>
 
   <ng-container *ngIf="authService.user$ | async as user; else showLogin">
     <div class="app-router">
@@ -16,8 +8,8 @@
   </ng-container>
 
   <ng-template #showLogin>
-    <div> 
+    <div>
       <mat-spinner> </mat-spinner>
-    </div> 
+    </div>
   </ng-template>
 </div>

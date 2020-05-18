@@ -1,4 +1,4 @@
-import { AuthService } from './core/auth.service';
+import { AuthService } from './shared/api/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
