@@ -46,6 +46,6 @@ export class PlayerDeckPagerComponent implements OnInit {
   }
 
   otherPlayers(players: TgPlayer[]) {
-    return players.filter(player => player.uid !== this.auth.user.uid)
+    return players ? players.filter(player => player.uid !== this.auth.user.uid) : null;
   }
 }

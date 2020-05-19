@@ -47,6 +47,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { CopyLinkComponent } from './shared/copy-link/copy-link.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatIconModule } from '@angular/material/icon';
+import { InfoComponent } from './shared/components/info/info.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { MatIconModule } from '@angular/material/icon';
     AvatarComponent,
     NavbarComponent,
     CopyLinkComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,
