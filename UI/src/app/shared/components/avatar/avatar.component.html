@@ -1,1 +1,1 @@
-<img [height]="diameter" [width]="diameter" [defaultImage]="defaultSvgUri()" [lazyLoad]="src ? src : defaultSvgUri()" [errorImage]="defaultSvgUri()">
+<img [height]="diameter" [width]="diameter" [defaultImage]="defaultSvgUri(uid)" [lazyLoad]="getSrc(uid) ? getSrc(uid) : defaultSvgUri(uid)" [errorImage]="defaultSvgUri(uid)">
