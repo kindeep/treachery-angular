@@ -18,13 +18,13 @@ export class ChatComponent implements OnInit {
   constructor(public chatApi: ChatApiService, public gameApi: GameApiService, public auth: AuthService, public avatar: AvatarService) {
   }
 
-  getUid(message: TgMessage, game: TgGame):string {
-    console.log(game.creatorUid); 
+  getUid(message: TgMessage, game: TgGame): string {
+    console.log(game.creatorUid);
     return message.playerUid ? message.playerUid : game.creatorUid;
   }
 
-  mine(message: TgMessage) {
-    return message.playerUid === this.auth.user.uid;
+  mine(message: TgMessage, game: TgGame) {
+    return message.playerUid === this.auth.user.uid || (!message.playerUid && game.creatorUid === this.auth.user.uid);
   }
 
   ngOnInit() {

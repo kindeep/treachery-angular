@@ -4,7 +4,7 @@
       <div class="messages">
         <ng-container *ngFor="let message of chatApi.messages$ | async">
           <div class="message-container">
-            <div *ngIf="!mine(message)" class="image-container left">
+            <div *ngIf="!mine(message, game)" class="image-container left">
               <tg-avatar [uid]="getUid(message, game)"></tg-avatar>
             </div>
             <mat-card class="message-card">
@@ -14,7 +14,7 @@
               </div>
               <mat-card-content class="message">{{ message.message }}</mat-card-content>
             </mat-card>
-            <div *ngIf="mine(message)" class="image-container right">
+            <div *ngIf="mine(message, game)" class="image-container right">
               <tg-avatar [uid]="getUid(message, game)"></tg-avatar>
             </div>
           </div>
