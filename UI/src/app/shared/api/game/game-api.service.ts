@@ -22,6 +22,7 @@ export class GameApiService {
   public playerPrivateData$: Observable<TgPlayerPrivateData>;
   public gameDoc$: Observable<AngularFirestoreDocument<TgGame>>;
   public playersDict$: Observable<Map<string, TgPlayer>>;
+  public joinLink$: Observable<string>;
 
   constructor(
     private db: AngularFirestore,
@@ -98,6 +99,13 @@ export class GameApiService {
 
     this.gameId$.next(null);
 
+    this.joinLink$ = this.gameId$.pipe(map(value => {
+      if (value) {
+        return `${window.location.origin}/join/${value}`
+      } else {
+        return `${window.location.origin}`;
+      }
+    }))
 
   }
 

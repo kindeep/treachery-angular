@@ -9,6 +9,7 @@ import ColorHash from 'color-hash';
 })
 export class AvatarComponent implements OnInit {
   cash = new ColorHash({hash: (str) => {
+    if(!str) return 0;
     var hash = 0;
     for (var i = 0; i < str.length; i++) {
       hash += str.charCodeAt(i);

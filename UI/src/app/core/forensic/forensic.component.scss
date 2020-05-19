@@ -6,7 +6,22 @@
 }
 
 .game-info-container {
+  padding: var(--space-8);
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.joined-players-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+
+  app-joined-players-list {
+    flex: 1;
+    margin: var(--space-8) 0;
+  }
 }
 
 app-chat {

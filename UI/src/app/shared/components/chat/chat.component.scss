@@ -20,8 +20,15 @@
   img {
     height: 50px;
     width: 50px;
-    margin: 8px;
   }
+}
+
+.image-container.left{
+  margin-right: var(--space-8);
+}
+
+.image-container.right{
+  margin-left: var(--space-8);
 }
 
 .info {
@@ -43,5 +50,10 @@
 
 .input {
   display: flex;
-  padding: 0 0.5rem;
+  padding: 0 var(--space-8);
+
+  mat-form-field {
+    flex: 1;
+    margin-right: var(--space-8)
+  }
 }

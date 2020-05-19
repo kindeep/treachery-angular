@@ -1,1 +1,1 @@
-<img height="50" width="50" [defaultImage]="defaultSvgUri()" [lazyLoad]="src" [errorImage]="defaultSvgUri()">
+<img height="50" width="50" [defaultImage]="defaultSvgUri()" [lazyLoad]="src ? src : defaultSvgUri()" [errorImage]="defaultSvgUri()">

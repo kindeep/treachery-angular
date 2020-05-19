@@ -1,20 +1,20 @@
-<div *ngIf="gameApi.game$ | async; else notAGame" class="root-container flex-vertical">
-  <div style="padding: 8px">
-    <div><b>Game ID</b>: {{ gameId }}</div>
+<div *ngIf="gameApi.game$ | async; else notAGame" class="root-container">
+  <div class="join-container">
+    <div><b>Game ID</b>: {{ gameId }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></div>
     <div class="flex-horizontal">
       <mat-form-field color="accent" class="fill-remaining-space">
         <input matInput placeholder="Gamer Tag" #playerInput />
       </mat-form-field>
-      <div class="flex-vertical" style="padding-left: 8px">
-        <span class="fill-remaining-space"></span>
-        <button mat-raised-button color="accent" (click)="joinGame(playerInput.value)">
-          Join Game
-        </button>
-        <span class="fill-remaining-space"></span>
+      <div class="button-container">
+        <div>
+          <button mat-raised-button color="accent" (click)="joinGame(playerInput.value)">
+            Join Game
+          </button>
+        </div>
       </div>
     </div>
   </div>
-  <div style="background-color: #00000022;" class="fill-remaining-space">
+  <div class="joined-list-container">
     <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
   </div>
 </div>

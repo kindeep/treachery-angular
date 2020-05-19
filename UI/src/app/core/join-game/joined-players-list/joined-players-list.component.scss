@@ -1,3 +1,12 @@
 .container {
-    padding: 1rem;
+    padding: var(--space-8);
+    border: var(--tg-border-size) solid var(--tg-card-background-color);
+    border-radius: var(--tg-border-radius);
+    flex: 1;
+    overflow: auto;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
 }

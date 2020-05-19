@@ -1,7 +1,12 @@
 <div class="container">
-  <div class="game-info-container" *ngIf="(gameApi.gameId$ | async) as gameId; else showLoading">
-    <div *ngIf="gameApi.game$ | async as game">
-      <h2>Game ID: {{ gameId }}</h2>
+  <div class="game-info-container" *ngIf="gameApi.gameId$ | async as gameId; else showLoading">
+    <ng-container *ngIf="gameApi.game$ | async as game">
+      <h2>Game ID: {{ gameId }} <tg-copy-link *ngIf="gameApi.joinLink$ | async as joinLink" [text]="joinLink"></tg-copy-link></h2>
+      <div *ngIf="!game.startedOn" class="joined-players-container">
+        <div>Joined players</div>
+        <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
+        <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
+      </div>
 
       <div *ngIf="forensicApi.forensicPrivateData$ | async as privateData">
         <div *ngIf="privateData.murderer">
@@ -85,13 +90,7 @@
           </div>
         </div>
       </div>
-
-      <div *ngIf="!game.startedOn" class="flex-vertical">
-        <h3>Joined players</h3>
-        <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
-        <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
-      </div>
-    </div>
+    </ng-container>
   </div>
   <app-chat></app-chat>
   <ng-template #showLoading>

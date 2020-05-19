@@ -1,3 +1,8 @@
+:root {
+    --space-8: 1rem;
+    --space-16: 2rem;
+}
+
 .flex-horizontal {
     display: flex;
     flex-direction: row;
@@ -174,6 +179,20 @@ body {
     --text-primary-lighter-color: #{$light-primary-text};
     --text-primary-darker-color: #{$light-primary-text};
 }
+
+body {
+    --tg-card-background-color: #{$dark-bg-lighter-5};
+}
+
+body {
+    --tg-border-radius: 4px;
+}
+
+
+body {
+    --tg-border-size: 2px;
+}
+
 
 $mat-primary: (main: #891212,
     lighter: #bf4739,

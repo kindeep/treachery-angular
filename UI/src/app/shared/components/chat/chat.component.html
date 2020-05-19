@@ -4,8 +4,8 @@
       <div class="messages">
         <ng-container *ngFor="let message of chatApi.messages$ | async">
           <div class="message-container">
-            <div class="image-container">
-              <tg-avatar *ngIf="!mine(message)" [uid]="getUid(message, game) | async"></tg-avatar>
+            <div *ngIf="!mine(message)" class="image-container left">
+              <tg-avatar [uid]="getUid(message, game)"></tg-avatar>
             </div>
             <mat-card class="message-card">
               <div class="info">
@@ -14,14 +14,14 @@
               </div>
               <mat-card-content class="message">{{ message.message }}</mat-card-content>
             </mat-card>
-            <div class="image-container">
-              <tg-avatar *ngIf="mine(message)" [uid]="getUid(message, game)"></tg-avatar>
+            <div *ngIf="mine(message)" class="image-container right">
+              <tg-avatar [uid]="getUid(message, game)"></tg-avatar>
             </div>
           </div>
         </ng-container>
       </div>
       <div class="input">
-        <mat-form-field style="flex: 1 1 auto; padding: 0.5rem;" color="accent">
+        <mat-form-field color="accent">
           <input matInput placeholder="Type a message" #messageInput />
         </mat-form-field>
         <div class="vertical-centered">

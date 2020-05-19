@@ -39,11 +39,14 @@ import { TestComponent } from './test/test.component';
 import 'firebase/firestore';
 import { CardWrapperComponent } from './shared/components/card-wrapper/card-wrapper.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CenteringFlexComponent } from './shared/components/centering-flex/centering-flex/centering-flex.component';
+import { CenteringFlexComponent } from './shared/components/centering-flex/centering-flex.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AvatarComponent } from './shared/components/avatar/avatar.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { CopyLinkComponent } from './shared/copy-link/copy-link.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
     CenteringFlexComponent,
     AvatarComponent,
     NavbarComponent,
+    CopyLinkComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,9 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
     MatCardModule,
     MatProgressBarModule,
     HttpClientModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    ClipboardModule,
+    MatIconModule
   ],
   providers: [GameApiService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   bootstrap: [AppComponent],
