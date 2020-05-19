@@ -19,8 +19,13 @@
 
 body {
     margin: 0;
-    background-color: #303030;
+    background-color: #252525;
     color: white;
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 .fill-remaining-space {

@@ -1,0 +1,23 @@
+.container {
+  flex: 1;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+:host {
+  flex: 1;
+  display: flex;
+  max-height: 100%;
+}
+
+.game-info-container {
+  padding: var(--space-8);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+app-chat {
+    overflow: auto;
+}
