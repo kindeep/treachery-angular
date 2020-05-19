@@ -16,7 +16,6 @@ export class MurdererSelectDialogComponent implements OnInit {
   selectedMeans: string;
 
   constructor(private gameApi: GameApiService) {
-    // this.player$ = playerApiService.getCurrentPlayer();
   }
 
   ngOnInit() {
@@ -24,6 +23,5 @@ export class MurdererSelectDialogComponent implements OnInit {
 
   selectCards() {
     this.gameApi.selectMurdererCards(this.selectedClue, this.selectedMeans);
-    // this.playerApiService.selectMurdererCards(this.selectedClue, this.selectedMeans);
   }
 }

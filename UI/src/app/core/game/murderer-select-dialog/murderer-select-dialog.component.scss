@@ -1,3 +1,13 @@
-.dialog {
-  width: 100vw;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: var(--tg-border-size) solid var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+  padding: var(--space-4);
+}
+
+.deck-container {
+  display: flex;
+  justify-content: center;
 }

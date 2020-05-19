@@ -74,7 +74,7 @@ export class GameApiService {
       else {
         return of(null);
       }
-    }))
+    })).pipe(map(value => value ? value : {}))
 
     this.gameDoc$ = this.gameId$.pipe(map(gameId => {
       if (gameId) {

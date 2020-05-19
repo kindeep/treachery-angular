@@ -40,8 +40,4 @@ export class GameComponent implements OnInit {
   openDialog() {
     this.dialog.open(MurdererSelectDialogComponent, {});
   }
-
-  makeGuess() {
-    this.gameApi.makeGuess(this.guess);
-  }
 }

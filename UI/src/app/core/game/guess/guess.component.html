@@ -1,12 +1,28 @@
-<div class="flex-horizontal" style="padding: 4px;">
-  <div class="fill-remaining-space">
-    <div><b>Player:</b>{{guess.guessedPlayer}}</div>
-    <div><b>Means card:</b>{{guess.meansCard}}</div>
-    <div><b>Clue Card:</b>{{guess.clueCard}}</div>
-  </div>
-  <div class="flex-vertical">
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button color="accent" (click)="makeGuess()">Make Guess</button>
-    <span class="fill-remaining-space"></span>
-  </div>
+<div class="container">
+  <ng-container *ngIf="guess && guess.murdererUid; else emptyGuess">
+    <ng-container *ngIf="gameApi.players$ | async as players">
+      <ng-container *ngIf="getMurderer(players) as murderer; else emptyGuess">
+        <div class="murderer">
+          <div class="think">I think</div>
+          <tg-avatar [diameter]="90" [uid]="guess.murdererUid"></tg-avatar>
+          <div class="name">{{ murderer.name }}</div>
+          <div class="subtitle">is the murderer</div>
+        </div>
+        <ng-container *ngIf="getMeansCard(murderer) as meansCard">
+          <tg-card-wrapper [card]="meansCard"></tg-card-wrapper>
+          <ng-container *ngIf="getClueCard(murderer) as clueCard">
+            <tg-card-wrapper [card]="clueCard"></tg-card-wrapper>
+            <span class="fill-remaining-space"></span>
+            <div class="button-container">
+              <button mat-raised-button color="accent" (click)="makeGuess()">Make Guess</button>
+            </div>
+            <span class="fill-remaining-space"></span>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyGuess>
+    Try composing a guess by selecting one of the cards above.
+  </ng-template>
 </div>

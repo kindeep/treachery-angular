@@ -1,11 +1,13 @@
-.container {
-  // white-space: nowrap;
-  // display: inline-block;
-  // width: 100%;
+.list:first-child {
+  margin-left: 0;
 }
 
-.block {
-  float: left;
+.first {
+  margin-left: 0 !important;
+}
+
+.deck-container {
+  margin-left: var(--space-4);
 }
 
 .horizontal-scroll {

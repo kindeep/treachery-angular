@@ -17,6 +17,7 @@ export class AvatarComponent implements OnInit {
     return hash;
   }});
   @Input() uid: string;
+  @Input() diameter = 50;
   src: string;
   fill = '000000'
   defaultSvgUri() {

@@ -1,0 +1,32 @@
+.container {
+    padding: var(--space-4) var(--space-8);
+    // background-color: var(--tg-info-color);
+    background-color: var(--tg-card-background-color);
+    border-radius: var(--tg-border-radius);
+    // color: var(--tg-info-text);
+    font-weight: var(--tg-info-weight);
+    display: flex;
+}
+
+.murderer {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-right: var(--space-16);
+}
+
+.subtitle {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.think {
+    font-weight: normal;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

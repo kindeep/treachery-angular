@@ -1,15 +1,8 @@
-<div class="mat-typography">
+<div class="container">
   <h1>You are the murderer!</h1>
-  <div>
-    <p>Select a clue and means card from your deck below.</p>
-    <app-player-deck
-      [(selectedClue)]="selectedClue" [(selectedMeans)]="selectedMeans"
-      [player]="player"
-    ></app-player-deck>
+  <p>Select a clue and means card from your deck below.</p>
+  <div class="deck-container">
+    <app-player-deck [(selectedClue)]="selectedClue" [(selectedMeans)]="selectedMeans" [player]="player"></app-player-deck>
   </div>
-</div>
-<div>
-  means: {{ selectedMeans }}
-  clue: {{ selectedClue }}
   <button mat-raised-button color="accent" (click)="selectCards()" cdkFocusInitial>Select cards</button>
 </div>

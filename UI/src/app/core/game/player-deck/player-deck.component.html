@@ -1,6 +1,9 @@
 <div class="player-deck">
-  <div><b>Player name:</b> {{ player.name }}</div>
-  <div class="flex-horizontal">
+  <div class="player">
+    <div class="avatar-container"><tg-avatar [uid]="player.uid"></tg-avatar></div>
+    <div class="name">{{ player.name }}</div>
+  </div>
+  <div class="cards">
     <app-card
       *ngFor="let card of player.meansCards"
       [imgSrc]="card.imgUrl"
@@ -9,7 +12,7 @@
       (click)="meansClick(card.name)"
     ></app-card>
   </div>
-  <div class="flex-horizontal">
+  <div class="cards">
     <app-card
       *ngFor="let card of player.clueCards"
       [imgSrc]="card.imgUrl"

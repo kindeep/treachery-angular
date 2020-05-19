@@ -4,6 +4,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlayerApiService } from '../../../shared/api/player/player-api.service';
 import { AuthService } from './../../../shared/api/auth/auth.service';
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'app-player-deck-pager',
@@ -17,7 +18,7 @@ export class PlayerDeckPagerComponent implements OnInit {
   selectedMeans: string;
   player$: Observable<TgPlayer>;
 
-  constructor(gameApi: GameApiService) {
+  constructor(gameApi: GameApiService, private auth: AuthService) {
     this.players$ = gameApi.getCurrentGamePlayers();
     this.player$ = gameApi.getCurrentGamePlayer();
   }
@@ -42,5 +43,9 @@ export class PlayerDeckPagerComponent implements OnInit {
     }
     this.guess.meansCardName = this.selectedMeans;
     this.guess.clueCardName = this.selectedClue;
+  }
+
+  otherPlayers(players: TgPlayer[]) {
+    return players.filter(player => player.uid !== this.auth.user.uid)
   }
 }

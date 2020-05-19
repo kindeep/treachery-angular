@@ -1,47 +1,37 @@
 <div class="container">
-<div class="game-info-container" *ngIf="gameApi.game$ | async as game; else loading">
-  <h2>Game ID: {{ gameApi.gameId$ | async }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></h2>
+  <div class="game-info-container" *ngIf="gameApi.game$ | async as game; else loading">
+    <h2>Game ID: {{ gameApi.gameId$ | async }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></h2>
 
-  <ng-container *ngIf="gameApi.me$ | async as player">
-    <ng-container *ngIf="!game.startedOn">Waiting for forensic scientist to start the game...</ng-container>
-    <ng-container *ngIf="game.startedOn">
-      Game started!
-      <div style="display: flex;">
-        <app-forensic-card *ngIf="game.causeCard" [forensicCard]="game.causeCard"></app-forensic-card>
-        <app-forensic-card *ngIf="game.locationCard" [forensicCard]="game.locationCard"></app-forensic-card>
-        <div *ngFor="let card of game.otherCards">
-          <app-forensic-card *ngIf="card.selectedChoice" [forensicCard]="card"></app-forensic-card>
-        </div>
-      </div>
-      <div *ngIf="!game.murdererCardsSelected">
-        Murderer still selecting cards ... WAIT
-      </div>
-      <div *ngIf="game.murdererCardsSelected">
-        Murderer cards selected!
-      </div>
-      <div>
-        Current guess:
-        <pre>
-        {{ guess | json }}
-      </pre
-        >
-      </div>
-      <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
-      <div *ngIf="gameApi.playerPrivateData$ | async as privateData">
-        Private data loaded!!!
+    <ng-container *ngIf="gameApi.me$ | async as player">
+      <ng-container *ngIf="gameApi.playerPrivateData$ | async as privateData">
+        <ng-container *ngIf="!game.startedOn">Waiting for forensic scientist to start the game...</ng-container>
         <div *ngIf="privateData.isMurderer && !game.murdererCardsSelected">
-          Yo man you gotta select your cards man
           <app-murderer-select-dialog [player]="player"></app-murderer-select-dialog>
         </div>
-      </div>
-      <button mat-raised-button color="accent" (click)="makeGuess()">Make guess</button>
+        <div class="murderer-selecting-cards" *ngIf="!game.murdererCardsSelected && !privateData.isMurderer">
+          Murderer is selecting their cards ...
+        </div>
+        <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
+        <ng-container *ngIf="game.startedOn">
+          <div style="display: flex;">
+            <app-forensic-card *ngIf="game.causeCard" [forensicCard]="game.causeCard"></app-forensic-card>
+            <app-forensic-card *ngIf="game.locationCard" [forensicCard]="game.locationCard"></app-forensic-card>
+            <div *ngFor="let card of game.otherCards">
+              <app-forensic-card *ngIf="card.selectedChoice" [forensicCard]="card"></app-forensic-card>
+            </div>
+          </div>
+          <div *ngIf="game.murdererCardsSelected">
+            Murderer cards selected!
+          </div>
+          <app-guess *ngIf="game.murdererCardsSelected" [guess]="guess"></app-guess>
+        </ng-container>
+      </ng-container>
     </ng-container>
-  </ng-container>
-</div>
-<ng-template #loading>
-  <div>
-    <mat-spinner [diameter]="50"></mat-spinner>
   </div>
-</ng-template>
-<app-chat></app-chat>
+  <ng-template #loading>
+    <div>
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+  </ng-template>
+  <app-chat></app-chat>
 </div>
