@@ -13,9 +13,6 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./forensic.component.scss']
 })
 export class ForensicComponent implements OnInit {
-  // gameId: string;
-  // game$: Observable<TgGame>;
-  // privateData$: Observable<TgForensicPrivateData>;
   selectedCauseCardName: string;
   selectedLocationCardName: string;
   selectedCauseCardOption: string;
@@ -78,18 +75,28 @@ export class ForensicComponent implements OnInit {
   }
 
   async selectNextOtherCard() {
-
     this.gameApi.game$.pipe(take(1)).subscribe(game => {
       const nextCard = this.nextCard(game);
-      this.replaceCardName = nextCard.cardName;
       this.gameApi.selectNextForensicOtherCard({
         ...nextCard,
         selectedChoice: this.selectedOtherCardOption
-      })
+      }, this.replaceCardName)
     })
   }
 
   selectReplaceCard(card: TgForensicCard) {
     this.replaceCardName = card.cardName;
+  }
+
+  toReplace(game: TgGame) {
+    return game.otherCards.filter(card => card.selectedChoice).length >= 4 && game.otherCards.filter(card => card.replaced).length < 2;
+  }
+
+  showNextOtherCard(game: TgGame) {
+    return game.causeCard && game.locationCard && game.otherCards.filter(card => card.selectedChoice).length < 6;
+  }
+
+  waitingToEnd(game: TgGame) {
+    return game.causeCard && game.locationCard && game.otherCards.filter(card => card.selectedChoice).length >= 6;
   }
 }

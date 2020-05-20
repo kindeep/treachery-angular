@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChatApiService } from '../../api/chat/chat-api.service';
 import { Observable } from 'rxjs';
 import { TgMessage } from '../../api/models/models';
@@ -14,6 +14,7 @@ import { SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @Input() disableChat = false;
   playerNamesDict$: any;
   constructor(public chatApi: ChatApiService, public gameApi: GameApiService, public auth: AuthService, public avatar: AvatarService) {
   }

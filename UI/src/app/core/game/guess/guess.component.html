@@ -12,11 +12,9 @@
           <tg-card-wrapper [card]="meansCard"></tg-card-wrapper>
           <ng-container *ngIf="getClueCard(murderer) as clueCard">
             <tg-card-wrapper [card]="clueCard"></tg-card-wrapper>
-            <span class="fill-remaining-space"></span>
             <div class="button-container">
               <button mat-raised-button color="accent" (click)="makeGuess()">Make Guess</button>
             </div>
-            <span class="fill-remaining-space"></span>
           </ng-container>
         </ng-container>
       </ng-container>

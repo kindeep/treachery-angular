@@ -37,3 +37,27 @@
 app-chat {
   overflow: auto;
 }
+
+app-player-deck-pager {
+  margin: var(--space-4) 0;
+}
+
+.cards-container {
+  flex: 0 0 auto;
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  width: 100%;
+  display: flex;
+}
+
+
+app-forensic-card {
+  margin-right: var(--space-4);
+}
+
+.selected-cards-container {
+  border: var(--tg-border-size) solid var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+}

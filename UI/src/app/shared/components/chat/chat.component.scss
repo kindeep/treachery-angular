@@ -1,5 +1,9 @@
 .message-card {
   flex: 1 1 auto;
+  background-color: var(--tg-card-background-color);
+  border-radius: var(--tg-card-border-radius);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--tg-border-radius);
 }
 
 .name {
@@ -23,11 +27,11 @@
   }
 }
 
-.image-container.left{
+.image-container.left {
   margin-right: var(--space-8);
 }
 
-.image-container.right{
+.image-container.right {
   margin-left: var(--space-8);
 }
 
@@ -54,6 +58,6 @@
 
   mat-form-field {
     flex: 1;
-    margin-right: var(--space-8)
+    margin-right: var(--space-8);
   }
 }

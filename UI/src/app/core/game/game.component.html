@@ -4,8 +4,12 @@
 
     <ng-container *ngIf="gameApi.me$ | async as player">
       <ng-container *ngIf="gameApi.playerPrivateData$ | async as privateData">
-        <ng-container *ngIf="!game.startedOn">Waiting for forensic scientist to start the game...</ng-container>
-        <ng-container *ngIf="game.startedOn">
+        <tg-info *ngIf="!game.startedOn">Waiting for forensic scientist to start the game...</tg-info>
+        <ng-container *ngIf="game.finished">
+          <tg-info>Game has ended!</tg-info>
+          <tg-murderer-info></tg-murderer-info>
+        </ng-container>
+        <ng-container *ngIf="game.startedOn && !game.finished">
           <div *ngIf="privateData.isMurderer && !game.murdererCardsSelected">
             <app-murderer-select-dialog [player]="player"></app-murderer-select-dialog>
           </div>
@@ -21,11 +25,11 @@
               <tg-info>Forensic Scientist is selecting other cards...</tg-info>
             </ng-template>
           </ng-container>
-          <div style="display: flex;">
+          <div class="cards">
             <app-forensic-card *ngIf="game.causeCard" [forensicCard]="game.causeCard"></app-forensic-card>
             <app-forensic-card *ngIf="game.locationCard" [forensicCard]="game.locationCard"></app-forensic-card>
             <div *ngFor="let card of game.otherCards">
-              <app-forensic-card *ngIf="card.selectedChoice" [forensicCard]="card"></app-forensic-card>
+              <app-forensic-card *ngIf="card.selectedChoice && !card.replaced" [forensicCard]="card"></app-forensic-card>
             </div>
           </div>
           <app-player-deck-pager [guess]="guess"></app-player-deck-pager>

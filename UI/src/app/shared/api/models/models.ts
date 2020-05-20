@@ -16,12 +16,11 @@ export interface TgCard {
 }
 
 export interface TgGuess {
-  id: string;
-  clueCard: string;
-  meansCard: string;
-  guessedPlayer: string;
-  guesserPlayer: string;
-  processed: boolean;
+  guessedByUid: string;
+  murdererUid: string;
+  meansCardName: string;
+  clueCardName: string;
+  correct: boolean;
 }
 
 export interface TgPartialGuess {
@@ -60,9 +59,9 @@ export interface TgGame {
   startedTimestamp: Timestamp;
   murdererSelected: boolean;
   murdererCardsSelected: boolean;
-  murdererClueCard: TgCard;
-  murdererMeansCard: TgCard;
-  murdererName: string;
+  murdererClueCardName: string;
+  murdererMeansCardName: string;
+  murdererUid: string;
   startedOn: Timestamp;
   finished: boolean;
 }
@@ -89,4 +88,10 @@ export interface TgCardResources {
   clueCards: TgCard[];
   meansCards: TgCard[];
   forensicCards: TgForensicCardResource;
+}
+
+export interface TgMurdererInfo {
+  murderer: TgPlayer;
+  clueCard: TgCard;
+  meansCard: TgCard;
 }

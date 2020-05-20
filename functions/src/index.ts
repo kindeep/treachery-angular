@@ -284,11 +284,11 @@ exports.makeGuess = functions.https.onCall(async ({ gameId, clueCardName, meansC
             ...newGuess
         } as Guess)
 
-        sendMessage(gameId, `I think '${guessedPlayerData.name}' is the murderer, with clue '${clueCardName}' and means '${meansCardName}'.`, MessageType.GUESS, uid );
+        sendMessage(gameId, `I think '${guessedPlayerData.name}' is the murderer, with clue '${clueCardName}' and means '${meansCardName}'.`, MessageType.GUESS, uid);
         sendForensicMessage(gameId, correct ? 'That is correct!' : 'Nope.');
 
         if (correct) {
-            gameDoc.set({ finished: true }, { merge: true })
+            gameDoc.set({ finished: true, murdererUid, murdererMeansCardName: meansCardName, murdererClueCardName: clueCardName }, { merge: true })
         }
 
         return { success: true }

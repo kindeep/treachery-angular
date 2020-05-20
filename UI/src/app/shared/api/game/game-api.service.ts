@@ -7,6 +7,7 @@ import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { take, switchMap, map } from 'rxjs/operators';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { SnackBarService } from '../snack-bar/snack-bar.service';
 
 const GAME_COMPLETE_EXPIRE_TIME = 10 * 60 * 1000;
 
@@ -28,7 +29,8 @@ export class GameApiService {
     private db: AngularFirestore,
     private auth: AuthService,
     private fns: AngularFireFunctions,
-    private router: Router
+    private router: Router,
+    private snack: SnackBarService
   ) {
     this.gameId$ = new BehaviorSubject<string>(null);
 
@@ -106,7 +108,6 @@ export class GameApiService {
         return `${window.location.origin}`;
       }
     }))
-
   }
 
   getDocForGame(gameId: string): AngularFirestoreDocument<TgGame> {
@@ -200,13 +201,25 @@ export class GameApiService {
       const otherCards = game.otherCards;
       const newCardIndex = otherCards.findIndex(value => value.cardName === card.cardName);
       if (count >= 4) {
-        const replaceIndex = otherCards.findIndex(value => value.cardName === replaceCardName);
-        otherCards[replaceIndex].replaced = true;
+        console.log('Should replace');
+        if (replaceCardName) {
+          console.log('Should replace', replaceCardName)
+          const replaceIndex = otherCards.findIndex(value => value.cardName === replaceCardName);
+          otherCards[replaceIndex].replaced = true;
+        } else {
+          this.snack.error('Select a card to replace!');
+          return;
+        }
       }
       otherCards[newCardIndex] = card;
       this.gameId$.pipe(take(1)).subscribe(gameId => {
+        console.log('Setting doc', { otherCards })
         this.getDocForGame(gameId).set({ otherCards } as any, { merge: true })
       });
     })
+  }
+
+  findPlayer(players: TgPlayer[], uid: string): TgPlayer {
+    return players.find(player => player.uid === uid);
   }
 }

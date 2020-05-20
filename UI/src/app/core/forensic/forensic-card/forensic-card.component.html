@@ -1,5 +1,5 @@
 <div style="margin: 4px;" *ngIf="!!forensicCard">
-  <mat-card style="padding: 0; width: 4.5cm;" [ngClass]="[disabled ? 'disabled-card' : '', selected ? 'selected-card' : '']">
+  <mat-card style="padding: 0; width: 5cm;" [ngClass]="[disabled ? 'disabled-card' : '', selected ? 'selected-card' : '']">
     <!-- adding mat ripple to mat card has a bug, mat card resizes on click, workaround -->
     <mat-card-content matRipple style="margin: 0; padding: 16px; border-radius: 4px;">
       <h4>{{ forensicCard.cardName }}</h4>

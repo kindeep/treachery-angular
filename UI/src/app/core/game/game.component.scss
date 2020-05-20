@@ -33,3 +33,9 @@ app-chat {
 app-player-deck-pager {
   margin: var(--space-4) 0;
 }
+
+.cards {
+  flex: 0 0 auto;
+  display: flex;
+  overflow-x: auto;
+}

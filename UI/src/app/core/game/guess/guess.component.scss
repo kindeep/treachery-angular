@@ -1,11 +1,10 @@
 .container {
     padding: var(--space-4) var(--space-8);
-    // background-color: var(--tg-info-color);
     background-color: var(--tg-card-background-color);
     border-radius: var(--tg-border-radius);
-    // color: var(--tg-info-text);
     font-weight: var(--tg-info-weight);
     display: flex;
+    justify-content: center;
 }
 
 .murderer {
@@ -27,6 +26,7 @@
 
 .button-container {
     display: flex;
+    padding-left: var(--space-16);
     flex-direction: column;
     justify-content: center;
 }

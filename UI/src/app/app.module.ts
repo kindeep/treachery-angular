@@ -27,7 +27,6 @@ import { JoinedPlayersListComponent } from './core/join-game/joined-players-list
 import { JoinedPlayerListItemComponent } from './core/join-game/joined-player-list-item/joined-player-list-item.component';
 import { RippleMatCardComponent } from './shared/components/ripple-mat-card/ripple-mat-card.component';
 import { PlayerDeckComponent } from './core/game/player-deck/player-deck.component';
-import { ForensicDeckComponent } from './core/forensic/forensic-deck/forensic-deck.component';
 import { ChatComponent } from './shared/components/chat/chat.component';
 import { PlayerDeckPagerComponent } from './core/game/player-deck-pager/player-deck-pager.component';
 import { GuessComponent } from './core/game/guess/guess.component';
@@ -48,6 +47,8 @@ import { CopyLinkComponent } from './shared/copy-link/copy-link.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatIconModule } from '@angular/material/icon';
 import { InfoComponent } from './shared/components/info/info.component';
+import { MurdererInfoComponent } from './core/forensic/murderer-info/murderer-info.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,6 @@ import { InfoComponent } from './shared/components/info/info.component';
     JoinedPlayerListItemComponent,
     RippleMatCardComponent,
     PlayerDeckComponent,
-    ForensicDeckComponent,
     ChatComponent,
     PlayerDeckPagerComponent,
     GuessComponent,
@@ -75,6 +75,7 @@ import { InfoComponent } from './shared/components/info/info.component';
     NavbarComponent,
     CopyLinkComponent,
     InfoComponent,
+    MurdererInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +100,8 @@ import { InfoComponent } from './shared/components/info/info.component';
     HttpClientModule,
     LazyLoadImageModule,
     ClipboardModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule,
   ],
   providers: [GameApiService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   bootstrap: [AppComponent],
