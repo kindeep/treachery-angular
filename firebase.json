@@ -8,6 +8,7 @@
   },
   "hosting": {
     "public": "UI/dist/deceptiongame",
+    "site": "treacheryonline",
     "ignore": [
       "firebase.json",
       "**/.*",
