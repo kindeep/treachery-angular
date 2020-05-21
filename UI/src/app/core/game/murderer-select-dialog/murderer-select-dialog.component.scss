@@ -8,6 +8,11 @@
 }
 
 .deck-container {
+  flex: 1 0 auto;
   display: flex;
-  justify-content: center;
+  overflow-x: auto;
+}
+
+.select-button {
+  margin-top: var(--space-4);
 }

@@ -5,14 +5,16 @@
     font-weight: var(--tg-info-weight);
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .murderer {
     justify-content: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding-right: var(--space-16);
+    padding-right: var(--space-4);
 }
 
 .subtitle {
@@ -26,7 +28,7 @@
 
 .button-container {
     display: flex;
-    padding-left: var(--space-16);
+    padding-left: var(--space-4);
     flex-direction: column;
     justify-content: center;
 }

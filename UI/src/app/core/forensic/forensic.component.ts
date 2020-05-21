@@ -2,10 +2,12 @@ import { TgGame, TgForensicPrivateData, TgForensicCard, TgCard } from './../../s
 import { ForensicApiService } from './../../shared/api/forensic/forensic-api.service';
 import { GameApiService } from '../../shared/api/game/game-api.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { CardApiService } from './../../shared/api/card/card-api.service';
 import { take } from 'rxjs/operators';
+import { AuthService } from './../../shared/api/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forensic',
@@ -20,21 +22,43 @@ export class ForensicComponent implements OnInit {
   selectedOtherCardOption: string;
   replaceCardName: string;
   loading = true;
+  subscription: Subscription;
+  subscription2: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     public cardApi: CardApiService,
     public forensicApi: ForensicApiService,
-    public gameApi: GameApiService
+    public gameApi: GameApiService,
+    public router: Router,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.loading = false;
     }, 10000);
-    this.route.params.subscribe(({ gameId }) => {
+    this.route.params.subscribe(async ({ gameId }) => {
       this.gameApi.setGameId(gameId);
+      this.subscription = this.gameApi.players$.subscribe(players => {
+        this.subscription2 = this.gameApi.game$.subscribe(game => {
+          if (players && game) {
+            if (players.find(player => player.uid === this.auth.user.uid)) {
+              this.router.navigateByUrl(`/play/${gameId}`);
+            } else if (game.creatorUid === this.auth.user.uid) {
+              // correct page
+            } else {
+              this.router.navigateByUrl(`/join/${gameId}`);
+            }
+          }
+        });
+      })
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   getChosenMeansCard(privateObj: TgForensicPrivateData) {
@@ -54,7 +78,11 @@ export class ForensicComponent implements OnInit {
   }
 
   locationCardClick(card: TgForensicCard) {
-    this.selectedLocationCardName = card.cardName;
+
+    if (this.selectedLocationCardName !== card.cardName) {
+      this.selectedLocationCardName = card.cardName;
+      this.selectedLocationCardOption = null;
+    }
   }
 
   nextCard(game: TgGame) {
@@ -62,16 +90,19 @@ export class ForensicComponent implements OnInit {
   }
 
   async selectCauseCard() {
-
     this.gameApi.selectForensicCauseCard(
       await this.cardApi.getCauseCard(this.selectedCauseCardName, this.selectedCauseCardOption)
     );
+    this.selectedCauseCardName = null;
+    this.selectedCauseCardOption = null;
   }
 
   async selectLocationCard() {
     this.gameApi.selectForensicLocationCard(
       await this.cardApi.getLocationCard(this.selectedLocationCardName, this.selectedLocationCardOption)
     )
+    this.selectedLocationCardName = null;
+    this.selectedLocationCardOption = null;
   }
 
   async selectNextOtherCard() {
@@ -81,10 +112,13 @@ export class ForensicComponent implements OnInit {
         ...nextCard,
         selectedChoice: this.selectedOtherCardOption
       }, this.replaceCardName)
+      this.selectedOtherCardOption = null;
+      this.replaceCardName = null;
     })
+
   }
 
-  selectReplaceCard(card: TgForensicCard) {
+  selectReplaceCard = (card: TgForensicCard) => {
     this.replaceCardName = card.cardName;
   }
 
@@ -98,5 +132,9 @@ export class ForensicComponent implements OnInit {
 
   waitingToEnd(game: TgGame) {
     return game.causeCard && game.locationCard && game.otherCards.filter(card => card.selectedChoice).length >= 6;
+  }
+
+  endGame() {
+    this.forensicApi.endGame();
   }
 }

@@ -9,28 +9,22 @@
       discuss amongst yourselves, and find the murderer! Or deceive investigators if you are the murderer.
     </p>
   </div>
-  
-  <div class="fill-remaining-space vertical-centered">
-    <div class="create-or-join">
-      <div class="create-container">
-        <div class="vertical-centered">
-          <button mat-raised-button color="accent" (click)="forensicApi.createGame()">
-            Create Game
-          </button>
-        </div>
-      </div>
 
-      <div>OR</div>
+  <div class="container">
+    <button class="create-button" mat-raised-button color="accent" (click)="forensicApi.createGame()">
+      Create Game
+    </button>
 
-      <div class="join-container">
-        <mat-form-field color="accent">
-          <input matInput placeholder="Game ID" #gameIdInput />
-        </mat-form-field>
-        <div class="vertical-centered">
-          <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
-            Join Game
-          </button>
-        </div>
+    <div class="or">OR</div>
+
+    <div class="join-container">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Game ID" #gameIdInput />
+      </mat-form-field>
+      <div class="vertical-centered">
+        <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
+          Join Game
+        </button>
       </div>
     </div>
   </div>

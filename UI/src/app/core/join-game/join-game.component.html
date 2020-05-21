@@ -18,4 +18,6 @@
     <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
   </div>
 </div>
-<ng-template #notAGame> No such game, <a mat-button [routerLink]="['/']">Go back home</a> to create one?</ng-template>
+<ng-template #notAGame>
+  <tg-info class="no-such-game"> No such game, <a mat-raised-button color="accent" [routerLink]="['/']">Go back home</a> to create one?</tg-info></ng-template
+>

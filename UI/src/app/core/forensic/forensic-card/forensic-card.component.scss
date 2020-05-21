@@ -1,15 +1,32 @@
-.option-selected {
+.option.option-selected, .selected-card .option.option-selected {
   background-color: blue;
 }
 
-.not-option-selected {
-  background-color: blue;
-}
 
 .disabled-card {
-
 }
 
-.selected-card {
+.card.selected-card {
   background-color: #660000;
+}
+
+.card {
+  background-color: var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+  padding: var(--space-8);
+  margin: var(--space-2);
+  transition: background-color linear 0.3s;
+}
+
+.selected-card .option {
+  background-color: #700000;
+}
+
+.option {
+  margin: var(--space-2);
+  width: 100%;
+  padding: 0 var(--space-8);
+  display: flex;
+  flex-direction: column;
+  transition: background-color linear 0.1s;
 }

@@ -1,20 +1,21 @@
 .card {
-  height: 4.5cm;
-  width: 2.5cm;
+  height: var(--tg-card-height);
+  width: var(--tg-card-width);
   border-radius: 4px;
-  margin: 4px;
+  margin: var(--space-2);
+}
+
+.card-name {
+  font-weight: 500;
+  padding: var(--space-2);
+  word-wrap: break-word;
+  border-radius: var;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0));
 }
 
 #card-image {
   max-width: 100%;
   max-height: 100%;
-}
-
-.header {
-  padding: 4px;
-  word-wrap: break-word;
-  border-radius: 4px;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0));
 }
 
 .selected {

@@ -10,20 +10,13 @@
   justify-content: space-between;
   flex: 1 0 auto;
   padding: 1rem;
-  text-align: center;
   overflow: auto;
 }
-
-.info-container {
-}
-
 .join-container {
   display: flex;
-  padding: 2rem;
-
   mat-form-field {
-    flex: 1 1 auto; 
-    padding: 0 1rem;
+    flex: 1 1 auto;
+    margin-right: var(--space-8);
   }
 }
 
@@ -37,4 +30,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.container {
+  text-align: center;
+  padding: var(--space-16);
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: var(--tg-border-size) solid var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+}
+
+.or {
+  font-size: var(--tg-font-size-16);
 }

@@ -5,7 +5,7 @@ import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { take, switchMap, map } from 'rxjs/operators';
+import { take, switchMap, map, shareReplay } from 'rxjs/operators';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
 
@@ -43,7 +43,7 @@ export class GameApiService {
         return of(null);
       }
     }
-    ));
+    )).pipe(shareReplay(1));
 
     this.players$ = this.gameId$.pipe(switchMap(gameId => {
       if (gameId) {
@@ -51,7 +51,7 @@ export class GameApiService {
       } else {
         return of(null);
       }
-    }));
+    })).pipe(shareReplay(1));
 
     this.me$ = this.players$.pipe(map(players => {
       if (players) {
@@ -59,7 +59,7 @@ export class GameApiService {
       } else {
         return null;
       }
-    }))
+    })).pipe(shareReplay(1));
 
     this.guesses$ = this.gameId$.pipe(switchMap(gameId => {
       if (gameId) {
@@ -67,7 +67,7 @@ export class GameApiService {
       } else {
         return of(null);
       }
-    }))
+    })).pipe(shareReplay(1));
 
     this.playerPrivateData$ = this.gameId$.pipe(switchMap(gameId => {
       if (gameId) {
@@ -76,7 +76,7 @@ export class GameApiService {
       else {
         return of(null);
       }
-    })).pipe(map(value => value ? value : {}))
+    })).pipe(map(value => value ? value : {})).pipe(shareReplay(1));
 
     this.gameDoc$ = this.gameId$.pipe(map(gameId => {
       if (gameId) {
@@ -85,7 +85,7 @@ export class GameApiService {
         return null;
       }
     }
-    ))
+    )).pipe(shareReplay(1));
 
     this.playersDict$ = this.players$.pipe(map(players => {
       if (players) {
@@ -97,7 +97,7 @@ export class GameApiService {
       } else {
         return null;
       }
-    }))
+    })).pipe(shareReplay(1));
 
     this.gameId$.next(null);
 
@@ -107,7 +107,7 @@ export class GameApiService {
       } else {
         return `${window.location.origin}`;
       }
-    }))
+    })).pipe(shareReplay(1));
   }
 
   getDocForGame(gameId: string): AngularFirestoreDocument<TgGame> {
@@ -180,12 +180,20 @@ export class GameApiService {
   }
 
   async selectForensicCauseCard(card: TgForensicCard) {
+    if (!card || !card.selectedChoice) {
+      this.snack.error('Please select an option from the cards!');
+      return;
+    }
     this.gameId$.pipe(take(1)).subscribe(gameId => {
       this.getDocForGame(gameId).set({ causeCard: card } as any, { merge: true })
     })
   }
 
   async selectForensicLocationCard(card: TgForensicCard) {
+    if (!card || !card.selectedChoice) {
+      this.snack.error('Please select an option from the cards!');
+      return;
+    }
     this.gameId$.pipe(take(1)).subscribe(gameId => {
       this.getDocForGame(gameId).set({ locationCard: card } as any, { merge: true })
     })
@@ -196,6 +204,10 @@ export class GameApiService {
   }
 
   async selectNextForensicOtherCard(card: TgForensicCard, replaceCardName?: string) {
+    if (!card || !card.selectedChoice) {
+      this.snack.error('Please select an option from the card!');
+      return;
+    }
     this.getCurrentGame().pipe(take(1)).subscribe((game: TgGame) => {
       const count = this.countSelectedOtherCards(game)
       const otherCards = game.otherCards;
@@ -221,5 +233,10 @@ export class GameApiService {
 
   findPlayer(players: TgPlayer[], uid: string): TgPlayer {
     return players.find(player => player.uid === uid);
+  }
+
+  async gameExists(gameId: string): Promise<string> {
+    const game = (await this.db.doc(`games/${gameId}`).get().toPromise()).data() as TgGame;
+    return game && game.creatorUid;
   }
 }

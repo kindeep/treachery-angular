@@ -2,7 +2,6 @@
   flex: 1;
   height: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr;
 }
 
 :host {
@@ -18,8 +17,13 @@
   flex-direction: column;
 }
 
+app-joined-players-list {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 app-chat {
-    overflow: auto;
+  overflow: auto;
 }
 
 .murderer-selecting-cards {
@@ -38,4 +42,23 @@ app-player-deck-pager {
   flex: 0 0 auto;
   display: flex;
   overflow-x: auto;
+}
+
+@media only screen and (max-width: 40rem) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 40rem) and (max-width: 65rem) {
+  .container {
+    grid-template-columns: 4fr 3fr;
+  }
+}
+
+@media only screen and (min-width: 65rem) {
+  .container {
+    grid-template-columns: 2fr 1fr;
+  }
 }

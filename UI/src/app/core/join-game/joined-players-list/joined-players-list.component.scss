@@ -12,3 +12,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.title {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-8);
+}

@@ -2,7 +2,6 @@
   flex: 1;
   height: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr;
 }
 
 :host {
@@ -60,4 +59,34 @@ app-forensic-card {
   border-radius: var(--tg-border-radius);
   margin: var(--space-4) 0;
   padding: var(--space-4);
+}
+
+@media only screen and (max-width: 40rem)  {
+  .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 40rem) and (max-width: 65rem)  {
+  .container {
+      grid-template-columns: 4fr 3fr;
+  }
+}
+
+
+@media only screen and (min-width: 65rem)  {
+  .container {
+      grid-template-columns: 2fr 1fr;
+  }
+}
+
+button {
+  width: 100%;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: fit-content;
 }

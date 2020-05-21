@@ -1,9 +1,9 @@
-<mat-toolbar color="primary" class="app-navbar">
-  <mat-toolbar-row style="display: flex; justify-content: space-between;">
-    <span>Treachery</span>
-    <tg-avatar *ngIf="authService.user$ | async as user; else showLoading" [uid]="user.uid"></tg-avatar>
-    <ng-template #showLoading>
-      <mat-spinner [diameter]="50" color="accent"></mat-spinner>
-    </ng-template>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div class="app-navbar">
+    <div class="title">Treachery</div>
+    <div class="avatar-container">
+      <tg-avatar [diameter]="50" *ngIf="authService.user$ | async as user; else showLoading" [uid]="user.uid"></tg-avatar>
+      <ng-template #showLoading>
+        <mat-spinner [diameter]="50" color="accent"></mat-spinner>
+      </ng-template>
+    </div>
+</div>

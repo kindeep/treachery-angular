@@ -49,6 +49,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { InfoComponent } from './shared/components/info/info.component';
 import { MurdererInfoComponent } from './core/forensic/murderer-info/murderer-info.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmationButtonComponent } from './shared/components/confirmation-button/confirmation-button.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CopyLinkComponent,
     InfoComponent,
     MurdererInfoComponent,
+    ConfirmationButtonComponent,
   ],
   imports: [
     BrowserModule,

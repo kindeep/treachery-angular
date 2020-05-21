@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { TgGame } from '../models/models';
 import { GameApiService } from './../game/game-api.service';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, shareReplay } from 'rxjs/operators';
+import { SnackBarService } from '../snack-bar/snack-bar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class ForensicApiService {
     private authService: AuthService,
     private router: Router,
     private fns: AngularFireFunctions,
-    public gameApi: GameApiService
+    public gameApi: GameApiService,
+    private snack: SnackBarService
   ) {
     this.forensicPrivateData$ = this.gameApi.gameDoc$.pipe(switchMap(gameDoc => {
       if (gameDoc) {
@@ -30,7 +32,7 @@ export class ForensicApiService {
         return of(null);
       }
     }
-    ))
+    )).pipe(shareReplay(1));
   }
 
   updateGameId(gameId: string) {
@@ -61,17 +63,35 @@ export class ForensicApiService {
 
   async startGame() {
     this.gameApi.gameId$.pipe(take(1)).subscribe(async (gameId) => {
+      this.gameApi.players$.pipe(take(1)).subscribe(async (players) => {
+        if (players.length >= 3) {
+          // distribute cards, select murderer
+          const _startGame = this.fns.httpsCallable('startGame');
+          console.log('Starting game', gameId);
+          const response = await _startGame({ gameId }).toPromise();
 
-      // distribute cards, select murderer
-      const _startGame = this.fns.httpsCallable('startGame');
-      console.log('Starting game', gameId);
-      const response = await _startGame({ gameId }).toPromise();
+          console.log(response);
 
-      console.log(response);
-
-      if (response.success) {
-        console.log('Yess...');
-      }
+          if (response.success) {
+            console.log('Yess...');
+          }
+        } else {
+          this.snack.error('Need at least 3 players to start!')
+        }
+      })
     });
+  }
+
+  endGame() {
+    this.gameApi.gameDoc$.pipe(take(1)).subscribe(gameDoc => {
+      this.forensicPrivateData$.pipe(take(1)).subscribe(forensicPrivateData => {
+        gameDoc.set({
+          finished: true,
+          murdererUid: forensicPrivateData.murderer.uid,
+          murdererMeansCardName: forensicPrivateData.murdererMeansCardName,
+          murdererClueCardName: forensicPrivateData.murdererClueCardName
+        } as any, { merge: true })
+      })
+    })
   }
 }

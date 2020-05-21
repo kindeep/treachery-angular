@@ -4,7 +4,10 @@
 
     <ng-container *ngIf="gameApi.me$ | async as player">
       <ng-container *ngIf="gameApi.playerPrivateData$ | async as privateData">
-        <tg-info *ngIf="!game.startedOn">Waiting for forensic scientist to start the game...</tg-info>
+        <ng-container *ngIf="!game.startedOn">
+          <tg-info>Waiting for forensic scientist to start the game...</tg-info>
+          <app-joined-players-list></app-joined-players-list>
+        </ng-container>
         <ng-container *ngIf="game.finished">
           <tg-info>Game has ended!</tg-info>
           <tg-murderer-info></tg-murderer-info>
