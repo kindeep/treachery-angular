@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - name: UI
+        run: cd UI
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -34,6 +36,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_TREACHERY_2 }}
