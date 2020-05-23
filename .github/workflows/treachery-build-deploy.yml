@@ -11,17 +11,13 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: UI
-        run: cd UI
-      - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: cd UI && npm run build
+      - name: Install Dependencies and build
+        run: cd UI && npm install && npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: dist/deceptiongame
-          path: dist/deceptiongame
+          name: UI/dist/deceptiongame
+          path: UI/dist/deceptiongame
   deploy:
     name: Deploy
     needs: build
