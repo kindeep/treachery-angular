@@ -1,0 +1,51 @@
+<ng-container *ngIf="gameApi.playersDict$ | async as playersDict">
+  <ng-container *ngIf="gameApi.game$ | async as game">
+    <div class="container">
+      <div class="messages">
+        <ng-container *ngFor="let message of chatApi.messages$ | async">
+          <div class="message-container">
+            <div *ngIf="!mine(message, game)" class="image-container left">
+              <tg-avatar [uid]="getUid(message, game)"></tg-avatar>
+            </div>
+            <div class="message-card">
+              <div class="info">
+                <div class="name">
+                  <ng-container *ngIf="playersDict.get(message.playerUid) as player; else forensic">
+                    {{ player.name }}
+                  </ng-container>
+                  <ng-template #forensic>Forensic Scientist</ng-template>
+                </div>
+              </div>
+              <div class="message">{{ message.message }}</div>
+            </div>
+            <div *ngIf="mine(message, game)" class="image-container right">
+              <tg-avatar [uid]="getUid(message, game)"></tg-avatar>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="input">
+        <mat-form-field color="accent">
+          <input
+            matInput
+            [disabled]="disableChat"
+            [placeholder]="disableChat ? 'Can\'t send extra clues!' : 'Type a message'"
+            #messageInput
+          />
+        </mat-form-field>
+        <div class="vertical-centered">
+          <button
+            mat-raised-button
+            [disabled]="disableChat"
+            color="accent"
+            name="message"
+            autocomplete="off"
+            (click)="chatApi.sendMessage(messageInput.value)"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

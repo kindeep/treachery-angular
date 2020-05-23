@@ -1,0 +1,13 @@
+<div
+  matRipple
+  [ngStyle]="{
+    background: 'url(' + imgSrc + ')',
+    'background-position': 'center center'
+  }"
+  [ngClass]="[active ? 'selected' : 'not-selected']"
+  class="card"
+  [style.backgroundSize]="'cover'"
+  [class.mat-elevation-z2]="true"
+>
+  <div class="card-name">{{ name }}</div>
+</div>

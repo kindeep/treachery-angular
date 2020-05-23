@@ -1,0 +1,28 @@
+.player-deck {
+  padding: var(--space-4);
+  background-color: var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+}
+
+.avatar-container, .name {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+    margin-left: var(--space-4);
+}
+
+.player {
+  display: flex;
+  margin-bottom: var(--space-4);
+}
+
+.cards {
+  display: flex;
+}
+
+.cards:first-child {
+  margin-left: 0;
+}

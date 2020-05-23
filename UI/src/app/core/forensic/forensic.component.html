@@ -1,0 +1,123 @@
+<div class="container">
+  <ng-container *ngIf="gameApi.gameId$ | async as gameId; else showLoading">
+    <ng-container *ngIf="gameApi.game$ | async as game">
+      <ng-container *ngIf="gameApi.players$ | async as players">
+        <div class="game-info-container">
+          <div class="heading-container">
+            <div>
+              <h2>Game ID: {{ gameId }} <tg-copy-link *ngIf="gameApi.joinLink$ | async as joinLink" [text]="joinLink"></tg-copy-link></h2>
+            </div>
+            <tg-confirmation-button *ngIf="!game.finished" (whenClicked)="endGame()">
+              End game
+            </tg-confirmation-button>
+          </div>
+          <div *ngIf="!game.startedOn" class="joined-players-container">
+            <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
+            <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
+          </div>
+          <ng-container *ngIf="!game.finished">
+            <ng-container *ngIf="forensicApi.forensicPrivateData$ | async as privateData">
+              <ng-container *ngIf="privateData.murdererClueCardName && privateData.murdererMeansCardName">
+                <ng-container *ngIf="game.startedOn">
+                  <ng-container *ngIf="toReplace(game)">
+                    <tg-info>Select card to replace</tg-info>
+                    <div class="cards-container">
+                      <ng-container *ngFor="let card of game.otherCards">
+                        <app-forensic-card
+                          [forensicCard]="card"
+                          *ngIf="card.selectedChoice && !card.replaced"
+                          [selected]="card.cardName === replaceCardName"
+                          (click)="selectReplaceCard(card)"
+                        ></app-forensic-card>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngIf="cardApi.cards$ | async as cards">
+                    <ng-container *ngIf="!game.causeCard">
+                      <tg-info>Select an option from the Cause card below.</tg-info>
+                      <div class="cards-container">
+                        <app-forensic-card
+                          *ngFor="let card of cards.forensicCards.causeCards"
+                          [forensicCard]="card"
+                          [(selectedOptionName)]="selectedCauseCardOption"
+                          (click)="causeCardClick(card)"
+                          [selected]="card.cardName === selectedCauseCardName"
+                        ></app-forensic-card>
+                      </div>
+                      <div>
+                        <button mat-raised-button color="accent" (click)="selectCauseCard()">Select Cause Card</button>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!game.locationCard && game.causeCard">
+                      <tg-info>Select a location from the cards below</tg-info>
+                      <div class="cards-container">
+                        <app-forensic-card
+                          *ngFor="let card of cards.forensicCards.locationCards"
+                          [forensicCard]="card"
+                          [(selectedOptionName)]="selectedLocationCardOption"
+                          (click)="locationCardClick(card)"
+                          [selected]="card.cardName === selectedLocationCardName"
+                        ></app-forensic-card>
+                      </div>
+                      <div>
+                        <button mat-raised-button color="accent" (click)="selectLocationCard()">Select Location Card</button>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="showNextOtherCard(game)">
+                      <tg-info>Select a card</tg-info>
+                      <div class="cards-container">
+                        <app-forensic-card
+                          [(selectedOptionName)]="selectedOtherCardOption"
+                          [forensicCard]="nextCard(game)"
+                          [selected]="true"
+                        ></app-forensic-card>
+                      </div>
+                      <div>
+                        <button mat-raised-button color="accent" (click)="selectNextOtherCard()">Select next card</button>
+                      </div>
+                    </ng-container>
+                    <tg-info *ngIf="waitingToEnd(game)"
+                      >You're done your part! Sit back, and hope the investigators figure this out.</tg-info
+                    >
+                    <div class="selected-cards-container" *ngIf="game.causeCard">
+                      <h2>Selected Cards</h2>
+                      <div class="cards-container">
+                        <app-forensic-card [forensicCard]="game.causeCard"></app-forensic-card>
+                        <app-forensic-card [forensicCard]="game.locationCard"></app-forensic-card>
+                        <ng-container *ngFor="let card of game.otherCards">
+                          <app-forensic-card [forensicCard]="card" *ngIf="card.selectedChoice && !card.replaced"></app-forensic-card>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+              <ng-container *ngIf="privateData.murderer">
+                <tg-murderer-info></tg-murderer-info>
+                <app-player-deck-pager></app-player-deck-pager>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="game.finished">
+            <tg-info>Game finished!</tg-info>
+            <tg-murderer-info></tg-murderer-info>
+          </ng-container>
+        </div>
+        <app-chat [disableChat]="game.startedOn && !game.finished"></app-chat>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #showLoading>
+    <div class="flex-vertical">
+      <mat-spinner></mat-spinner>
+      <div *ngIf="!loading">
+        Huh, something seems to have gone wrong. It should not take this long. Try again?
+        <a mat-button [routerLink]="['/']">Back to home</a>
+      </div>
+    </div>
+  </ng-template>
+</div>

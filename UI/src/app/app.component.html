@@ -1,0 +1,15 @@
+<div class="app-root mat-typography">
+  <tg-navbar></tg-navbar>
+
+  <ng-container *ngIf="authService.user$ | async as user; else showLogin">
+    <div class="app-router">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+
+  <ng-template #showLogin>
+    <div>
+      <mat-spinner> </mat-spinner>
+    </div>
+  </ng-template>
+</div>

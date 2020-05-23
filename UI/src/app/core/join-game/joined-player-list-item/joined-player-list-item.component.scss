@@ -1,0 +1,16 @@
+.card {
+  margin: 8px;
+  display: flex;
+  justify-content: space-between;
+
+  app-ripple-mat-card {
+    flex: 1 1 auto;
+  }
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 10px;;
+}

@@ -1,0 +1,9 @@
+<div class="app-navbar">
+    <div class="title">Treachery</div>
+    <div class="avatar-container">
+      <tg-avatar [diameter]="50" *ngIf="authService.user$ | async as user; else showLoading" [uid]="user.uid"></tg-avatar>
+      <ng-template #showLoading>
+        <mat-spinner [diameter]="50" color="accent"></mat-spinner>
+      </ng-template>
+    </div>
+</div>

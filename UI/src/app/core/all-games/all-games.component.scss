@@ -1,0 +1,48 @@
+:host {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 0 auto;
+  padding: 1rem;
+  overflow: auto;
+}
+.join-container {
+  display: flex;
+  mat-form-field {
+    flex: 1 1 auto;
+    margin-right: var(--space-8);
+  }
+}
+
+.create-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.create-or-join {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  text-align: center;
+  padding: var(--space-16);
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: var(--tg-border-size) solid var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+}
+
+.or {
+  font-size: var(--tg-font-size-16);
+}

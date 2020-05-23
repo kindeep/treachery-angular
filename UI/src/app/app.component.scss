@@ -1,0 +1,17 @@
+.app-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-router {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 64px);
+}
+
+tg-navbar {
+  flex: 0 0 auto;
+  height: 64px;
+}

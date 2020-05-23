@@ -1,0 +1,92 @@
+.container {
+  flex: 1;
+  height: 100%;
+  display: grid;
+}
+
+:host {
+  flex: 1;
+  display: flex;
+  max-height: 100%;
+}
+
+.game-info-container {
+  padding: var(--space-8);
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+}
+
+.joined-players-container {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: space-between;
+
+  app-joined-players-list {
+    height: 100%;
+    flex: 1 1 auto;
+    margin: var(--space-8) 0;
+    min-height: 0;
+  }
+}
+
+app-chat {
+  overflow: auto;
+}
+
+app-player-deck-pager {
+  margin: var(--space-4) 0;
+}
+
+.cards-container {
+  flex: 0 0 auto;
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  width: 100%;
+  display: flex;
+}
+
+
+app-forensic-card {
+  margin-right: var(--space-4);
+}
+
+.selected-cards-container {
+  border: var(--tg-border-size) solid var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+}
+
+@media only screen and (max-width: 40rem)  {
+  .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 40rem) and (max-width: 65rem)  {
+  .container {
+      grid-template-columns: 4fr 3fr;
+  }
+}
+
+
+@media only screen and (min-width: 65rem)  {
+  .container {
+      grid-template-columns: 2fr 1fr;
+  }
+}
+
+button {
+  width: 100%;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: fit-content;
+}

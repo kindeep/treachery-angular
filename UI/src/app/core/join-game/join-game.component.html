@@ -1,0 +1,23 @@
+<div *ngIf="gameApi.game$ | async; else notAGame" class="root-container">
+  <div class="join-container">
+    <div><b>Game ID</b>: {{ gameId }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></div>
+    <div class="flex-horizontal">
+      <mat-form-field color="accent" class="fill-remaining-space">
+        <input matInput placeholder="Gamer Tag" #playerInput />
+      </mat-form-field>
+      <div class="button-container">
+        <div>
+          <button mat-raised-button color="accent" (click)="joinGame(playerInput.value)">
+            Join Game
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="joined-list-container">
+    <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
+  </div>
+</div>
+<ng-template #notAGame>
+  <tg-info class="no-such-game"> No such game, <a mat-raised-button color="accent" [routerLink]="['/']">Go back home</a> to create one?</tg-info></ng-template
+>

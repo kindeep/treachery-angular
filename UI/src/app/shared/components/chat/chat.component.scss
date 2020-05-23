@@ -1,0 +1,67 @@
+.message-card {
+  flex: 1 1 auto;
+  background-color: var(--tg-card-background-color);
+  border-radius: var(--tg-card-border-radius);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--tg-border-radius);
+}
+
+.name {
+  font-size: 0.7em;
+}
+
+.time {
+  font-size: 0.7em;
+}
+
+.message {
+}
+
+.message-container {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  img {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.image-container.left {
+  margin-right: var(--space-8);
+}
+
+.image-container.right {
+  margin-left: var(--space-8);
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.messages {
+  overflow: auto;
+  flex: 1 1 auto;
+}
+
+.input {
+  display: flex;
+  padding: 0 var(--space-8);
+
+  mat-form-field {
+    flex: 1;
+    margin-right: var(--space-8);
+  }
+}
+
+.container {
+  background-color: var(--tg-dark-5-color);
+}

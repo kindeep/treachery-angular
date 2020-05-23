@@ -1,0 +1,16 @@
+<div class="horizontal-scroll">
+  <div class="container flex-horizontal">
+    <div class="deck-container" 
+    *ngFor="let player of otherPlayers(players$ | async); let i=index; first as isFirst"  
+    [class.first]="isFirst"
+    >
+        <app-player-deck
+          [(selectedClue)]="selectedClue"
+          (selectedClueChange)="handleClueChange(player)"
+          [(selectedMeans)]="selectedMeans"
+          (selectedMeansChange)="handleMeansChange(player)"
+          [player]="player"
+        ></app-player-deck>
+    </div>
+  </div>
+</div>

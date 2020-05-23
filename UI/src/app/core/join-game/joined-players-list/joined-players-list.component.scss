@@ -1,0 +1,19 @@
+.container {
+  padding: var(--space-8);
+  border: var(--tg-border-size) solid var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+  flex: 1 1 auto;
+  height: 100%;
+  overflow: auto;
+  min-height: 0;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-8);
+}

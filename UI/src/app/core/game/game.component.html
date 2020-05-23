@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="game-info-container" *ngIf="gameApi.game$ | async as game; else loading">
+    <h2>Game ID: {{ gameApi.gameId$ | async }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></h2>
+
+    <ng-container *ngIf="gameApi.me$ | async as player">
+      <ng-container *ngIf="gameApi.playerPrivateData$ | async as privateData">
+        <ng-container *ngIf="!game.startedOn">
+          <tg-info>Waiting for forensic scientist to start the game...</tg-info>
+          <app-joined-players-list></app-joined-players-list>
+        </ng-container>
+        <ng-container *ngIf="game.finished">
+          <tg-info>Game has ended!</tg-info>
+          <tg-murderer-info></tg-murderer-info>
+        </ng-container>
+        <ng-container *ngIf="game.startedOn && !game.finished">
+          <div *ngIf="privateData.isMurderer && !game.murdererCardsSelected">
+            <app-murderer-select-dialog [player]="player"></app-murderer-select-dialog>
+          </div>
+          <div class="murderer-selecting-cards" *ngIf="!game.murdererCardsSelected && !privateData.isMurderer">
+            Murderer is selecting their cards ...
+          </div>
+          <ng-container *ngIf="game.murdererCardsSelected">
+            <tg-info *ngIf="!game.causeCard; else causeSelected">Forensic Scientist is selecting the clue card...</tg-info>
+            <ng-template #causeSelected>
+              <tg-info *ngIf="!game.locationCard; else locationSelected">Forensic Scientist is selecting the location card...</tg-info>
+            </ng-template>
+            <ng-template #locationSelected>
+              <tg-info>Forensic Scientist is selecting other cards...</tg-info>
+            </ng-template>
+          </ng-container>
+          <div class="cards">
+            <app-forensic-card *ngIf="game.causeCard" [forensicCard]="game.causeCard"></app-forensic-card>
+            <app-forensic-card *ngIf="game.locationCard" [forensicCard]="game.locationCard"></app-forensic-card>
+            <div *ngFor="let card of game.otherCards">
+              <app-forensic-card *ngIf="card.selectedChoice && !card.replaced" [forensicCard]="card"></app-forensic-card>
+            </div>
+          </div>
+          <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
+          <app-guess *ngIf="game.murdererCardsSelected" [guess]="guess"></app-guess>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <ng-template #loading>
+    <div>
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+  </ng-template>
+  <app-chat></app-chat>
+</div>

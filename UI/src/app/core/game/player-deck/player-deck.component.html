@@ -1,0 +1,24 @@
+<div class="player-deck">
+  <div class="player">
+    <div class="avatar-container"><tg-avatar [uid]="player.uid"></tg-avatar></div>
+    <div class="name">{{ player.name }}</div>
+  </div>
+  <div class="cards">
+    <app-card
+      *ngFor="let card of player.meansCards"
+      [imgSrc]="card.imgUrl"
+      [name]="card.name"
+      [active]="selectedMeans === card.name"
+      (click)="meansClick(card.name)"
+    ></app-card>
+  </div>
+  <div class="cards">
+    <app-card
+      *ngFor="let card of player.clueCards"
+      [imgSrc]="card.imgUrl"
+      [name]="card.name"
+      [active]="selectedClue === card.name"
+      (click)="clueClick(card.name)"
+    ></app-card>
+  </div>
+</div>

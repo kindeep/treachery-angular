@@ -1,0 +1,16 @@
+.list:first-child {
+  margin-left: 0;
+}
+
+.first {
+  margin-left: 0 !important;
+}
+
+.deck-container {
+  margin-left: var(--space-4);
+}
+
+.horizontal-scroll {
+  overflow-x: scroll;
+  width: 100%;
+}

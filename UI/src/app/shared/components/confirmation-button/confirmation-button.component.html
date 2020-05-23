@@ -1,0 +1,6 @@
+<button (click)="handleClick($event)" mat-raised-button color="accent">
+  <ng-container *ngIf="!clicked"><ng-content></ng-content></ng-container>
+  <ng-container *ngIf="clicked">
+      Are you sure?
+  </ng-container>
+</button>

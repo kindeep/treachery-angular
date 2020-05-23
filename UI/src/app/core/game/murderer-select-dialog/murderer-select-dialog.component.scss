@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: var(--tg-border-size) solid var(--warn-lighter-color);
+  border-radius: var(--tg-border-radius);
+  padding: var(--space-8);
+}
+
+.deck-container {
+  flex: 1 0 auto;
+  display: flex;
+  overflow-x: auto;
+}
+
+.select-button {
+  margin-top: var(--space-4);
+}
