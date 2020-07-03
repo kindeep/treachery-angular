@@ -19,7 +19,7 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: dist/deceptiongame
+          name: dist
           path: dist/deceptiongame
   deploy:
     name: Deploy
@@ -31,7 +31,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: dist/deceptiongame
+          name: dist
           path: dist/deceptiongame
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
