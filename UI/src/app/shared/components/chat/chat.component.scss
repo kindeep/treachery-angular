@@ -65,3 +65,15 @@
 .container {
   background-color: var(--tg-dark-5-color);
 }
+
+.title-bar {
+  background-color: var(--tg-card-background-color);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
+.chat-title {
+  padding-left: var(--space-4);
+}

@@ -47,7 +47,11 @@ app-player-deck-pager {
 @media only screen and (max-width: 40rem) {
   .container {
     grid-template-columns: 1fr;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
+  }
+  .container.chat-collapsed {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 40px;
   }
 }
 
@@ -55,10 +59,16 @@ app-player-deck-pager {
   .container {
     grid-template-columns: 4fr 3fr;
   }
+  .container.chat-collapsed {
+    grid-template-columns: auto 40px;
+  }
 }
 
 @media only screen and (min-width: 65rem) {
   .container {
     grid-template-columns: 2fr 1fr;
+  }
+  .container.chat-collapsed {
+    grid-template-columns: auto 40px;
   }
 }
