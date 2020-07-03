@@ -27,4 +27,4 @@ jobs:
         run: sudo npm i -g firebase-tools
       - name: Deploy to firebase
         run: |
-          firebase deploy --only functions --token $FIREBASE_TOKEN_TREACHERY_2
+          firebase deploy --only functions --token $FIREBASE_TOKEN
