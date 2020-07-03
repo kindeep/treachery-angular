@@ -23,7 +23,8 @@ jobs:
           npm install
           npm run build
           cd ..
+      - name: Install Firebase CLI
+        run: sudo npm i -g firebase-tools
       - name: Deploy to firebase
         run: |
-          npm i -g firebase-tools
           firebase deploy --only functions --token $FIREBASE_TOKEN_TREACHERY_2
