@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Firebase Deployment
 on:
   push:
     branches:
@@ -11,13 +11,16 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Install Dependencies and build
-        run: cd UI && npm install && npm run build
+      - name: Install and Build 🔧 
+        run: |
+          cd UI
+          npm install
+          npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: public
-          path: UI/dist/deceptiongame
+          name: dist/deceptiongame
+          path: dist/deceptiongame
   deploy:
     name: Deploy
     needs: build
@@ -28,7 +31,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: public
+          name: dist/deceptiongame
+          path: dist/deceptiongame
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
