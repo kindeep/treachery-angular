@@ -5,37 +5,24 @@ on:
       - master
 
 jobs:
-  build:
-    name: Build
+  cicd:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Install and Build 🔧 
+      - name: Install and Build UI 🔧 
         run: |
           cd UI
           npm install
           npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: dist
-          path: dist/deceptiongame
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: dist
-          path: dist/deceptiongame
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_TREACHERY_2 }}
+          cd ..
+      - name: Intall and build functions
+        run: |
+          cd functions
+          npm install
+          npm run build
+          cd ..
+      - name: Deploy to firebase
+        run: |
+          firebase deploy --only functions --token $FIREBASE_TOKEN_TREACHERY_2
