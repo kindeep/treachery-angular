@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ChatApiService } from '../../api/chat/chat-api.service';
 import { Observable } from 'rxjs';
 import { TgMessage } from '../../api/models/models';
@@ -15,12 +15,12 @@ import { SafeUrl } from '@angular/platform-browser';
 })
 export class ChatComponent implements OnInit {
   @Input() disableChat = false;
+  @ViewChild('messages') messagesEl: ElementRef;
   playerNamesDict$: any;
-  constructor(public chatApi: ChatApiService, public gameApi: GameApiService, public auth: AuthService, public avatar: AvatarService) {
-  }
+  message: string;
+  constructor(public chatApi: ChatApiService, public gameApi: GameApiService, public auth: AuthService, public avatar: AvatarService) {}
 
   getUid(message: TgMessage, game: TgGame): string {
-    console.log(game.creatorUid);
     return message.playerUid ? message.playerUid : game.creatorUid;
   }
 
@@ -28,7 +28,17 @@ export class ChatComponent implements OnInit {
     return message.playerUid === this.auth.user.uid || (!message.playerUid && game.creatorUid === this.auth.user.uid);
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  sendMessage() {
+    this.chatApi.sendMessage(this.message);
+    this.message = '';
+    this.scrollToBottom();
   }
 
+  scrollToBottom() {
+    setTimeout(() => {
+      this.messagesEl.nativeElement.scrollTop = this.messagesEl.nativeElement.scrollHeight;
+    }, 200);
+  }
 }

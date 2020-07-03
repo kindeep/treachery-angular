@@ -16,26 +16,36 @@ import { auth } from 'firebase/app';
 })
 export class ChatApiService {
   messages$: Observable<TgMessage[]>;
-  messagesCollection$: Observable<AngularFirestoreCollection<TgMessage>>
-  constructor(
-    private db: AngularFirestore,
-    private gameApi: GameApiService,
-    private auth: AuthService
-  ) {
-    this.messagesCollection$ = this.gameApi.gameDoc$.pipe(map(gameDoc => {
-      if (gameDoc) {
-        return gameDoc.collection<TgMessage>('messages', ref => ref.orderBy('timestamp'));
-      } else {
-        return null;
-      }
-    }));
-    this.messages$ = this.messagesCollection$.pipe(switchMap(messagesCollection => {
-      if (messagesCollection) {
-        return messagesCollection.valueChanges();
-      } else {
-        return of(null);
-      }
-    }))
+  messagesCollection$: Observable<AngularFirestoreCollection<TgMessage>>;
+  collapsed = false;
+
+  constructor(private db: AngularFirestore, private gameApi: GameApiService, private auth: AuthService) {
+    this.messagesCollection$ = this.gameApi.gameDoc$.pipe(
+      map(gameDoc => {
+        if (gameDoc) {
+          return gameDoc.collection<TgMessage>('messages', ref => ref.orderBy('timestamp'));
+        } else {
+          return null;
+        }
+      })
+    );
+    this.messages$ = this.messagesCollection$.pipe(
+      switchMap(messagesCollection => {
+        if (messagesCollection) {
+          return messagesCollection.valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    );
+  }
+
+  toggleCollapse(value?: boolean) {
+    if (value === undefined) {
+      this.collapsed = !this.collapsed;
+    } else {
+      this.collapsed = !!value;
+    }
   }
 
   sendMessage(message: string, type: TgMessageType = TgMessageType.CHAT) {
@@ -45,8 +55,7 @@ export class ChatApiService {
         message,
         timestamp: Timestamp.now(),
         type
-      })
-    })
+      });
+    });
   }
-
 }

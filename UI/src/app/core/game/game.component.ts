@@ -1,3 +1,4 @@
+import { ChatApiService } from 'src/app/shared/api/chat/chat-api.service';
 import { TgPlayer, TgGuess, TgPartialGuess } from './../../shared/api/models/models';
 import { AuthService } from './../../shared/api/auth/auth.service';
 import { auth } from 'firebase/app';
@@ -26,9 +27,9 @@ export class GameComponent implements OnInit {
     public dialog: MatDialog,
     public gameApi: GameApiService,
     private auth: AuthService,
-    private router: Router
-  ) {
-  }
+    private router: Router,
+    public chatApi: ChatApiService
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(async ({ gameId }) => {
@@ -48,7 +49,7 @@ export class GameComponent implements OnInit {
               }
             }
           });
-        })
+        });
       }
     });
   }

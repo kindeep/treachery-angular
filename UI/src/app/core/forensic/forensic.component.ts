@@ -1,3 +1,4 @@
+import { ChatApiService } from 'src/app/shared/api/chat/chat-api.service';
 import { TgGame, TgForensicPrivateData, TgForensicCard, TgCard } from './../../shared/api/models/models';
 import { ForensicApiService } from './../../shared/api/forensic/forensic-api.service';
 import { GameApiService } from '../../shared/api/game/game-api.service';
@@ -31,7 +32,8 @@ export class ForensicComponent implements OnInit {
     public forensicApi: ForensicApiService,
     public gameApi: GameApiService,
     public router: Router,
-    public auth: AuthService
+    public auth: AuthService, 
+    public chatApi: ChatApiService
   ) { }
 
   ngOnInit() {

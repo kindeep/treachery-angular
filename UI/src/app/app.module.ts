@@ -50,6 +50,7 @@ import { InfoComponent } from './shared/components/info/info.component';
 import { MurdererInfoComponent } from './core/forensic/murderer-info/murderer-info.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmationButtonComponent } from './shared/components/confirmation-button/confirmation-button.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { ConfirmationButtonComponent } from './shared/components/confirmation-bu
     CopyLinkComponent,
     InfoComponent,
     MurdererInfoComponent,
-    ConfirmationButtonComponent,
+    ConfirmationButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -104,10 +105,10 @@ import { ConfirmationButtonComponent } from './shared/components/confirmation-bu
     ClipboardModule,
     MatIconModule,
     MatSnackBarModule,
+    FormsModule
   ],
   providers: [GameApiService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   bootstrap: [AppComponent],
   entryComponents: [MurdererSelectDialogComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

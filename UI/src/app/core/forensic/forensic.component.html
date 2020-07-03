@@ -1,4 +1,4 @@
-<div class="container">
+<div [ngClass]="['container', chatApi.collapsed ? 'chat-collapsed' : '']">
   <ng-container *ngIf="gameApi.gameId$ | async as gameId; else showLoading">
     <ng-container *ngIf="gameApi.game$ | async as game">
       <ng-container *ngIf="gameApi.players$ | async as players">

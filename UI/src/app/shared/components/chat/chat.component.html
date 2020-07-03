@@ -1,7 +1,15 @@
 <ng-container *ngIf="gameApi.playersDict$ | async as playersDict">
   <ng-container *ngIf="gameApi.game$ | async as game">
-    <div class="container">
-      <div class="messages">
+    <div class="container" *ngIf="!chatApi.collapsed; else collapsed">
+      <div class="title-bar">
+        <div class="chat-title">Chat</div>
+        <div class="vertical-centered">
+          <button mat-icon-button (click)="chatApi.toggleCollapse(true)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="messages" #messages>
         <ng-container *ngFor="let message of chatApi.messages$ | async">
           <div class="message-container">
             <div *ngIf="!mine(message, game)" class="image-container left">
@@ -30,22 +38,20 @@
             matInput
             [disabled]="disableChat"
             [placeholder]="disableChat ? 'Can\'t send extra clues!' : 'Type a message'"
+            (keyup.enter)="sendMessage()"
+            [(ngModel)]="message"
             #messageInput
           />
         </mat-form-field>
         <div class="vertical-centered">
-          <button
-            mat-raised-button
-            [disabled]="disableChat"
-            color="accent"
-            name="message"
-            autocomplete="off"
-            (click)="chatApi.sendMessage(messageInput.value)"
-          >
+          <button mat-raised-button [disabled]="disableChat" color="accent" name="message" autocomplete="off" (click)="sendMessage()">
             Send
           </button>
         </div>
       </div>
     </div>
+    <ng-template #collapsed>
+      <button mat-icon-button (click)="chatApi.toggleCollapse(false)"><mat-icon>chat</mat-icon></button>
+    </ng-template>
   </ng-container>
 </ng-container>

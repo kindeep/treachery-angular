@@ -1,4 +1,4 @@
-<div class="container">
+<div [ngClass]="['container', chatApi.collapsed ? 'chat-collapsed' : '']">
   <div class="game-info-container" *ngIf="gameApi.game$ | async as game; else loading">
     <h2>Game ID: {{ gameApi.gameId$ | async }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></h2>
 
