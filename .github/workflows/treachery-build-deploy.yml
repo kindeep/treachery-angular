@@ -17,7 +17,7 @@ jobs:
           npm install
           npm run build
           cd ..
-      - name: Intall and build functions
+      - name: Intall and build functions 🔧
         run: |
           cd functions
           npm install
@@ -25,4 +25,5 @@ jobs:
           cd ..
       - name: Deploy to firebase
         run: |
+          npm i -g firebase-tools
           firebase deploy --only functions --token $FIREBASE_TOKEN_TREACHERY_2
