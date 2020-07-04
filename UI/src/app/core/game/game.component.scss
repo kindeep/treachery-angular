@@ -50,8 +50,8 @@ app-player-deck-pager {
     grid-template-rows: 1fr 2fr;
   }
   .container.chat-collapsed {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 40px;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
   }
 }
 
@@ -60,7 +60,7 @@ app-player-deck-pager {
     grid-template-columns: 4fr 3fr;
   }
   .container.chat-collapsed {
-    grid-template-columns: auto 40px;
+    grid-template-columns: auto;
   }
 }
 
@@ -69,6 +69,6 @@ app-player-deck-pager {
     grid-template-columns: 2fr 1fr;
   }
   .container.chat-collapsed {
-    grid-template-columns: auto 40px;
+    grid-template-columns: auto;
   }
 }
