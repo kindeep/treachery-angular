@@ -12,12 +12,18 @@
   padding: 1rem;
   overflow: auto;
 }
+
 .join-container {
+  margin-bottom: var(--space-4);
+  justify-content: center;
   display: flex;
   mat-form-field {
-    flex: 1 1 auto;
-    margin-right: var(--space-8);
+    flex: 0 0 auto;
+    margin: 0 var(--space-8);
   }
+  align-items: center;
+  text-align: center;
+  margin-right: var(--space-4);
 }
 
 .create-container {
@@ -34,15 +40,46 @@
 
 .container {
   text-align: center;
-  padding: var(--space-16);
-  flex: 1 1 auto;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  border: var(--tg-border-size) solid var(--tg-card-background-color);
-  border-radius: var(--tg-border-radius);
+  padding: var(--space-16);
+  box-sizing: border-box;
+  justify-content: center;
+  flex: 1 1 auto;
 }
 
 .or {
   font-size: var(--tg-font-size-16);
+}
+
+.create-button {
+  font-size: 1.5em;
+  height: 2.5em;
+}
+
+.create-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.info-container {
+  h1 {
+    font-size: 3em;
+    margin-bottom: var(--space-16);
+  }
+}
+
+.actions-container {
+  margin-top: var(--space-16);
+  background-color: var(--tg-card-background-color);
+  padding: var(--space-8);
+  padding-bottom: var(--space-12);
+  border-radius: var(--tg-border-radius-16);
+}
+
+.actions-container-container {
+  display: flex;
+  justify-content: center;
 }
