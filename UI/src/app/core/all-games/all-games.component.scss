@@ -56,7 +56,7 @@
 
 .create-button {
   font-size: 1.5em;
-  height: 2.5em;
+  height: 2em;
 }
 
 .create-button-container {
@@ -66,8 +66,9 @@
 
 .info-container {
   h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     margin-bottom: var(--space-16);
+    line-height: 1em;
   }
 }
 
