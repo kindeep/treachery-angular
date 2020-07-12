@@ -4,11 +4,20 @@
     <meta charset="utf-8" />
     <title>Treachery</title>
     <base href="/" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,initial-scale=1.0, maximum-scale=1.0,user-scalable=0, viewport-fit=cover"
+    />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://unpkg.com/vh-check/dist/vh-check.min.js"></script>
+    <script>
+      (function() {
+        // initialize the test
+        var test = vhCheck();
+      })();
+    </script>
   </head>
   <body>
     <app-root></app-root>

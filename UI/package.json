@@ -13,7 +13,7 @@
     "format:fix": "prettier --config ./.prettierrc --list-different --write \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
     "fixey": "npm run lint:fix && npm run format:fix",
     "deploy": "firebase deploy",
-    "start:local": "ng serve --host 0.0.0.0"
+    "start:network": "ng serve --host 0.0.0.0"
   },
   "private": true,
   "dependencies": {
