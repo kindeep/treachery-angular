@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 .message-card {
   flex: 1 1 auto;
   background-color: var(--tg-card-background-color);
@@ -80,11 +82,15 @@
 
 .chat-collapsed :host {
   position: fixed;
-  bottom: 0;
+  top: 100vh;
+  /* If you need to support browser without CSS var support (<= IE11) */
+  top: calc(100vh - var(--vh-offset, 0px) - 50px - (2 * var(--space-4)));
+  /* enable vh fix */
   right: 0;
 }
 
 .collapsed-chat-button {
+  @include mat-elevation(8);
   background-color: var(--accent-color);
   height: 50px;
   width: 50px;

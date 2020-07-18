@@ -20,6 +20,9 @@
   mat-form-field {
     flex: 0 0 auto;
     margin: 0 var(--space-8);
+    input {
+      text-transform: uppercase;
+    }
   }
   align-items: center;
   text-align: center;

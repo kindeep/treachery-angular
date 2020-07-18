@@ -13,7 +13,9 @@
           </div>
           <div *ngIf="!game.startedOn" class="joined-players-container">
             <app-joined-players-list [gameId]="gameId"></app-joined-players-list>
-            <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
+            <div class="start-button-container">
+              <button mat-raised-button color="accent" (click)="startGame()">Start Game</button>
+            </div>
           </div>
           <ng-container *ngIf="!game.finished">
             <ng-container *ngIf="forensicApi.forensicPrivateData$ | async as privateData">
