@@ -9,9 +9,9 @@
           <div class="subtitle">is the murderer</div>
         </div>
         <ng-container *ngIf="getMeansCard(murderer) as meansCard">
-          <tg-card-wrapper [card]="meansCard"></tg-card-wrapper>
+          <tg-card [card]="meansCard"></tg-card>
           <ng-container *ngIf="getClueCard(murderer) as clueCard">
-            <tg-card-wrapper [card]="clueCard"></tg-card-wrapper>
+            <tg-card [card]="clueCard"></tg-card>
             <div class="button-container">
               <button mat-raised-button color="accent" (click)="makeGuess()">Make Guess</button>
             </div>

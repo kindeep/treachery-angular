@@ -309,3 +309,13 @@ body {
   height: calc(100vh - var(--vh-offset, 0px));
   /* enable vh fix */
 }
+
+.heading-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  h2 {
+    margin: 0;
+  }
+}

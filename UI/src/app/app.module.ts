@@ -36,7 +36,6 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/d
 import { MurdererSelectDialogComponent } from './core/game/murderer-select-dialog/murderer-select-dialog.component';
 import { TestComponent } from './test/test.component';
 import 'firebase/firestore';
-import { CardWrapperComponent } from './shared/components/card-wrapper/card-wrapper.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CenteringFlexComponent } from './shared/components/centering-flex/centering-flex.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -71,7 +70,6 @@ import { FormsModule } from '@angular/forms';
     ForensicCardComponent,
     MurdererSelectDialogComponent,
     TestComponent,
-    CardWrapperComponent,
     CenteringFlexComponent,
     AvatarComponent,
     NavbarComponent,

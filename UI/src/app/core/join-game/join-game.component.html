@@ -1,6 +1,9 @@
 <div *ngIf="gameApi.game$ | async; else notAGame" class="root-container">
   <div class="join-container">
-    <div><b>Game ID</b>: {{ gameId }} <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link></div>
+    <div class="heading-container">
+      <h2>Game ID: {{ gameApi.gameId$ | async }}</h2>
+      <tg-copy-link [text]="gameApi.joinLink$ | async"></tg-copy-link>
+    </div>
     <div class="flex-horizontal">
       <mat-form-field color="accent" class="fill-remaining-space">
         <input matInput placeholder="Gamer Tag" #playerInput />
@@ -19,5 +22,7 @@
   </div>
 </div>
 <ng-template #notAGame>
-  <tg-info class="no-such-game"> No such game, <a mat-raised-button color="accent" [routerLink]="['/']">Go back home</a> to create one?</tg-info></ng-template
+  <tg-info class="no-such-game">
+    No such game, <a mat-raised-button color="accent" [routerLink]="['/']">Go back home</a> to create one?</tg-info
+  ></ng-template
 >

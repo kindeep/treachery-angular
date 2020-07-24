@@ -4,9 +4,8 @@
       <ng-container *ngIf="gameApi.players$ | async as players">
         <div class="game-info-container">
           <div class="heading-container">
-            <div>
-              <h2>Game ID: {{ gameId }} <tg-copy-link *ngIf="gameApi.joinLink$ | async as joinLink" [text]="joinLink"></tg-copy-link></h2>
-            </div>
+            <h2>Game ID: {{ gameId }}</h2>
+            <tg-copy-link *ngIf="gameApi.joinLink$ | async as joinLink" [text]="joinLink"></tg-copy-link>
             <tg-confirmation-button *ngIf="!game.finished && game.startedOn" (whenClicked)="endGame()">
               End game
             </tg-confirmation-button>

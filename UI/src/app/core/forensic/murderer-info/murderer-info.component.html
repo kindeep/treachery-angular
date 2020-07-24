@@ -7,8 +7,8 @@
         <div>{{ murdererInfo.murderer.name }}</div>
       </div>
       <ng-container *ngIf="murdererInfo.clueCard && murdererInfo.meansCard; else selectingCards">
-        <tg-card-wrapper [card]="murdererInfo.clueCard"></tg-card-wrapper>
-        <tg-card-wrapper [card]="murdererInfo.meansCard"></tg-card-wrapper>
+        <tg-card [card]="murdererInfo.clueCard"></tg-card>
+        <tg-card [card]="murdererInfo.meansCard"></tg-card>
       </ng-container>
       <ng-template #selectingCards>
         <tg-info>{{ murdererInfo.murderer.name }} is selecting their cards.</tg-info>

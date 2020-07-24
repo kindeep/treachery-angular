@@ -6,8 +6,7 @@
   <div class="cards">
     <app-card
       *ngFor="let card of player.meansCards"
-      [imgSrc]="card.imgUrl"
-      [name]="card.name"
+      [card]="card"
       [active]="selectedMeans === card.name"
       (click)="meansClick(card.name)"
     ></app-card>
@@ -15,8 +14,7 @@
   <div class="cards">
     <app-card
       *ngFor="let card of player.clueCards"
-      [imgSrc]="card.imgUrl"
-      [name]="card.name"
+      [card]="card"
       [active]="selectedClue === card.name"
       (click)="clueClick(card.name)"
     ></app-card>

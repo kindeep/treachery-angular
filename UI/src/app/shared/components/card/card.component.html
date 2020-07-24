@@ -1,7 +1,7 @@
 <div
   matRipple
   [ngStyle]="{
-    background: 'url(' + imgSrc + ')',
+    background: 'url(' + card.imgUrl + ')',
     'background-position': 'center center'
   }"
   [ngClass]="[active ? 'selected' : 'not-selected']"
@@ -9,5 +9,5 @@
   [style.backgroundSize]="'cover'"
   [class.mat-elevation-z2]="true"
 >
-  <div class="card-name">{{ name }}</div>
+  <div class="card-name">{{ card.name }}</div>
 </div>

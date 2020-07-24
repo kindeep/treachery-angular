@@ -1,3 +1,11 @@
-<button mat-icon-button [cdkCopyToClipboard]="text">
-  <mat-icon class="icon" aria-hidden="false" aria-label="Copy Join link">file_copy</mat-icon>
-</button>
+<div matRipple class="copy-container" [cdkCopyToClipboard]="text">
+  <div class="copy-input">
+    <mat-form-field class="example-full-width">
+      <mat-label>Invite friends with this url</mat-label>
+      <input matInput [value]="text" />
+    </mat-form-field>
+  </div>
+  <button mat-icon-button [cdkCopyToClipboard]="text">
+    <mat-icon class="icon" aria-hidden="false" aria-label="Copy Join link">file_copy</mat-icon>
+  </button>
+</div>

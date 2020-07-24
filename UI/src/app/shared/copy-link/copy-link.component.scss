@@ -5,3 +5,17 @@
 .icon {
     font-size: 1.1em;
 }
+
+.copy-input {
+    display: inline-flex;
+    padding: var(--space-8) var(--space-8) 0 var(--space-8);
+    align-items: center;
+}
+
+.copy-container {
+    display: inline-flex;
+    border: 2px solid var(--accent-color);
+    border-radius: var(--tg-border-radius-8);
+    align-items: center;
+    padding-right: var(--space-4);
+}
