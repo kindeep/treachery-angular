@@ -38,6 +38,6 @@ export class AllGamesComponent implements OnInit {
   ngOnInit() { }
 
   joinGame(gameId) {
-    this.router.navigateByUrl(`/join/${gameId}`)
+    this.router.navigateByUrl(`/join/${gameId.toUpperCase()}`)
   }
 }

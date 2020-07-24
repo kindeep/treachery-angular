@@ -7,21 +7,21 @@
       </p>
     </div>
     <div class="actions-container-container">
-      <div class="actions-container">
-        <div class="join-container">
-          <mat-form-field color="accent">
-            <input matInput placeholder="Game ID" #gameIdInput />
-          </mat-form-field>
-          <div class="vertical-centered">
-            <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
-              Join Game
-            </button>
-          </div>
-        </div>
+      <div>
         <div class="create-button-container">
           <button class="create-button" mat-raised-button color="accent" (click)="forensicApi.createGame()">
             Create Game 🚀
           </button>
+        </div>
+        <div class="actions-container">
+          <mat-form-field color="accent">
+            <input matInput placeholder="Game ID" #gameIdInput />
+          </mat-form-field>
+          <div class="join-button-container">
+            <button mat-raised-button color="accent" (click)="joinGame(gameIdInput.value)">
+              Join Game
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -20,16 +20,13 @@
   mat-form-field {
     flex: 0 0 auto;
     margin: 0 var(--space-8);
+    input {
+      text-transform: uppercase;
+    }
   }
   align-items: center;
   text-align: center;
   margin-right: var(--space-4);
-}
-
-.create-container {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
 }
 
 .create-or-join {
@@ -57,9 +54,11 @@
 .create-button {
   font-size: 1.5em;
   height: 2em;
+  margin-top: var(--space-8);
 }
 
 .create-button-container {
+  margin-top: var(--space-8);
   display: flex;
   justify-content: center;
 }
@@ -76,11 +75,27 @@
   margin-top: var(--space-16);
   background-color: var(--tg-card-background-color);
   padding: var(--space-8);
-  padding-bottom: var(--space-12);
+  // padding-bottom: var(--space-12);
   border-radius: var(--tg-border-radius-16);
 }
 
 .actions-container-container {
   display: flex;
   justify-content: center;
+}
+
+.game-id-input {
+  width: 100%;
+  background-color: var(--tg-dark-bg-lighter-10);
+  outline: none;
+  border: none;
+  height: 36px;
+  border-radius: var(--tg-border-radius-8);
+  margin-right: var(--space-4);
+  padding: 0 var(--space-4);
+}
+
+.join-button-container {
+  display: flex;
+  justify-content: flex-end;
 }
