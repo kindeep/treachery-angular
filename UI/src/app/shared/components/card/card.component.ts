@@ -14,5 +14,7 @@ export class CardComponent implements OnInit {
   @Input() means: boolean;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.card.imgUrl);
+  }
 }

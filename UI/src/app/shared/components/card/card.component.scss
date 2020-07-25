@@ -5,17 +5,28 @@
   margin: var(--space-2);
   border: 2px solid;
   position: relative;
-  img {
+  .main-img {
+    position: absolute;
     height: 100%;
     width: 100%;
     object-fit: cover;
     object-position: center;
   }
+  .overlay-img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.3;
+    z-index: 1;
+  }
+  transition: all 0.2s ease-in;
 }
 
 .card-name {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   right: 0;
@@ -23,12 +34,17 @@
   font-weight: 500;
   padding: var(--space-2);
   word-wrap: break-word;
-  // border-radius: var;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0));
 }
 
-.selected {
-  color: red;
+.means.selected {
+  color: #8e9fff;
+  border-color: #8e9fff;
+}
+
+.clue.selected {
+  color: #ff5144;
+  border-color: #ff5144;
 }
 
 .not-selected {
@@ -40,5 +56,5 @@
 }
 
 .clue {
-  border-color: #b30e02;
+  border-color: #ec1405;
 }

@@ -1,9 +1,5 @@
-<div
-  matRipple
-  [ngClass]="[active ? 'selected' : 'not-selected', means ? 'means' : 'clue']"
-  class="card"
-  [class.mat-elevation-z2]="true"
->
+<div matRipple [ngClass]="[active ? 'selected' : 'not-selected', means ? 'means' : 'clue']" class="card" [class.mat-elevation-z2]="true">
   <div class="card-name">{{ card.name }}</div>
-  <img defaultImage="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" [lazyLoad]="card.imgUrl" [errorImage]="card.altImgUrl">
+  <img class="main-img" [defaultImage]="means ? 'assets/means-bg.jpg' : 'assets/clue-bg.jpg'" [lazyLoad]="card.imgUrl" [errorImage]="card.altImgUrl" />
+  <img class="overlay-img" [src]="means ? 'assets/means-bg.jpg' : 'assets/clue-bg.jpg'"/>
 </div>
