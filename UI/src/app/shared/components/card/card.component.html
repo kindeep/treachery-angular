@@ -1,13 +1,9 @@
 <div
   matRipple
-  [ngStyle]="{
-    background: 'url(' + card.imgUrl + ')',
-    'background-position': 'center center'
-  }"
   [ngClass]="[active ? 'selected' : 'not-selected', means ? 'means' : 'clue']"
   class="card"
-  [style.backgroundSize]="'cover'"
   [class.mat-elevation-z2]="true"
 >
   <div class="card-name">{{ card.name }}</div>
+  <img defaultImage="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" [lazyLoad]="card.imgUrl" [errorImage]="card.altImgUrl">
 </div>

@@ -4,19 +4,27 @@
   border-radius: 4px;
   margin: var(--space-2);
   border: 2px solid;
+  position: relative;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
 .card-name {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 100%;
   font-weight: 500;
   padding: var(--space-2);
   word-wrap: break-word;
-  border-radius: var;
+  // border-radius: var;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0));
-}
-
-#card-image {
-  max-width: 100%;
-  max-height: 100%;
 }
 
 .selected {
@@ -28,7 +36,7 @@
 }
 
 .means {
-  border-color: #001FC5;
+  border-color: #001fc5;
 }
 
 .clue {
