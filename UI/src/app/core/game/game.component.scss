@@ -72,3 +72,16 @@ app-player-deck-pager {
     grid-template-columns: auto;
   }
 }
+
+.player-deck-container {
+  display: flex;
+  justify-content: center;
+  app-player-deck {
+    margin-top: var(--space-4);
+  }
+}
+
+.your-cards-header {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-4);
+}

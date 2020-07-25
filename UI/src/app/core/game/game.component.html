@@ -39,6 +39,12 @@
           </div>
           <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
           <app-guess *ngIf="game.murdererCardsSelected" [guess]="guess"></app-guess>
+          <div class="player-deck-container">
+            <div>
+              <h3 class="your-cards-header">Your cards</h3>
+              <app-player-deck [player]="player" [disableSelection]="true"></app-player-deck>
+            </div>
+          </div>
         </ng-container>
       </ng-container>
     </ng-container>

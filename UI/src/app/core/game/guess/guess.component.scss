@@ -1,34 +1,38 @@
 .container {
-    padding: var(--space-4) var(--space-8);
-    background-color: var(--tg-card-background-color);
-    border-radius: var(--tg-border-radius);
-    font-weight: var(--tg-info-weight);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--space-4);
+}
+
+.wrapper {
+  padding: var(--space-4) var(--space-8);
+  background-color: var(--tg-card-background-color);
+  border-radius: var(--tg-border-radius);
+  font-weight: var(--tg-info-weight);
 }
 
 .murderer {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding-right: var(--space-4);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-right: var(--space-4);
 }
 
 .subtitle {
-    font-weight: normal;
-    font-style: italic;
+  font-weight: normal;
+  font-style: italic;
 }
 
 .think {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .button-container {
-    display: flex;
-    padding-left: var(--space-4);
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  padding-left: var(--space-4);
+  flex-direction: column;
+  justify-content: center;
 }

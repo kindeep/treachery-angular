@@ -14,6 +14,7 @@ import { auth } from 'firebase/app';
 export class PlayerDeckPagerComponent implements OnInit {
   players$: Observable<TgPlayer[]>;
   @Input() guess: TgPartialGuess = {} as TgPartialGuess;
+  @Input() disableSelection: boolean;
   selectedClue: string;
   selectedMeans: string;
   player$: Observable<TgPlayer>;

@@ -5,6 +5,7 @@
     [class.first]="isFirst"
     >
         <app-player-deck
+          [disableSelection]="disableSelection"
           [(selectedClue)]="selectedClue"
           (selectedClueChange)="handleClueChange(player)"
           [(selectedMeans)]="selectedMeans"

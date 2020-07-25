@@ -1,7 +1,10 @@
-<div class="container">
-  <ng-container *ngIf="guess && guess.murdererUid; else emptyGuess">
+<div class="wrapper">
+  <div>
+    Compose a guess by selecting one of the cards above
+  </div>
+  <div class="container" *ngIf="guess && guess.murdererUid">
     <ng-container *ngIf="gameApi.players$ | async as players">
-      <ng-container *ngIf="getMurderer(players) as murderer; else emptyGuess">
+      <ng-container *ngIf="getMurderer(players) as murderer">
         <div class="murderer">
           <div class="think">I think</div>
           <tg-avatar [diameter]="50" [uid]="murderer.uid"></tg-avatar>
@@ -9,9 +12,9 @@
           <div class="subtitle">is the murderer</div>
         </div>
         <ng-container *ngIf="getMeansCard(murderer) as meansCard">
-          <app-card [card]="meansCard" [means]="true"></app-card >
+          <app-card [card]="meansCard" [means]="true"></app-card>
           <ng-container *ngIf="getClueCard(murderer) as clueCard">
-            <app-card [card]="clueCard" [means]="false"></app-card >
+            <app-card [card]="clueCard" [means]="false"></app-card>
             <div class="button-container">
               <button mat-raised-button color="accent" (click)="makeGuess()">Make Guess</button>
             </div>
@@ -19,8 +22,5 @@
         </ng-container>
       </ng-container>
     </ng-container>
-  </ng-container>
-  <ng-template #emptyGuess>
-    Try composing a guess by selecting one of the cards above.
-  </ng-template>
+  </div>
 </div>
