@@ -3,6 +3,7 @@
   width: var(--tg-card-width);
   border-radius: 4px;
   margin: var(--space-2);
+  border: 2px solid;
 }
 
 .card-name {
@@ -24,4 +25,12 @@
 
 .not-selected {
   color: white;
+}
+
+.means {
+  border-color: #001FC5;
+}
+
+.clue {
+  border-color: #b30e02;
 }

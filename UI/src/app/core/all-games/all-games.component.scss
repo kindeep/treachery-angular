@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 :host {
   flex: 1 1 auto;
   display: flex;
@@ -72,10 +74,10 @@
 }
 
 .actions-container {
+  @include mat-elevation(4);
   margin-top: var(--space-16);
   background-color: var(--tg-card-background-color);
   padding: var(--space-8);
-  // padding-bottom: var(--space-12);
   border-radius: var(--tg-border-radius-16);
 }
 

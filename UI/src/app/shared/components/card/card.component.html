@@ -4,7 +4,7 @@
     background: 'url(' + card.imgUrl + ')',
     'background-position': 'center center'
   }"
-  [ngClass]="[active ? 'selected' : 'not-selected']"
+  [ngClass]="[active ? 'selected' : 'not-selected', means ? 'means' : 'clue']"
   class="card"
   [style.backgroundSize]="'cover'"
   [class.mat-elevation-z2]="true"

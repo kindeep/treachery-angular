@@ -5,7 +5,7 @@
         <div class="game-info-container">
           <div class="heading-container">
             <h2>Game ID: {{ gameId }}</h2>
-            <tg-copy-link !game.startedOn *ngIf="gameApi.joinLink$ | async as joinLink" [text]="joinLink"></tg-copy-link>
+            <tg-copy-link *ngIf="!game.startedOn && gameApi.joinLink$ | async as joinLink" [text]="joinLink"></tg-copy-link>
             <tg-confirmation-button *ngIf="!game.finished && game.startedOn" (whenClicked)="endGame()">
               End game
             </tg-confirmation-button>

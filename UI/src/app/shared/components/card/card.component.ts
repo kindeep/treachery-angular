@@ -11,6 +11,7 @@ import { TgCard } from '../../api/models/models';
 export class CardComponent implements OnInit {
   @Input() card: TgCard;
   @Input() active = false;
+  @Input() means: boolean;
   constructor() {}
 
   ngOnInit() {}

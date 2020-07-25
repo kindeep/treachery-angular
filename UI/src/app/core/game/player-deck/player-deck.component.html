@@ -8,6 +8,7 @@
       *ngFor="let card of player.meansCards"
       [card]="card"
       [active]="selectedMeans === card.name"
+      [means]="true"
       (click)="meansClick(card.name)"
     ></app-card>
   </div>
@@ -16,6 +17,7 @@
       *ngFor="let card of player.clueCards"
       [card]="card"
       [active]="selectedClue === card.name"
+      [means]="false"
       (click)="clueClick(card.name)"
     ></app-card>
   </div>
