@@ -40,11 +40,19 @@
 .means.selected {
   color: #8e9fff;
   border-color: #8e9fff;
+  .type-text {
+    background-color: #8e9fff;
+    color: black;
+  }
 }
 
 .clue.selected {
   color: #ff5144;
   border-color: #ff5144;
+  .type-text {
+    background-color: #ff5144;
+    color: black;
+  }
 }
 
 .not-selected {
@@ -53,8 +61,27 @@
 
 .means {
   border-color: #001fc5;
+  .type-text {
+    background-color: #001fc5;
+  }
 }
 
 .clue {
   border-color: #8d0900;
+  .type-text {
+    background-color: #8d0900;
+  }
+}
+
+.type-text {
+  display: flex;
+  line-height: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  border-radius: 5px 0 0 0;
+  padding: 2px 4px;
 }

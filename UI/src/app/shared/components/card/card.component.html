@@ -1,5 +1,10 @@
 <div matRipple [ngClass]="[active ? 'selected' : 'not-selected', means ? 'means' : 'clue']" class="card" [class.mat-elevation-z2]="true">
   <div class="card-name">{{ card.name }}</div>
-  <img class="main-img" [defaultImage]="means ? 'assets/means-bg.jpg' : 'assets/clue-bg.jpg'" [lazyLoad]="card.imgUrl" [errorImage]="card.altImgUrl" />
-  <img class="overlay-img" [src]="means ? 'assets/means-bg.jpg' : 'assets/clue-bg.jpg'"/>
+  <img
+    class="main-img"
+    [defaultImage]="means ? 'assets/means-bg.jpg' : 'assets/clue-bg.jpg'"
+    [lazyLoad]="card.imgUrl"
+    [errorImage]="card.altImgUrl"
+  />
+  <div class="type-text">{{ means ? 'means' : 'clue' }}</div>
 </div>
