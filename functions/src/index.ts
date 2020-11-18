@@ -395,6 +395,6 @@ async function checkAndEndGame(gameId: string) {
       murdererUid: forensicPrivateData.murderer.uid,
       murdererMeansCardName: forensicPrivateData.murdererMeansCardName,
       murdererClueCardName: forensicPrivateData.murdererClueCardName,
-    });
+    }, {merge: true});
   }
 }
