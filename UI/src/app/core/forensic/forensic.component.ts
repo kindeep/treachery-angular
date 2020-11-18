@@ -32,7 +32,7 @@ export class ForensicComponent implements OnInit {
     public forensicApi: ForensicApiService,
     public gameApi: GameApiService,
     public router: Router,
-    public auth: AuthService, 
+    public auth: AuthService,
     public chatApi: ChatApiService
   ) { }
 
@@ -83,7 +83,7 @@ export class ForensicComponent implements OnInit {
 
     if (this.selectedLocationCardName !== card.cardName) {
       this.selectedLocationCardName = card.cardName;
-      this.selectedLocationCardOption = null;
+      this.selectedLocationCardOption = card.choices[0];
     }
   }
 
