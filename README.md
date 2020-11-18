@@ -1,6 +1,7 @@
-# Treachery Web App
 
 ![Deployment](https://github.com/kindeep/treachery-angular/workflows/Firebase%20Deployment/badge.svg?branch=master) 
+
+# Treachery Web App
 
 https://treacheryonline.web.app 
 
