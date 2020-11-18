@@ -22,9 +22,11 @@
             Murderer is selecting their cards ...
           </div>
           <ng-container *ngIf="game.murdererCardsSelected">
-            <tg-info *ngIf="!game.causeCard; else causeSelected">Forensic Scientist is selecting the clue card...</tg-info>
+            <tg-info *ngIf="!game.causeCard; else causeSelected">Forensic Scientist is selecting the clue card...
+            </tg-info>
             <ng-template #causeSelected>
-              <tg-info *ngIf="!game.locationCard; else locationSelected">Forensic Scientist is selecting the location card...</tg-info>
+              <tg-info *ngIf="!game.locationCard; else locationSelected">Forensic Scientist is selecting the location
+                card...</tg-info>
             </ng-template>
             <ng-template #locationSelected>
               <tg-info>Forensic Scientist is selecting other cards...</tg-info>
@@ -34,7 +36,8 @@
             <app-forensic-card *ngIf="game.causeCard" [forensicCard]="game.causeCard"></app-forensic-card>
             <app-forensic-card *ngIf="game.locationCard" [forensicCard]="game.locationCard"></app-forensic-card>
             <div *ngFor="let card of game.otherCards">
-              <app-forensic-card *ngIf="card.selectedChoice && !card.replaced" [forensicCard]="card"></app-forensic-card>
+              <app-forensic-card *ngIf="card.selectedChoice && !card.replaced" [forensicCard]="card">
+              </app-forensic-card>
             </div>
           </div>
           <app-player-deck-pager [guess]="guess"></app-player-deck-pager>
@@ -42,7 +45,9 @@
           <div class="player-deck-container">
             <div>
               <h3 class="your-cards-header">Your cards</h3>
-              <app-player-deck [player]="player" [disableSelection]="true"></app-player-deck>
+              <app-player-deck [player]="player" [disableSelection]="true"
+                [selectedClue]="(gameApi.playerPrivateData$ | async)?.clueCardName"
+                [selectedMeans]="(gameApi.playerPrivateData$ | async)?.meansCardName"></app-player-deck>
             </div>
           </div>
         </ng-container>

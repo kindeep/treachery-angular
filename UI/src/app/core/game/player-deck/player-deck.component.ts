@@ -1,9 +1,5 @@
-import {TgCard, TgGame, TgPlayer} from '../../../shared/api/models/models';
-import {GameApiService} from '../../../shared/api/game/game-api.service';
+import {TgPlayer} from '../../../shared/api/models/models';
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {CardApiService} from '../../../shared/api/card/card-api.service';
 
 @Component({
   selector: 'app-player-deck',
@@ -17,7 +13,7 @@ export class PlayerDeckComponent implements OnInit {
   @Output() selectedClueChange = new EventEmitter<string>();
   @Input() selectedMeans: string;
   @Output() selectedMeansChange = new EventEmitter<string>();
-
+  @Input() disableSelectionDisplay = false;
 
   constructor() {
   }

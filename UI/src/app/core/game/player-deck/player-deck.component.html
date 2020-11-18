@@ -7,7 +7,7 @@
     <app-card
       *ngFor="let card of player.meansCards"
       [card]="card"
-      [active]="!disableSelection && selectedMeans === card.name"
+      [active]="!disableSelectionDisplay && selectedMeans === card.name"
       [means]="true"
       (click)="!disableSelection && meansClick(card.name)"
     ></app-card>
@@ -16,7 +16,7 @@
     <app-card
       *ngFor="let card of player.clueCards"
       [card]="card"
-      [active]="!disableSelection && selectedClue === card.name"
+      [active]="!disableSelectionDisplay && selectedClue === card.name"
       [means]="false"
       (click)="!disableSelection && clueClick(card.name)"
     ></app-card>
