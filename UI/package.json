@@ -28,7 +28,7 @@
     "@angular/platform-browser": "~9.0.1",
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@angular/router": "~9.0.1",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "color-hash": "^1.0.3",
     "crypto-js": "^4.0.0",
     "es6-shim": "^0.35.5",
